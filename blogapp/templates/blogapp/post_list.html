@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+    <head>
+        <html lang="en">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>Mysite</title>
+        <link rel="stylesheet" href="{% static 'css/blogapp.css' %}">
+    </head>
+    <body>
+        <div class="header" style="background-image: url('static/image/header.jpg')">
+            <h1><a href="/">MY BLOG</a></h1>
+        </div>
+
+        <div class="main">
+            {% for post in posts %}
+                <div class="posts">
+                    <p>{{ post.published_date }}</p>
+                    <h2><a href="">{{ post.title }}</a></h2>
+                    <p class="font">{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="footer" style="background-image:url('static/image/footer.jpg')">
+            <div>
+                    <h1>SEE YOU</h1>
+            </div>
+        </div>
+
+       
+    </body>
+</html>
