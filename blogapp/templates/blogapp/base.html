@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="header" style="background-image: url('static/image/header.jpg')">
+    <div class="header" style="background-image: url('{% static 'image/header.jpg' %}')">
         <h1><a href="/">MY BLOG</a></h1>
     </div>
 
@@ -18,13 +18,6 @@
         {% block content %}
         {% endblock %}
     </div>
-
-    <div class="footer" style="background-image: url('static/image/footer_1.jpg')">
-        <div>
-            <h1>SEE YOU</h1>
-        </div>
-    </div>
-
 
 </body>
 
