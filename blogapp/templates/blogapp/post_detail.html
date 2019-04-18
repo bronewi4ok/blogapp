@@ -2,10 +2,12 @@
 
 {% block content %}
     <div class="posts">
-        {% if post.published_date %}
-            <p>{{ post.published_date }}</p>
-        {% endif %}
-        <h2>{{ post.title }}</h2>
+        <div class="post_header">
+            {% if post.published_date %}
+                <p>{{ post.published_date }}</p>
+            {% endif %}
+            <h2>{{ post.title }}</h2>
+        </div>
         <p>{{ post.text|linebreaksbr }}</p>
     </div>
 {% endblock %}

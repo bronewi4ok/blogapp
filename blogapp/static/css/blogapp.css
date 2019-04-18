@@ -6,18 +6,18 @@
     line-height: 1.75;
 }
 
-body{
+body {
     background-color: rgb(240, 240, 240);
 }
 
 
-.main{
+.main {
     display: grid;
     grid-gap: 20px;
     justify-items: center;
 }
 
-.posts{
+.posts {
     padding: 20px;
     width: 50%;
     background-color: rgb(255, 254, 244);
@@ -26,21 +26,16 @@ body{
     transition: 1;
 }
 
-.posts>h2{
-    color: gray;
-    margin-bottom: 20px;
+
+.post_header {
+    color: rgb(105, 104, 104);
     border-bottom-style: solid;
     border-bottom-width: thin;
     border-bottom-color: silver;
 }
 
-.posts a, p:nth-child(1){
-    color: rgb(105, 104, 104);
-}
 
-
-
-.header{
+.header {
     height: 33%;
     background-position: center;
     background-size: cover;
@@ -52,7 +47,7 @@ body{
 }
 
 
-.header h1{
+.header h1 {
     font-size: 50px;
     text-align: center;
     display: flex;
@@ -67,17 +62,17 @@ body{
     color: white;
 }
 
-.header h1:hover{
+.header h1:hover {
     background-color: rgba(80, 80, 80, 0.7);
     box-shadow: 0px 0px 4px 4px rgb(153, 152, 152);
 }
 
 
-.font{
+.font {
     color: rgb(50, 50, 50);
 }
 
-.footer{
+.footer {
     color: rgb(50, 50, 50);
     display: flex;
     justify-content: center;
@@ -87,7 +82,8 @@ body{
     background-position: center;
     background-size: cover;
 }
-.footer div{
+
+.footer div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,14 +92,14 @@ body{
     background-color: rgba(141, 140, 155, 0.7);
 }
 
-.footer h1{
+.footer h1 {
     color: white;
     font-size: 50px;
 }
 
 
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: 900px) {
     .posts {
         width: 100vw;
         border-radius: 0;
