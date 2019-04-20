@@ -1,13 +1,18 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     line-height: 1.75;
 }
 
 body {
     background-color: rgb(240, 240, 240);
+    padding-bottom: 50px;
+}
+
+.font {
+    color: rgb(100, 100, 100);
 }
 
 
@@ -21,82 +26,125 @@ body {
     padding: 20px;
     width: 50%;
     background-color: rgb(255, 254, 244);
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 4px 4px 4px 2px silver;
     transition: 1;
 }
 
 
 .post_header {
-    color: rgb(105, 104, 104);
-    border-bottom-style: solid;
-    border-bottom-width: thin;
-    border-bottom-color: silver;
+    width: 100%;
+    padding: 10px;
+    color: rgb(100, 100, 100);
+    border-bottom: thin solid silver;
 }
+
+.post_header h2{
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 
 .header {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    color: white;
     height: 33%;
     background-position: center;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-shadow: 0px 4px 4px 2px silver;
     margin-bottom: 20px;
+
 }
 
-
-.header h1 {
-    font-size: 50px;
+.header h1{
+    padding: 30px;
+    border-radius: 20px;
     text-align: center;
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+
+
+
+.navbar {
     display: flex;
     align-items: center;
-    background-color: rgba(80, 80, 80, 0.4);
-    border-radius: 10px;
-    transition: 0.2s;
+    justify-content: space-between;
+    background-color: rgb(243, 243, 243);
+    color: gray;
+    margin-bottom: 20px;
+    box-shadow: 0px 6px 4px 4px rgb(213, 213, 213);
+    margin: 0px 20px 40px 20px;
 }
 
-.header a {
-    padding: 20px;
-    color: white;
-}
-
-.header h1:hover {
-    background-color: rgba(80, 80, 80, 0.7);
-    box-shadow: 0px 0px 4px 4px rgb(153, 152, 152);
-}
-
-
-.font {
-    color: rgb(50, 50, 50);
-}
-
-.footer {
-    color: rgb(50, 50, 50);
+.navbar a {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    height: 33%;
-    background-position: center;
-    background-size: cover;
-}
-
-.footer div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(141, 140, 155, 0.7);
-}
-
-.footer h1 {
-    color: white;
+    height: 100px;
+    width: 200px;
+    color: rgb(100, 100, 100);
     font-size: 50px;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    background-color: rgb(210, 210, 210);
+    opacity: 0.7;
 }
 
+.navbar a:hover {
+    opacity: 1;
+}
+
+.nav_1 {
+    height: 10px;
+    background-color: rgb(233, 233, 233);
+    margin: 0px 30px;
+}
+
+.nav_2 {
+    height: 10px;
+    background-color: rgb(223, 223, 223);
+    margin: 0px 40px;
+}
+
+.nav_3 {
+    height: 10px;
+    background-color: rgb(213, 213, 213);
+    margin: 0px 50px;
+}
+
+.forms {
+    color: rgb(80, 80, 80);
+    display: grid;
+    margin: 20px;
+    grid-gap: 20px;
+}
+
+.form_container {
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px;
+    display: grid;
+    margin: 10px;
+    box-shadow: 2px 2px 2px 2px silver;
+}
+
+.form_container h1 {
+    text-align: center;
+}
+
+.forms textarea {
+    width: 100%;
+    padding: 10px;
+    height: 300px;
+}
+
+.forms input {
+    width: 100%;
+
+}
 
 
 @media only screen and (max-width: 900px) {
@@ -104,6 +152,21 @@ body {
         width: 100vw;
         border-radius: 0;
         font-size: 16px;
+    }
+
+    .header h1 {
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    .navbar a {
+        font-size: 30px;
+    }
+
+    .form_container{
+        border-radius: 0;
+        margin: 0;
+        width: 100%;
     }
 
 }
