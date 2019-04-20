@@ -6,7 +6,7 @@
             {% if post.published_date %}
                 <p>{{ post.published_date }}</p>
             {% endif %}
-            <h2>{{ post.title }} <a class="far fa-edit font" href="{% url 'blogapp:post_edit' pk=post.pk %}"></a></h2>
+            <h2>{{ post.title }} <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a></h2>
         </div>
         <p class="font">{{ post.text|linebreaksbr }}</p>
     </div>
