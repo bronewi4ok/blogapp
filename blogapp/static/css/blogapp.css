@@ -11,22 +11,100 @@ body {
     padding-bottom: 50px;
 }
 
+a {
+    color: rgb(100, 100, 100);
+    font-weight: 700;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
 .font {
     color: rgb(100, 100, 100);
 }
 
 
+
+/*------------------------------------------------------------------------------------------------*/
+/*------ HEADER ------*/
+/*---------------------*/
+
+.header {
+    display: grid;
+    color: white;
+    height: 50%;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0px 4px 4px 2px silver;
+    margin-bottom: 20px;
+}
+
+.header_color {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    background-color: rgba(189, 176, 252, 0.3);
+}
+
+.header h1 {
+    width: max-content;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+
+
+/*------------------------------------------------------------------------------------------------*/
+/*------ NAV BAR ------*/
+/*---------------------*/
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    grid-template-rows: 70px;
+}
+
+
+.navbar a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 20px;
+    color: rgb(100, 100, 100);
+    font-size: 30px;
+    transition: 0.2s;
+    background-color: rgb(210, 210, 210);
+    border-left: 10px solid rgb(70, 70, 70);
+}
+
+.navbar a:hover {
+    background-color: rgb(100, 100, 110);
+    color: rgb(200, 200, 200);
+}
+
+
+
+/*------------------------------------------------------------------------------------------------*/
+/*------ POSTS --------*/
+/*---------------------*/
+
 .main {
     display: grid;
     grid-gap: 20px;
-    justify-items: center;
 }
 
 .posts {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    width: 50%;
-    background-color: rgb(255, 254, 244);
-    border-radius: 20px;
+    background-color: white;
+    border-radius: 10px;
     box-shadow: 4px 4px 4px 2px silver;
     transition: 1;
 }
@@ -36,88 +114,40 @@ body {
     width: 100%;
     padding: 10px;
     color: rgb(100, 100, 100);
-    border-bottom: thin solid silver;
 }
 
-.post_header h2{
+
+.post_header h2 {
     display: flex;
     justify-content: space-between;
 }
 
+.post_header a{
+    width: 50px;
+}
 
-
-
-.header {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    height: 33%;
-    background-position: center;
-    background-size: cover;
-    box-shadow: 0px 4px 4px 2px silver;
-    margin-bottom: 20px;
+.post_text {
+    font-size: 24;
+    margin: 20px;
+    padding: 10px;
+    /* border-bottom: thin solid silver; */
+    /* border-top: thin solid silver; */
 
 }
 
-.header h1{
-    padding: 30px;
-    border-radius: 20px;
+.post_publish{
     text-align: center;
-    background-color: rgba(100, 100, 100, 0.5);
+    align-self: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 24;
 }
 
-
-
-
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(243, 243, 243);
-    color: gray;
-    margin-bottom: 20px;
-    box-shadow: 0px 6px 4px 4px rgb(213, 213, 213);
-    margin: 0px 20px 40px 20px;
-}
-
-.navbar a {
-    display: flex;
-    height: 100px;
-    width: 200px;
-    color: rgb(100, 100, 100);
-    font-size: 50px;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
-    background-color: rgb(210, 210, 210);
-    opacity: 0.7;
-}
-
-.navbar a:hover {
-    opacity: 1;
-}
-
-.nav_1 {
-    height: 10px;
-    background-color: rgb(233, 233, 233);
-    margin: 0px 30px;
-}
-
-.nav_2 {
-    height: 10px;
-    background-color: rgb(223, 223, 223);
-    margin: 0px 40px;
-}
-
-.nav_3 {
-    height: 10px;
-    background-color: rgb(213, 213, 213);
-    margin: 0px 50px;
-}
-
+/*------------------------------------------------------------------------------------------------*/
+/*------ FORMS --------*/
+/*---------------------*/
 .forms {
-    color: rgb(80, 80, 80);
+    color: rgb(100, 100, 100);
     display: grid;
     margin: 20px;
     grid-gap: 20px;
@@ -125,7 +155,7 @@ body {
 
 .form_container {
     background-color: rgb(230, 230, 230);
-    border-radius: 20px;
+    border-radius: 10px;
     display: grid;
     margin: 10px;
     box-shadow: 2px 2px 2px 2px silver;
@@ -143,11 +173,27 @@ body {
 
 .forms input {
     width: 100%;
+}
 
+.button{
+    justify-self: center;
+}
+
+.left_side {
+    display: grid;
 }
 
 
-@media only screen and (max-width: 900px) {
+/*------------------------------------------------------------------------------------------------*/
+/*------ MEDIA --------*/
+/*---------------------*/
+
+@media only screen and (max-width: 1000px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
     .posts {
         width: 100vw;
         border-radius: 0;
@@ -157,13 +203,14 @@ body {
     .header h1 {
         font-size: 30px;
         padding: 10px;
+        border-radius: 10px;
     }
 
     .navbar a {
         font-size: 30px;
     }
 
-    .form_container{
+    .form_container {
         border-radius: 0;
         margin: 0;
         width: 100%;

@@ -1,15 +1,30 @@
 {% extends 'blogapp/base.html' %}
 
 {% block content %}
-    {% for post in posts %}
-        <div class="posts">
-            <a href="{% url 'post_detail' pk=post.pk %}">
-                <div class="post_header">
-                        <p>{{ post.published_date }}</p>
-                        <h2>{{ post.title }}</h2>
-                </div>
-            </a>
-            <p class="font">{{ post.text|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
+{% for post in posts %}
+<div class="posts">
+    <div class="post_header">
+        {% if post.published_date %}
+        <p>{{ post.published_date }}</p>
+        {% endif %}
+        {% if user.is_authenticated  %}
+        <h2>
+            {{ post.title|capfirst }}
+            <div>
+                <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a>
+                <a class="fas fa-trash font" href="{% url 'post_remove' pk=post.pk %}"></a>
+            </div>
+        </h2>
+        {% endif %}
+    </div>
+    <div class="post_text font">
+        <p>{{ post.text|linebreaksbr|capfirst|truncatewords:"50" }}</p>
+    </div>
+    {% if not post.published_date %}
+    <div class="post_publish">
+        <a  href="{% url 'post_publish' pk=post.pk %}">Publish <i class="far fa-paper-plane"></i></a>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
 {% endblock %}
