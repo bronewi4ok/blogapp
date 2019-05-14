@@ -3,28 +3,42 @@
 {% block content %}
 {% for post in posts %}
 <div class="posts">
+        {% if post.cover %}
+        <img class="post_image" src="{{ post.cover.url}}" alt="image">
+        {% endif %}
+
     <div class="post_header">
+        {% if post.author.first_name %}
+        {{ post.author.get_short_name }}
+        {% else  %}
+        <p>No name</p>
+        {% endif %}
+
         {% if post.published_date %}
         <p>{{ post.published_date }}</p>
         {% endif %}
+
         {% if user.is_authenticated  %}
         <h2>
             {{ post.title|capfirst }}
-            <div>
-                <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a>
-                <a class="fas fa-trash font" href="{% url 'post_remove' pk=post.pk %}"></a>
-            </div>
         </h2>
         {% endif %}
     </div>
+
     <div class="post_text font">
-        <p>{{ post.text|linebreaksbr|capfirst|truncatewords:"50" }}</p>
+        <p>{{ post.text|linebreaksbr|capfirst|truncatewords:"30" }}</p>
     </div>
+
     {% if not post.published_date %}
     <div class="post_publish">
-        <a  href="{% url 'post_publish' pk=post.pk %}">Publish <i class="far fa-paper-plane"></i></a>
+        <a href="{% url 'post_publish' pk=post.pk %}">Publish <i class="far fa-paper-plane"></i></a>
     </div>
     {% endif %}
+    
+    {% if post.published_date %}
+    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.new_comments.count }}</a>
+    {% endif %}
+
 </div>
 {% endfor %}
 {% endblock %}

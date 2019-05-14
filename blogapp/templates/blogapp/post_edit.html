@@ -5,7 +5,7 @@
 
     <h1 class="font">NEW POST</h1>
 
-    <form class="forms" method="POST">{% csrf_token %}
+    <form class="forms" method="POST" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="button">Save</button>
     </form>

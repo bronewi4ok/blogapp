@@ -1,28 +1,79 @@
 {% extends 'blogapp/base.html' %}
-
+{% load mptt_tags %}
 {% block content %}
+<!-- POSTS -->
+
+
+
 <div class="posts">
+        {% if post.cover %}
+        <img style="width: inherit; height: 50vh; object-fit: cover" src="{{ post.cover.url}}" alt="image">
+        {% endif %}
     <div class="post_header">
-        {% if post.published_date %}
-        <p>{{ post.published_date }}</p>
-        {% endif %}
-        {% if user.is_authenticated  %}
-        <h2>
-            {{ post.title|capfirst }}
-            <div>
-                <a class="fas fa-trash font" href="{% url 'post_remove' pk=post.pk %}"></a>
-                <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a>
+        <div>
+            <div class="how_does">
+                {% if post.published_date %}
+                <p>{{ post.published_date }}</p>
+                {% endif %}
+
+                <p>
+                    {% if post.author == user %}
+                    <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a>
+                    <a class="fas fa-trash-alt" href="{% url 'post_remove' pk=post.pk %}"></a>
+                    {% endif %}
+                </p>
             </div>
-        </h2>
-        {% endif %}
-    </div>
-    <div class="post_text font">
-        <p>{{ post.text|linebreaksbr|capfirst }}</p>
-    </div>
-    {% if not post.published_date %}
+
+            {% if user.is_authenticated  %}
+            <h2>
+                {{ post.title|capfirst }}
+
+            </h2>
+            {% endif %}
+        </div>
+
+        <div class="post_text font">
+            <p>{{ post.text|linebreaksbr|capfirst }}</p>
+        </div>
+
+        {% if not post.published_date %}
         <div class="publish font">
             <a href="{% url 'post_publish' pk=post.pk %}">Publish <i class="far fa-paper-plane"></i></a>
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
+
+
+    <div class="font far fa-thumbs-up" style=" display: flex; align-items: center; font-size: 30px; padding: 20px;">
+    </div>
+    <!-- COMMENTS -->
+    <hr>
+    <div class="comments">
+        <br>
+
+        <div class="comment">
+
+            <a href="{% url 'add_comment_to_comment' pk=post.pk %} ">Add comment <i class="far fa-comment-alt"></i></a>
+
+            <ul style='list-style-type: none;  margin-left: 20px'>
+                {% recursetree new_comments %}
+                <li style='list-style-type: none'>
+                    <h2>{{ node.author }}</h2>
+                    <p>{{ node.text }}</p>
+                    <a href="{% url 'add_comment_to_comment' pk=post.pk redid=node.pk %} ">Answer <i
+                            class="far fa-comment-alt"></i></a>
+                    {% if not node.is_leaf_node %}
+                    <ul>
+                        {{ children }}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endrecursetree %}
+            </ul>
+
+
+        </div>
+
+    </div>
 </div>
 {% endblock %}
