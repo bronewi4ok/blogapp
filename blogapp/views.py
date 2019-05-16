@@ -11,7 +11,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def post_list(request):
     ip = get_client_ip(request)[0]
-    # post_list= NewComment.objects.all()
     post_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     paginator = Paginator(post_list, 25)
     page = request.GET.get('page')
@@ -22,9 +21,7 @@ def post_list(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     return render(request,'blogapp/post_list.html',{'page': page,'posts': posts,'ip':ip})
-    
-    # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')[ :20]
-    # return render(request, 'blogapp/post_list.html', {'posts': posts, 'ip':ip})
+
 
 
 
