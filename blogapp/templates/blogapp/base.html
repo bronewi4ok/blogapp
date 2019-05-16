@@ -30,14 +30,11 @@
         </div>
     </div>
 
-
-
     <div class="grid">
         <div class="avatar font">
             <div>
                 {% if user.avatar %}
-                <img src="{{ user.avatar.url }}"
-                    alt="avatar">
+                <img src="{{ user.avatar.url }}" alt="avatar">
                 {% else %}
                 <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                 {% endif %}
@@ -68,8 +65,6 @@
         </div>
     </div>
 
-
-    <!-- PAGINATION -->
     {% if posts.has_other_pages %}
     <div class="pagination font">
         <div>
@@ -78,7 +73,7 @@
             {% endif %}
         </div>
         <div>
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
         </div>
         <div>
             {% if posts.has_next %}
