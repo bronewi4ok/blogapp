@@ -1,0 +1,15 @@
+{% extends 'blogapp/base.html' %}
+
+{% block content %}
+<div class="form_container">
+
+    <h1 class="font">NEW AVATAR</h1>
+
+    <form class="forms" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Save</button>
+    </form>
+
+</div>
+{% endblock %}

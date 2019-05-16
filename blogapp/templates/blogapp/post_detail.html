@@ -1,17 +1,17 @@
 {% extends 'blogapp/base.html' %}
 {% load mptt_tags %}
 {% block content %}
+
+
+
 <!-- POSTS -->
-
-
-
 <div class="posts">
-        {% if post.cover %}
-        <img style="width: inherit; height: 50vh; object-fit: cover" src="{{ post.cover.url}}" alt="image">
-        {% endif %}
+    {% if post.cover %}
+    <img style="width: inherit; height: 50vh; object-fit: cover" src="{{ post.cover.url}}" alt="image">
+    {% endif %}
     <div class="post_header">
         <div>
-            <div class="how_does">
+            <div class="post_header_top">
                 {% if post.published_date %}
                 <p>{{ post.published_date }}</p>
                 {% endif %}
@@ -23,6 +23,7 @@
                     {% endif %}
                 </p>
             </div>
+            <p> {{ post.author.user_browser }} </p>
 
             {% if user.is_authenticated  %}
             <h2>
@@ -44,26 +45,25 @@
     </div>
 
 
-    <div class="font far fa-thumbs-up" style=" display: flex; align-items: center; font-size: 30px; padding: 20px;">
-    </div>
+    <!-- <div class="font far fa-thumbs-up" style=" display: flex; align-items: center; font-size: 30px; padding: 20px;"></div> -->
     <!-- COMMENTS -->
-    <hr>
+
     <div class="comments">
-        <br>
+        <hr style="height: 1px;border:none;background-color:rgb(100, 100, 100);">
+        <a href="{% url 'add_comment_to_comment' pk=post.pk %} ">Add comment <i class="far fa-comment-alt"></i></a>
 
         <div class="comment">
-
-            <a href="{% url 'add_comment_to_comment' pk=post.pk %} ">Add comment <i class="far fa-comment-alt"></i></a>
-
-            <ul style='list-style-type: none;  margin-left: 20px'>
+            <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
-                <li style='list-style-type: none'>
-                    <h2>{{ node.author }}</h2>
+                <li style='list-style-type: none; margin-top: 20px'>
+                    {% if post.author%}
+                    {{ post.author.username }}
+                    {% endif %}
                     <p>{{ node.text }}</p>
-                    <a href="{% url 'add_comment_to_comment' pk=post.pk redid=node.pk %} ">Answer <i
+                    <a href="{% url 'add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
                             class="far fa-comment-alt"></i></a>
                     {% if not node.is_leaf_node %}
-                    <ul>
+                    <ul style='list-style-type: none'>
                         {{ children }}
                     </ul>
                     {% endif %}

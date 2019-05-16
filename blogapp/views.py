@@ -5,14 +5,38 @@ from .models import Post, NewComment
 from .forms import PostForm, NewCommentForm
 from ipware import get_client_ip
 import mptt
+from user_agents import parse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
-    new_ip = get_client_ip(request)
-    first_ip = request.META.get('REMOTE_ADDR')
-    second_ip = request.META.get('HTTP_X_FORWARDED_FOR')
-    user_data= request.META.get('HTTP_USER_AGENT')
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')[ :20]
-    return render(request, 'blogapp/post_list.html', {'posts': posts, 'new_ip':new_ip, 'first_ip':first_ip, 'second_ip':second_ip, 'user_data':user_data})
+    ip = get_client_ip(request)[0]
+    # post_list= NewComment.objects.all()
+    post_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    paginator = Paginator(post_list, 25)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request,'blogapp/post_list.html',{'page': page,'posts': posts,'ip':ip})
+    
+    # posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')[ :20]
+    # return render(request, 'blogapp/post_list.html', {'posts': posts, 'ip':ip})
+
+
+
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+
+
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 @login_required
@@ -29,6 +53,11 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.author.user_browser = request.user_agent.browser
+            post.author.os = request.user_agent.os
+            post.author.device = request.user_agent.device
+            post.author.ip_address = get_client_ip(request)[0]
+            post.author.save()
             post.save()
             return redirect('post_draft')
     else:
@@ -59,8 +88,9 @@ def post_remove(request, pk):
 
 @login_required
 def post_draft(request):
+    ip = get_client_ip(request)[0]
     posts = Post.objects.exclude(published_date__lte=timezone.now()).order_by('-created_date')
-    return render(request, 'blogapp/post_list.html', {'posts':posts})
+    return render(request, 'blogapp/post_list.html', {'posts':posts, 'ip':ip})
 
 @login_required
 def post_publish(request, pk):

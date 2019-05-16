@@ -64,6 +64,22 @@ a {
     background-color: rgba(100, 100, 100, 0.5);
 }
 
+.avatar{
+    background-color: white;
+    height: 100vh;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+    box-shadow: 0px 4px 4px 2px silver;
+}
+
+.avatar img {
+    width: inherit;
+    height: 320px;
+    width: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
 
 /*------------------------------------------------------------------------------------------------*/
@@ -87,7 +103,7 @@ a {
     font-size: 30px;
     transition: 0.2s;
     background-color: rgb(210, 210, 210);
-    border-left: 10px solid rgb(70, 70, 70);
+    border-right: 10px solid rgb(70, 70, 70);
 }
 
 .navbar a:hover {
@@ -127,7 +143,7 @@ a {
     flex-direction: column; */
     /* font-size: 24px; */
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     color: rgb(100, 100, 100);
      
 }
@@ -139,19 +155,30 @@ a {
     /* font-size: 40px; */
 }
 
+.post_header_top {
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+}
+.post_header_top p {
+    display: flex;
+    justify-content: center;
+}
+
 .post_text {
     /* word-wrap: break-word; */
     /* overflow-x:hidden; */
     /* max-width: 50vw; */
     font-size: 24;
-    margin: 20px;
-    padding: 10px;
+    padding: 20px;
     /* border-bottom: thin solid silver; */
     /* border-top: thin solid silver; */
 
 }
 
 .post_publish {
+    display: flex;
+    justify-content: space-between;
     text-align: center;
     align-self: center;
     padding: 10px;
@@ -166,17 +193,16 @@ a {
 }
 
 /*------------------------------------------------------------------------------------------------*/
-/*------ COMMENTS --------*/
+/*------ POST COMMENTS --------*/
 /*---------------------*/
 .comments {
     display: grid;
-}
-
-.comment {
-    /* padding: 10px; */
-    /* margin: 20px 0px 20px 40px; */
+    padding: 20px;
     color: rgb(100, 100, 100);
 }
+
+
+
 
 /*------------------------------------------------------------------------------------------------*/
 /*------ FORMS --------*/
@@ -240,6 +266,21 @@ a {
 }
 
 /*------------------------------------------------------------------------------------------------*/
+/*------ PAGINATION --------*/
+/*---------------------*/
+
+.pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 30px;
+}
+
+ .pagination div{
+     text-align: center;
+}
+
+
+/*------------------------------------------------------------------------------------------------*/
 /*------ MEDIA --------*/
 /*---------------------*/
 
@@ -273,7 +314,3 @@ a {
 
 }
 
-.how_does{
-    width: 100%; display: flex; 
-    justify-content: space-between;
-}
