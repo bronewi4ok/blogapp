@@ -14,6 +14,7 @@
             {% else  %}
             <p>No name</p>
             {% endif %}
+            
             {% if user.is_authenticated  %}
             <p>
                 {% if post.author == user %}
@@ -21,6 +22,7 @@
                 <a class="fas fa-trash-alt" href="{% url 'post_remove' pk=post.pk %}"></a>
                 {% endif %}
             </p>
+            {% endif %}
         </div>
 
         {% if post.published_date %}
@@ -30,8 +32,6 @@
         <h2>
             {{ post.title|capfirst }}
         </h2>
-        {% endif %}
-
     </div>
 
     <div class="post_text font">
@@ -47,7 +47,6 @@
     {% if post.published_date %}
     <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.new_comments.count }}</a>
     {% endif %}
-
 </div>
 {% endfor %}
 

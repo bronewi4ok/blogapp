@@ -7,12 +7,15 @@ from ipware import get_client_ip
 import mptt
 from user_agents import parse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
-    ip = get_client_ip(request)[0]
-    post_list = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    paginator = Paginator(post_list, 25)
+    client_ip = get_client_ip(request)[0]
+    post_range = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    paginator = Paginator(post_range, 2)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -20,16 +23,9 @@ def post_list(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request,'blogapp/post_list.html',{'page': page,'posts': posts,'ip':ip})
-
-
-
-
-
+    return render(request, 'blogapp/post_list.html', {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range})
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
 
 
 

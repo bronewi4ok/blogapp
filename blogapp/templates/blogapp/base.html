@@ -17,6 +17,7 @@
             <div>
                 <h1>GRAY DRAFT</h1>
             </div>
+
             <div>
                 {% if user.is_authenticated %}
                 <br>
@@ -30,6 +31,27 @@
         </div>
     </div>
 
+
+    {% if posts.has_other_pages %}
+    <div class="pagination font">
+        <div>
+            {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+        </div>
+
+        <div>
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </div>
+
+        <div>
+            {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
     <div class="grid">
         <div class="avatar font">
             <div>
@@ -38,7 +60,6 @@
                 {% else %}
                 <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                 {% endif %}
-
             </div>
 
             <div>
@@ -46,7 +67,7 @@
                 <h2> {{user.email}} </h2>
                 <h2> {{ request.user_agent.browser.family }} </h2>
                 <h2> {{ request.user_agent.os.family }} </h2>
-                <h2> {{ ip }} </h2>
+                <h2> {{ client_ip }} </h2>
             </div>
         </div>
 
@@ -65,23 +86,6 @@
         </div>
     </div>
 
-    {% if posts.has_other_pages %}
-    <div class="pagination font">
-        <div>
-            {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">previous</a>
-            {% endif %}
-        </div>
-        <div>
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </div>
-        <div>
-            {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
 </body>
 
 </html>
