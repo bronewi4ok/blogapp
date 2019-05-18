@@ -1,7 +1,7 @@
 {% extends 'blogapp/base.html' %}
 {% load mptt_tags %}
 {% block content %}
-
+{% load static %}
 
 
 <!-- POSTS -->
@@ -28,7 +28,6 @@
             {% if user.is_authenticated  %}
             <h2>
                 {{ post.title|capfirst }}
-
             </h2>
             {% endif %}
         </div>
@@ -50,18 +49,33 @@
 
     <div class="comments">
         <hr style="height: 1px;border:none;background-color:rgb(100, 100, 100);">
+
         <a href="{% url 'add_comment_to_comment' pk=post.pk %} ">Add comment <i class="far fa-comment-alt"></i></a>
 
         <div class="comment">
             <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
                 <li style='list-style-type: none; margin-top: 20px'>
-                    {% if post.author%}
-                    {{ post.author.username }}
-                    {% endif %}
+                    <div style="display:flex; align-content:center; justify-content:space-between; border-bottom:solid silver thin; padding:10px">
+                        <span class="comment_avatar">
+                            {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="avatar">
+                            {% else %}
+                            <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                            {% endif %}
+                        </span>
+
+                        <span>
+                            {% if post.author%}
+                            {{ post.author.username }}
+                            {% endif %}
+                        </span>
+                    </div>
                     <p>{{ node.text }}</p>
+
                     <a href="{% url 'add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
                             class="far fa-comment-alt"></i></a>
+
                     {% if not node.is_leaf_node %}
                     <ul style='list-style-type: none'>
                         {{ children }}

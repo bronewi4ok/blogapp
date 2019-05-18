@@ -53,32 +53,43 @@ a {
     display: grid;
     align-content: center;
     justify-content: center;
-    background-color: rgba(189, 176, 252, 0.3);
+    /* background-color: rgba(189, 176, 252, 0.3); */
 }
 
 .header h1 {
     width: max-content;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 10px;
     text-align: center;
     background-color: rgba(100, 100, 100, 0.5);
 }
 
-.avatar{
+/*------------------------------------------------------------------------------------------------*/
+/*------ PROFILE CARD ------*/
+/*--------------------------*/
+
+.profile {
     background-color: white;
-    height: 100vh;
     border-radius: 10px;
-    text-align: center;
-    padding: 30px;
+    /* text-align: center; */
     box-shadow: 0px 4px 4px 2px silver;
+    margin-left: 20px;
 }
 
-.avatar img {
-    width: inherit;
+.profile_text {
+    padding: 10px;
+}
+
+.profile_avatar{
+    text-align: center;
+}
+
+.profile_avatar img {
+    width: 100%;
     height: 320px;
-    width: 240px;
+    /* width: 240px; */
     object-fit: cover;
-    border-radius: 10px;
+    border-bottom: solid silver thin;
 }
 
 
@@ -125,16 +136,19 @@ a {
 .posts {
     display: flex;
     flex-direction: column;
-    /* max-width: 900px; */
-    padding: 20px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 4px 4px 4px 2px silver;
     transition: 1;
 }
 
+.posts img {
+    border-radius: 10px 10px 0 0;
+    border-bottom: solid silver thin;
+}
+
 .posts a{
-    padding: 10px;
+    padding: 20px;
 }
 
 
@@ -194,15 +208,20 @@ a {
 
 /*------------------------------------------------------------------------------------------------*/
 /*------ POST COMMENTS --------*/
-/*---------------------*/
+/*-----------------------------*/
 .comments {
     display: grid;
     padding: 20px;
     color: rgb(100, 100, 100);
 }
 
+.comment_avatar img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 
-
+    border-radius: 100%;
+}
 
 /*------------------------------------------------------------------------------------------------*/
 /*------ FORMS --------*/
@@ -218,7 +237,6 @@ a {
     background-color: rgb(230, 230, 230);
     border-radius: 10px;
     display: grid;
-    margin: 10px;
     box-shadow: 2px 2px 2px 2px silver;
 }
 

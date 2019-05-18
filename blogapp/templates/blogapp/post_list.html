@@ -11,10 +11,10 @@
         <div class="post_header_top">
             {% if post.author%}
             {{ post.author.username }}
-            {% else  %}
+            {% else %}
             <p>No name</p>
             {% endif %}
-            
+
             {% if user.is_authenticated  %}
             <p>
                 {% if post.author == user %}
@@ -45,7 +45,10 @@
     {% endif %}
 
     {% if post.published_date %}
-    <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.new_comments.count }}</a>
+    <a style="display:flex; justify-content:space-between" href="{% url 'post_detail' pk=post.pk %}">
+        <p>See more...</p>       
+        <p> Comments: {{ post.new_comments.count }}</p>
+    </a>
     {% endif %}
 </div>
 {% endfor %}
