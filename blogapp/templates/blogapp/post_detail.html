@@ -23,7 +23,6 @@
                     {% endif %}
                 </p>
             </div>
-            <p> {{ post.author.user_browser }} </p>
 
             {% if user.is_authenticated  %}
             <h2>
@@ -56,10 +55,11 @@
             <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
                 <li style='list-style-type: none; margin-top: 20px'>
-                    <div style="display:flex; align-content:center; justify-content:space-between; border-bottom:solid silver thin; padding:10px">
-                        <span class="comment_avatar">
+                    <div style="display:flex; align-content:center; justify-content:space-between; border-bottom:solid silver thin">
+                        <span class="small_avatar">
                             {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}" alt="avatar">
+                            <ul style='list-style-type: none'>
+                                    <img src="{{ user.avatar.url }}" alt="avatar">
                             {% else %}
                             <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                             {% endif %}
@@ -84,10 +84,7 @@
                 </li>
                 {% endrecursetree %}
             </ul>
-
-
         </div>
-
     </div>
 </div>
 {% endblock %}

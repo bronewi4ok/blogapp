@@ -10,7 +10,7 @@
     <div class="post_header">
         <div class="post_header_top">
             {% if post.author%}
-            {{ post.author.username }}
+            {{ post.author.username|capfirst }}
             {% else %}
             <p>No name</p>
             {% endif %}

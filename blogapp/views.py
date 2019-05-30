@@ -27,16 +27,20 @@ def post_list(request):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
-
-
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     new_comments = NewComment.objects.filter(post__pk=post.pk)
-    return render(request, 'blogapp/post_detail.html', {'post': post, 'new_comments': new_comments})
+    paginator = Paginator(new_comments, 3)
+    page = request.GET.get('page')
+    try:
+        comments = paginator.page(page)
+    except PageNotAnInteger:
+        comments = paginator.page(1)
+    except EmptyPage:
+        comments = paginator.page(paginator.num_pages)
+    return render(request, 'blogapp/post_detail.html', {'post': post, 'comments': comments, 'new_comments': new_comments})
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @login_required

@@ -11,26 +11,34 @@
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
-<body style="background-image: url('{% static 'image/allauth.jpg' %}')">
+<body>
     <div class="header" style="background-image: url('{% static 'image/header.jpg' %}')">
         <div class="header_color">
             <div>
                 <h1>GRAY DRAFT</h1>
             </div>
-
-            <div>
-                {% if user.is_authenticated %}
-                <br>
-                <p><a href="{% url 'account_logout' %}">logout</a></p>
-                {% else %}
-                <p>You are not logged in</p>
-                <a href="{% url 'account_login' %}">login</a> |
-                <a href="{% url 'account_signup' %}">signup</a>
-                {% endif %}
-            </div>
         </div>
     </div>
 
+
+    <div class="navbar">
+        <div>
+            <a href="{% url 'post_list' %}">Flow<i class="fas fa-stream"></i></a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'post_new' %}">New<i class="fas fa-plus-square"></i> </a>
+            <a href="{% url 'post_draft' %}">Drafts <i class="fab fa-firstdraft"></i></a>
+            {% endif %}
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+            <a class="small_avatar" href="{% url 'account_logout' %}">Logout <img src="{{ user.avatar.url }}"
+                    alt="avatar"></a>
+            {% else %}
+            <a href="{% url 'account_login' %}">login</a>
+            <a href="{% url 'account_signup' %}">signup</a>
+            {% endif %}
+        </div>
+    </div>
 
 
     <div class="grid">
@@ -39,11 +47,11 @@
                 <div class="profile_avatar">
                     {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="avatar">
-                    <a href=" {% url 'user_edit_form' %} ">Photo <i class="fas fa-camera-retro"></i></i></a>
+                    <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
+                            class="fas fa-camera-retro"></i></i></a>
                     {% else %}
                     <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                     {% endif %}
-
                 </div>
 
                 <div class="profile_text">
@@ -55,20 +63,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div>
             <div class="main">
                 {% block content %}
                 {% endblock %}
             </div>
-        </div>
-
-        <div class="navbar">
-            <a href="{% url 'post_list' %}">Flow<i class="fas fa-stream"></i></a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'post_new' %}">New<i class="fas fa-plus-square"></i> </a>
-            <a href="{% url 'post_draft' %}">Drafts <i class="fab fa-firstdraft"></i></a>
-            {% endif %}
         </div>
     </div>
     {% if posts.has_other_pages %}
