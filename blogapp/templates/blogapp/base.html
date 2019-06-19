@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Mysite</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/blogapp.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -23,18 +24,25 @@
 
     <div class="navbar">
         <div>
-            <a href="{% url 'post_list' %}">Flow<i class="fas fa-stream"></i></a>
+            <a href="{% url 'post_list' %}"><span>Flow</span><i class="fas fa-stream"></i></a>
             {% if user.is_authenticated %}
-            <a href="{% url 'post_new' %}">New<i class="fas fa-plus-square"></i> </a>
-            <a href="{% url 'post_draft' %}">Drafts <i class="fab fa-firstdraft"></i></a>
+            <a href="{% url 'profile' %} "><span>Me</span> <i class="fas fa-address-card"></i></a>
+            <a href="{% url 'post_new' %}"><span>New</span> <i class="fas fa-plus-square"></i> </a>
+            <a href="{% url 'post_draft' %}"><span>Drafts</span> <i class="fab fa-firstdraft"></i></a>
             {% endif %}
         </div>
         <div>
             {% if user.is_authenticated %}
-            <a class="small_avatar" href="{% url 'account_logout' %}">Logout <img src="{{ user.avatar.url }}"
-                    alt="avatar"></a>
+            <a class="small_avatar" href="{% url 'account_logout' %}">
+                <span>Logout</span> 
+                {% if author.avatar %}
+                <img src="{{ user.avatar.url }}" alt="avatar">
+                {% else %}
+                <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                {% endif %}
+            </a>
             {% else %}
-            <a href="{% url 'account_login' %}">login</a>
+            <a href="{% url 'account_login' %}"><span>Login</span> <i class="fas fa-sign-in-alt"></i></a>
             <a href="{% url 'account_signup' %}">signup</a>
             {% endif %}
         </div>
@@ -45,7 +53,7 @@
         <div>
             <div class="profile font">
                 <div class="profile_avatar">
-                    {% if user.avatar %}
+                    {% if author.avatar %}
                     <img src="{{ user.avatar.url }}" alt="avatar">
                     <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
                             class="fas fa-camera-retro"></i></i></a>
@@ -91,6 +99,7 @@
     </div>
     {% endif %}
 
+<script src="{% static 'JS/myScript.js' %}"></script> 
 </body>
 
 </html>

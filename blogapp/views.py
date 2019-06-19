@@ -27,7 +27,22 @@ def post_list(request):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+def profile(request):
+    client_ip = get_client_ip(request)[0]
+    post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id).order_by('-published_date')
+    paginator = Paginator(post_range, 2)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'blogapp/post_list.html', {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range})
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)

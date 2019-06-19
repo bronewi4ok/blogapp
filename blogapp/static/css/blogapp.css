@@ -8,7 +8,7 @@
 }
 
 body {
-    padding-bottom: 40px;
+    padding-bottom: 80px;
 }
 
 a {
@@ -17,7 +17,6 @@ a {
 }
 
 .grid {
-    margin: 0 10vw 0 10vw;
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 2fr 1fr;
@@ -30,13 +29,13 @@ a {
 
 .font {
     color: rgb(100, 100, 100);
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 
 
 /*------------------------------------------------------------------------------------------------*/
-/*------ HEADER ------*/
+/*------ HEADER -------*/
 /*---------------------*/
 
 .header {
@@ -51,7 +50,7 @@ a {
     display: grid;
     align-content: center;
     justify-content: center;
-    /* background-color: rgba(189, 176, 252, 0.3); */
+    background-color: rgba(189, 176, 252, 0.3);
 }
 
 .header h1 {
@@ -77,7 +76,7 @@ a {
     padding: 20px;
 }
 
-.profile_avatar{
+.profile_avatar {
     padding: 10px;
     text-align: center;
 }
@@ -86,7 +85,7 @@ a {
     width: 100%;
     height: 320px;
     object-fit: cover;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 
@@ -100,7 +99,6 @@ a {
     margin-bottom: 20px;
     box-shadow: 0px 4px 4px 4px silver;
     background-color: rgb(230, 230, 230);
-
 }
 
 .navbar div {
@@ -112,14 +110,13 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 20vw;
+    width: 17vw;
 
     padding: 20px;
     color: rgb(100, 100, 100);
-    font-size: 30px;
     transition: 0.2s;
     background-color: rgb(230, 230, 230);
-    /* border-top: 5px solid rgb(70, 70, 70); */
+    font-size: 20px;
 }
 
 .navbar a:hover {
@@ -149,10 +146,9 @@ a {
 
 .posts img {
     border-radius: 10px 10px 0 0;
-    border-bottom: solid silver thin;
 }
 
-.posts a{
+.posts a {
     padding: 20px;
 }
 
@@ -164,7 +160,7 @@ a {
     width: 100%;
     padding: 20px;
     color: rgb(100, 100, 100);
-     
+
 }
 
 
@@ -176,9 +172,10 @@ a {
 
 .post_header_top {
     width: 100%;
-    display: flex; 
+    display: flex;
     justify-content: space-between;
 }
+
 .post_header_top p {
     display: flex;
     justify-content: center;
@@ -206,7 +203,7 @@ a {
 }
 
 .post_image {
-    width: inherit; 
+    width: inherit;
     height: 50vh;
     object-fit: cover;
 }
@@ -238,7 +235,7 @@ a {
 }
 
 .form_container {
-    background-color: rgb(230, 230, 230);
+    /* background-color: rgb(230, 230, 230); */
     /* background-color: white; */
     border-radius: 10px;
     display: grid;
@@ -249,14 +246,22 @@ a {
     text-align: center;
 }
 
-.forms textarea {
+#id_text {
     width: 100%;
     padding: 10px;
     height: 300px;
+    border: none;
+    border-left: 4px solid gray;
+    box-shadow: 0px 0px 5px 0px silver;
+
 }
 
-.forms input {
+#id_title {
     width: 100%;
+    border: none;
+    border-left: 4px solid gray;
+    box-shadow: 0px 0px 5px 0px silver;
+
 }
 
 .button {
@@ -298,8 +303,8 @@ a {
     padding: 30px;
 }
 
- .pagination div{
-     text-align: center;
+.pagination div {
+    text-align: center;
 }
 
 
@@ -314,9 +319,15 @@ a {
         margin: 0;
     }
 
+    .profile {
+        border-radius: 0;
+        font-size: 16px;
+        text-overflow: hidden;
+    }
+
     .posts {
         width: 100vw;
-        border-radius: 0;
+        border-radius: unset;
         font-size: 16px;
     }
 
@@ -326,12 +337,32 @@ a {
         border-radius: 10px;
     }
 
+    .navbar {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .navbar div {
+        justify-content: center;
+
+    }
+
     .navbar a {
-        font-size: 30px;
+        width: 100%;
+        justify-content: center;
+
+    }
+
+    .navbar span {
+        display: none;
     }
 
     .form_container {
-        border-radius: 0;
+        border-radius: unset;
         margin: 0;
         width: 100%;
     }
@@ -340,5 +371,6 @@ a {
         border-radius: unset;
     }
 
-}
 
+
+}

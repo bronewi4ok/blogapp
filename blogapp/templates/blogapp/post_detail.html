@@ -55,7 +55,7 @@
             <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
                 <li style='list-style-type: none; margin-top: 20px'>
-                    <div style="display:flex; align-content:center; justify-content:space-between; border-bottom:solid silver thin">
+                    <div style="display:flex; align-content:center; justify-content:space-between;">
                         <span class="small_avatar">
                             {% if user.avatar %}
                             <ul style='list-style-type: none'>
@@ -66,17 +66,19 @@
                         </span>
 
                         <span>
-                            {% if post.author%}
+                            {% if post.author %}
                             {{ post.author.username }}
                             {% endif %}
                         </span>
                     </div>
+
                     <p>{{ node.text }}</p>
 
                     <a href="{% url 'add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
                             class="far fa-comment-alt"></i></a>
 
                     {% if not node.is_leaf_node %}
+                    
                     <ul style='list-style-type: none'>
                         {{ children }}
                     </ul>
