@@ -1,4 +1,4 @@
-function turnThePage () {
+function nextPage () {
     $("#next_page_btn").click(function (event) {
         event.preventDefault();
         var page = $(this).attr('href');
@@ -18,10 +18,33 @@ function turnThePage () {
     });
 }
 
+function previousPage () {
+    $("#previous_page_btn").click(function (event) {
+        event.preventDefault();
+        var page = $(this).attr('href');
+        $.ajax({
+            data: { 'page' : page },
+            success: function (data) {
+                $(".main").empty();
+                $(".main").append( $(data).find(".main").html() );
+
+                $(".pagination").empty();
+                $(".pagination").append( $(data).filter(".pagination").html() );
+            },
+            error: function () {
+                alert('опаньки');
+            }
+        })
+    });
+}
+
 $(document).ready( function() {
-    turnThePage();
+    nextPage();
+    previousPage();
+
 })
 
 $(document).ajaxStop( function() {
-    turnThePage();
+    previousPage();
+    nextPage();
 })

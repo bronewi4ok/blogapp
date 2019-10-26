@@ -15,7 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def post_list(request):
     client_ip = get_client_ip(request)[0]
     post_range = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    paginator = Paginator(post_range, 2)
+    paginator = Paginator(post_range, 1)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
