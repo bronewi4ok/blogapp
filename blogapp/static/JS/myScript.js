@@ -1,20 +1,27 @@
-// $(document).ready(function () {
-//     if ($(window).width() <= '1000') {
-//         $(".navbar a").hide();
-//         $(".navbar span").hide()
-//     }
+function turnThePage () {
+    $("#next_page_btn").click(function (event) {
+        event.preventDefault();
+        var page = $(this).attr('href');
+        $.ajax({
+            data: { 'page' : page },
+            success: function (data) {
+                $(".main").empty();
+                $(".main").append( $(data).find(".main").html() );
 
-//     $("#hamburger").click(function () {
-//         $(".navbar a").show("fast", function () {
-//             $("#hamburger").hide();
-//             $("#cross").show();
-//         });
-//     });
+                $(".pagination").empty();
+                $(".pagination").append( $(data).filter(".pagination").html() );
+            },
+            error: function () {
+                alert('опаньки');
+            }
+        })
+    });
+}
 
-//     $("#cross").click(function () {
-//         $(".navbar a").hide("fast", function () {
-//             $("#cross").hide();
-//             $("#hamburger").show();
-//         });
-//     });
-// });
+$(document).ready( function() {
+    turnThePage();
+})
+
+$(document).ajaxStop( function() {
+    turnThePage();
+})

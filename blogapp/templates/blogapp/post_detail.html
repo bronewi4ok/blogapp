@@ -55,11 +55,12 @@
             <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
                 <li style='list-style-type: none; margin-top: 20px'>
-                    <div style="display:flex; align-content:center; justify-content:space-between;">
+                    <div style="display:flex; align-content:center; justify-content:space-between;
+                     box-shadow: 0px 0px 20px 0px rgba(192, 192, 192, 0.5); border-radius: 10px; padding: 10px;">
                         <span class="small_avatar">
                             {% if user.avatar %}
-                            <ul style='list-style-type: none'>
-                                    <img src="{{ user.avatar.url }}" alt="avatar">
+                                <ul style='list-style-type: none'>
+                                <img src="{{ user.avatar.url }}" alt="avatar">
                             {% else %}
                             <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                             {% endif %}

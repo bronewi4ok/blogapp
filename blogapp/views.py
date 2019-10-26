@@ -40,7 +40,7 @@ def profile(request):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'blogapp/post_list.html', {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range})
 
-
+#
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 @login_required
@@ -60,18 +60,17 @@ def post_detail(request, pk):
 
 @login_required
 def post_new(request):
-    if request.method == "POST":
-        form = PostForm(request.POST,request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.author.user_browser = request.user_agent.browser
-            post.author.os = request.user_agent.os
-            post.author.device = request.user_agent.device
-            post.author.ip_address = get_client_ip(request)[0]
-            post.author.save()
-            post.save()
-            return redirect('post_draft')
+    form = PostForm(request.POST,request.FILES)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.author = request.user
+        post.author.user_browser = request.user_agent.browser
+        post.author.os = request.user_agent.os
+        post.author.device = request.user_agent.device
+        post.author.ip_address = get_client_ip(request)[0]
+        post.author.save()
+        post.save()
+        return redirect('post_draft')
     else:
         form = PostForm()
     return render(request, 'blogapp/post_edit.html', {'form': form})

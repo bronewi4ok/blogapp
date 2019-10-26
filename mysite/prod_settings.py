@@ -7,7 +7,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-DEBUG = False
+DEBUG = True
 
 # secure
 CSRF_COOKIE_SECURE = True

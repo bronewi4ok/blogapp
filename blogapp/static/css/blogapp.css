@@ -5,6 +5,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
     line-height: 1.75;
+    font-size: 1rem;
 }
 
 body {
@@ -97,7 +98,7 @@ a {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    box-shadow: 0px 4px 4px 4px silver;
+    box-shadow: 0px 4px 4px 4px rgba(190, 190, 190, 0.5);
     background-color: rgb(230, 230, 230);
 }
 
@@ -112,7 +113,7 @@ a {
     justify-content: space-between;
     width: 17vw;
 
-    padding: 20px;
+    padding: 10px;
     color: rgb(100, 100, 100);
     transition: 0.2s;
     background-color: rgb(230, 230, 230);
