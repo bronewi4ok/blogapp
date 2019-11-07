@@ -14,15 +14,6 @@
             {% else %}
             <p>No name</p>
             {% endif %}
-
-            {% if user.is_authenticated  %}
-            <p>
-                {% if post.author == user %}
-                <a class="far fa-edit font" href="{% url 'post_edit' pk=post.pk %}"></a>
-                <a class="fas fa-trash-alt" href="{% url 'post_remove' pk=post.pk %}"></a>
-                {% endif %}
-            </p>
-            {% endif %}
         </div>
 
         {% if post.published_date %}
@@ -37,19 +28,12 @@
     <div class="post_text font">
         <p>{{ post.text|linebreaksbr|capfirst|truncatewords:"30" }}</p>
     </div>
-
-    {% if not post.published_date %}
-    <div class="post_publish">
-        <a href="{% url 'post_publish' pk=post.pk %}">Publish <i class="far fa-paper-plane"></i></a>
-    </div>
-    {% endif %}
-
-    {% if post.published_date %}
-    <a style="display:flex; justify-content:space-between" href="{% url 'post_detail' pk=post.pk %}">
-        <p>See more...</p>       
+    <a style="display:flex; justify-content:space-between" href="{% url 'blogapp:post_detail' pk=post.pk %}">
+        <p>See more...</p>   
+        {% if post.published_date %}    
         <p> Comments: {{ post.new_comments.count }}</p>
+        {% endif %}
     </a>
-    {% endif %}
 </div>
 {% endfor %}
 

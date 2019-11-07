@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 from captcha.fields import CaptchaField
+from django.urls import reverse
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -19,6 +20,9 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+    class Meta():
+        ordering = ['-published_date']
 
 
 class NewComment(MPTTModel):

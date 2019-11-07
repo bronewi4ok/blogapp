@@ -51,7 +51,6 @@ a {
     display: grid;
     align-content: center;
     justify-content: center;
-    background-color: rgba(189, 176, 252, 0.3);
 }
 
 .header h1 {
@@ -171,15 +170,9 @@ a {
     /* font-size: 40px; */
 }
 
-.post_header_top {
-    width: 100%;
+.post_header_top_edit {
     display: flex;
-    justify-content: space-between;
-}
-
-.post_header_top p {
-    display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .post_text {
@@ -236,8 +229,6 @@ a {
 }
 
 .form_container {
-    /* background-color: rgb(230, 230, 230); */
-    /* background-color: white; */
     border-radius: 10px;
     display: grid;
     box-shadow: 2px 2px 2px 2px silver;
@@ -259,6 +250,16 @@ a {
 
 #id_title {
     width: 100%;
+    padding: 10px;
+    border: none;
+    border-left: 4px solid gray;
+    box-shadow: 0px 0px 5px 0px silver;
+
+}
+
+#id_author {
+    width: 100%;
+    padding: 10px;
     border: none;
     border-left: 4px solid gray;
     box-shadow: 0px 0px 5px 0px silver;
@@ -292,6 +293,10 @@ a {
     background-color: white;
     border-radius: 10px;
     box-shadow: 4px 4px 4px 2px silver;
+}
+
+.allauth p {
+    display: grid;
 }
 
 /*------------------------------------------------------------------------------------------------*/

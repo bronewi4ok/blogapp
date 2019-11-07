@@ -13,28 +13,26 @@
 
 <body>
     <div class="header" style="background-image: url('{% static 'image/header.jpg' %}')">
-        <div class="header_color">
-            <div>
+            <div class='header_color'>
                 <h1>GRAY DRAFT</h1>
             </div>
-        </div>
     </div>
 
 
     <div class="navbar">
         <div>
-            <a href="{% url 'post_list' %}"><span>Flow</span><i class="fas fa-stream"></i></a>
+            <a href="{% url 'blogapp:post_list' %}"><span>Flow</span><i class="fas fa-stream"></i></a>
             {% if user.is_authenticated %}
-            <a href="{% url 'profile' %} "><span>Me</span> <i class="fas fa-address-card"></i></a>
-            <a href="{% url 'post_new' %}"><span>New</span> <i class="fas fa-plus-square"></i> </a>
-            <a href="{% url 'post_draft' %}"><span>Drafts</span> <i class="fab fa-firstdraft"></i></a>
+            <a href="{% url 'blogapp:profile' %} "><span>Me</span> <i class="fas fa-address-card"></i></a>
+            <a href="{% url 'blogapp:post_new' %}"><span>New</span> <i class="fas fa-plus-square"></i> </a>
+            <a href="{% url 'blogapp:post_draft' %}"><span>Drafts</span> <i class="fab fa-firstdraft"></i></a>
             {% endif %}
         </div>
         <div>
             {% if user.is_authenticated %}
             <a class="small_avatar" href="{% url 'account_logout' %}">
                 <span>Logout</span> 
-                {% if author.avatar %}
+                {% if user.avatar %}
                 <img src="{{ user.avatar.url }}" alt="avatar">
                 {% else %}
                 <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
@@ -52,12 +50,14 @@
         <div>
             <div class="profile font">
                 <div class="profile_avatar">
-                    {% if author.avatar %}
+                    {% if user.avatar %}
                     <img src="{{ user.avatar.url }}" alt="avatar">
                     <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
                             class="fas fa-camera-retro"></i></i></a>
                     {% else %}
                     <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                    <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
+                        class="fas fa-camera-retro"></i></i></a>
                     {% endif %}
                 </div>
 
@@ -98,6 +98,18 @@
     </div>
     {% endif %}
 
+
+{% load socialaccount %}
+
+<h1>Django Login Mega-Tutorial</h1>
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} !!!</p>
+<p><a href="{% url 'account_logout' %}">Log out</a>
+{% else %}
+<p><a href="{% url 'account_signup' %}">Sign Up</a></p>
+<p><a href="{% url 'account_login' %}">Log In </a></p>
+<p><a href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
+{% endif %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
