@@ -12,7 +12,7 @@ def user_edit_form(request):
         form = CustomUserChangeForm(request.POST,request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('post_list')
+            return redirect('blogapp:post_list')
     else:
         form = CustomUserChangeForm()
     return render(request, 'users/user_edit.html', {'form': form})

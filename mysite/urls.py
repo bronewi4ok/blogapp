@@ -18,12 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
-    path('secure_admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('blogapp.urls')),
-    path('profile/', include('users.urls')),
-    path('accounts/', include('allauth.urls')),
+    path('users/', include('users.urls')),
     path('captcha/', include('captcha.urls')),
+    path('accounts/', include('allauth.urls')), # new
+
 ]
 
 if settings.DEBUG:
