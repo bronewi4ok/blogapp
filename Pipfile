@@ -38,6 +38,7 @@ wrapt = "==1.11.1"
 Django = "==2.2"
 Pillow = "==6.0.0"
 PyYAML = "==5.1"
+django-mailgun = "*"
 
 [requires]
 python_version = "3.6"

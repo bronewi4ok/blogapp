@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div>  
+            <div>
                 {% if post.published_date %}
                 <p>{{ post.published_date }}</p>
                 {% endif %}
@@ -46,7 +46,8 @@
     <div class="comments">
         <hr style="height: 1px;border:none;background-color:rgb(100, 100, 100);">
 
-        <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk %} ">Add comment <i class="far fa-comment-alt"></i></a>
+        <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk %} ">Add comment <i
+                class="far fa-comment-alt"></i></a>
 
         <div class="comment">
             <ul style='list-style-type: none'>
@@ -55,12 +56,12 @@
                     <div style="display:flex; align-content:center; justify-content:space-between;
                      box-shadow: 0px 0px 20px 0px rgba(192, 192, 192, 0.5); border-radius: 10px; padding: 10px;">
                         <span class="small_avatar">
-                            {% if user.avatar %}
-                                <ul style='list-style-type: none'>
-                                <img src="{{ user.avatar.url }}" alt="avatar">
-                            {% else %}
-                            <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
-                            {% endif %}
+                            {% if post.author.avatar %}
+                            <ul style='list-style-type: none'>
+                                <img src="{{ post.author.avatar.url }}" alt="avatar">
+                                {% else %}
+                                <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                                {% endif %}
                         </span>
 
                         <span>
@@ -76,7 +77,7 @@
                             class="far fa-comment-alt"></i></a>
 
                     {% if not node.is_leaf_node %}
-                    
+
                     <ul style='list-style-type: none'>
                         {{ children }}
                     </ul>
