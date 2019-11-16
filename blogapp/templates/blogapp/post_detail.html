@@ -66,13 +66,13 @@
                         </span>
 
                         <span>
-                            {% if post.author %}
-                            {{ post.author.username }}
+                            {% if node.commented_by.username %}
+                            {{ node.commented_by.username }}
                             {% endif %}
                         </span>
+                        <p>{{ node.text }}</p>
                     </div>
 
-                    <p>{{ node.text }}</p>
                     <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
                             class="far fa-comment-alt"></i></a>
 
