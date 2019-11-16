@@ -40,6 +40,7 @@
             <p>{{ post.text|linebreaksbr|capfirst }}</p>
         </div>
     </div>
+    <p>{{ moto }}</p>
 
     <!-- COMMENTS -->
     {% if post.published_date %}
@@ -56,12 +57,12 @@
                     <div style="display:flex; align-content:center; justify-content:space-between;
                      box-shadow: 0px 0px 20px 0px rgba(192, 192, 192, 0.5); border-radius: 10px; padding: 10px;">
                         <span class="small_avatar">
-                            {% if post.author.avatar %}
+                            {% if node.commented_by.avatar %}
                             <ul style='list-style-type: none'>
-                                <img src="{{ post.author.avatar.url }}" alt="avatar">
-                                {% else %}
-                                <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
-                                {% endif %}
+                            <img src="{{ node.commented_by.avatar.url }}" alt="avatar">
+                            {% else %}
+                            <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                            {% endif %}
                         </span>
 
                         <span>
@@ -72,7 +73,6 @@
                     </div>
 
                     <p>{{ node.text }}</p>
-
                     <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
                             class="far fa-comment-alt"></i></a>
 

@@ -27,7 +27,7 @@ class Post(models.Model):
 
 class NewComment(MPTTModel):
     post = models.ForeignKey('blogapp.Post', on_delete=models.CASCADE, related_name='new_comments')
-    author = models.CharField(max_length=200)
+    commented_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

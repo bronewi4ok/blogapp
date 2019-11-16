@@ -64,7 +64,7 @@ def post_detail(request, pk):
     context = {
         'post': post,
         'comments': comments,
-        'new_comments': new_comments
+        'new_comments': new_comments,
         }
     return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -134,6 +134,7 @@ def add_comment_to_comment(request, pk, redid=None):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
+            comment.commented_by = request.user
             comment.save()
             if redid:
                 happy_comment = get_object_or_404(NewComment, pk = redid)
