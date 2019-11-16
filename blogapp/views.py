@@ -115,6 +115,7 @@ def post_remove(request, pk):
 def post_draft(request):
     ip = get_client_ip(request)[0]
     posts = Post.objects.exclude(published_date__lte=timezone.now()).order_by('-created_date')
+    posts = posts.filter(author=request.user)
     return render(request, 'blogapp/post_list.html', {'posts':posts, 'ip':ip})
 
 @login_required
