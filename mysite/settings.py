@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     
     'mptt',
     'users.apps.UsersConfig',
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-en'
 
 TIME_ZONE = 'UTC'
 
@@ -153,6 +154,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
+# ACCOUNT_AUTHENTICATION_METHOD = 'email' don't use it with social
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_STORE_TOKENS = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -162,3 +166,21 @@ EMAIL_HOST_USER = 'bronewi4ok@gmail.com'
 EMAIL_HOST_PASSWORD = 'random@92'
 
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email'],
+        'AUTH_PARAMS': { 'auth_type': 'reauthenticate'},
+        'METHOD': 'oauth2',
+        'LOCALE_FUNC': lambda request: 'en_US',
+    },
+     'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
