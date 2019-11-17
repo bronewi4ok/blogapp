@@ -24,8 +24,7 @@ urlpatterns = [
     path('', include('blogapp.urls')),
     path('users/', include('users.urls')),
     path('captcha/', include('captcha.urls')),
-    path('accounts/', include('allauth.urls')), # new
-
+    path('accounts/', include('allauth.urls')),  # new
 ]
 
 if settings.DEBUG:
