@@ -2,10 +2,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="js-upload">
-    <h1 class="font mx-auto">NEW POST</h1>
+<div class="container mt-5 pt-5">
+    <h1 class="font text-center m-3">NEW POST</h1>
 
-    <form class="card col col-lg-6 mx-auto" id="postForms" method="POST" enctype="multipart/form-data">
+    <form class="card col col mx-auto pt-3" id="postForms" method="POST" enctype="multipart/form-data">
         <div class="card-body">
             <div class="form">
                 {% csrf_token %}
