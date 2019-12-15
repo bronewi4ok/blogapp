@@ -13,7 +13,7 @@
 
 
 <!-- Filter -->
-<div class="col-4 mx-auto">
+<div class="col col-md-6 col-lg-4 mx-auto">
     <form class="input-group md-form" action="{% url 'blogapp:profile' %}" method="get">
         <label for="firter_author">Fiter by autor</label>
         <select class="browser-default custom-select" name="q" id="firter_author">
@@ -70,9 +70,18 @@
                         {% endif %}
                     </div>
                 </div>
+
+                {% if request.user.is_authenticated %}
                 <a href="{% url 'blogapp:post_detail' pk=post.pk %}">
                     <div class="mask rgba-white-slight flex-center"></div>
                 </a>
+                {% else %}
+                <a class="nav-link p-3 hoverable" type="button" data-toggle="modal" data-target="#loginModal">
+                    <div class="mask rgba-white-slight flex-center"></div>
+                </a>
+                {% endif %}
+
+                
             </div>
             {% endfor %}
         </div>

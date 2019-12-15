@@ -11,10 +11,10 @@
             <div class="card">
                 <div class="blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
                     style="height: 150px;">
-                    <div class="rounded-circle p-1 white position-absolute " style="margin-top: 75;">
+                    <div class="rounded-circle p-1 white position-absolute border-danger border-top border-bottom" style="margin-top: 75;">
                         <div class=" white"></div>
                         {% if user.avatar %}
-                        <img class="card-img-top rounded-circle" src="{{ user.avatar.url }}" alt="avatar"
+                        <img class="card-img-top rounded-circle border-left border-right border-warning" src="{{ user.avatar.url }}" alt="avatar"
                             style="height:120px; width:120px; object-fit: cover;">
                         {% else %}
                         <img class="card-img-top rounded-circle" src="{% static 'image/noavatar.jpg' %}" alt="no avatar"
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        
+
     </div>
 
 
