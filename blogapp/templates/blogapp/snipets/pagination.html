@@ -7,13 +7,15 @@
         {% if posts.has_previous %}
 
         <li class="page-item">
-            <a class="page-link rounded-pill p-3" id="previous_page_btn" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            <a class="page-link rounded-pill p-3 text-center" style="width: 3rem; height: 3rem;"
+                id="previous_page_btn" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
                 <i class="fa fa-angle-double-left"></i>
             </a>
         </li>
 
         <li class="page-item">
-            <a class="page-link rounded-pill p-3" id="previous_page_btn" href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            <a class="page-link rounded-pill p-3 text-center" style="width: 3rem; height: 3rem;"
+                id="previous_page_btn" href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
                 <i class="fa fa-angle-left"></i>
             </a>
         </li>
@@ -33,12 +35,14 @@
 
         {% if posts.has_next %}
         <li class="page-item">
-            <a class="page-link rounded-pill p-3" id="previous_page_btn" href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+            <a class="page-link rounded-pill p-3 text-center" style="width: 3rem; height: 3rem;"
+                id="previous_page_btn" href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
                 <i class="fa fa-angle-right"></i>
             </a>
         </li>
         <li class="page-item">
-                <a class="page-link rounded-pill p-3" id="previous_page_btn" href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                <a class="page-link rounded-pill p-3 text-center" style="width: 3rem; height: 3rem;"
+                    id="previous_page_btn" href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>
             </li>

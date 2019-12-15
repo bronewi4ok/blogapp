@@ -9,7 +9,24 @@
         <div class="card-body">
             <div class="form">
                 {% csrf_token %}
-                {{ form|crispy }}
+                <div class="col">
+                    {{ form.title|as_crispy_field }}
+                </div>
+                <div class="col">
+                    {{ form.text|as_crispy_field }}
+                </div>
+
+                <!-- Image upload -->
+                <div class="form-row">
+                    <div class="custom-file my-5 view overlay col" id="imageupload" style="height: 100px;">
+                        {{ form.cover }}
+                        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 "
+                            for="{{ form.cover.id_for_label }}">
+                            <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
+                        </label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                </div>
                 <button type="submit" id="postButton" class="btn btn-primary rounded-pill">Save</button>
             </div>
         </div>

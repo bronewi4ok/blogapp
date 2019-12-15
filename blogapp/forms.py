@@ -10,6 +10,10 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text', 'cover')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['cover'].widget.attrs.update({'class': 'custom-file-input h-100'})
+
 
 class NewCommentForm(forms.ModelForm):
     # captcha = CaptchaField(label='Are you an human? ')
