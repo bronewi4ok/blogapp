@@ -7,12 +7,24 @@ from ipware import get_client_ip
 import mptt
 
 @login_required
-def user_edit_form(request):
+def user_edit_form(request, pk=id):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST,request.FILES, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('blogapp:post_list')
+            return redirect('user_edit_form')
     else:
         form = CustomUserChangeForm()
     return render(request, 'users/user_edit.html', {'form': form})
+
+
+# @login_required
+# def user_edit_form(request):
+#     if request.method == "POST":
+#         form = CustomUserChangeForm(request.POST,request.FILES, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('blogapp:post_list')
+#     else:
+#         form = CustomUserChangeForm()
+#     return render(request, 'users/user_edit.html', {'form': form})

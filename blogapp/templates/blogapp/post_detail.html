@@ -5,76 +5,72 @@
 
 
 <!-- POSTS -->
-<div class="posts">
-    {% if post.cover %}
-    <img style="width: inherit; height: 50vh; object-fit: cover" src="{{ post.cover.url}}" alt="image">
-    {% endif %}
-    <div class="post_header">
-        <div>
-            <div>
-                <div class="post_header_top_edit">
-                    {% if post.author == user %}
-                    <a class="far fa-edit font" href="{% url 'blogapp:post_edit' pk=post.pk %}"></a>
-                    <a class="fas fa-trash-alt" href="{% url 'blogapp:post_remove' pk=post.pk %}"></a>
-                    {% if not post.published_date %}
-                    <a href="{% url 'blogapp:post_publish' pk=post.pk %}"><i class="far fa-paper-plane"></i></a>
-                    {% endif %}
-                    {% endif %}
-                </div>
-            </div>
+<div class="row justify-content-center mb-5">
+    <div class="jumbotron p-0 z-depth-1 rounded-lg" style="width: 50rem">
+        {% if post.cover %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <img class="embed-responsive-item rounded-top" style="object-fit:cover;" src="{{ post.cover.url}}"
+                alt="image">
+        </div>
+        {% endif %}
 
-            <div>
-                {% if post.published_date %}
-                <p>{{ post.published_date }}</p>
-                {% endif %}
-            </div>
+        <div class="card-body">
+            {% if post.author == user %}
+            <a class="far fa-edit font mx-2" href="{% url 'blogapp:post_edit' pk=post.pk %}"></a>
+            <a class="fas fa-trash-alt mx-2" href="{% url 'blogapp:post_remove' pk=post.pk %}"></a>
+            {% if not post.published_date %}
+            <a class="mx-2 float-right" href="{% url 'blogapp:post_publish' pk=post.pk %}"><i
+                    class="far fa-paper-plane"></i></a>
+            {% endif %}
+            {% endif %}
 
+            {% if post.published_date %}
+            <p>{{ post.published_date }}</p>
+            {% endif %}
             {% if user.is_authenticated  %}
-            <h2>
+            <h2 class="card-title">
                 {{ post.title|capfirst }}
             </h2>
             {% endif %}
+
+            <div class="card-text">
+                <p>{{ post.text|linebreaksbr|capfirst }}</p>
+            </div>
         </div>
 
-        <div class="post_text font">
-            <p>{{ post.text|linebreaksbr|capfirst }}</p>
+
+
+        <!-- COMMENTS -->
+        {% if post.published_date %}
+        <div class="comments px-3">
+            <hr>
+            <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk %} ">Add comment <i
+                    class="far fa-comment-alt"></i></a>
         </div>
-    </div>
-    <p>{{ moto }}</p>
 
-    <!-- COMMENTS -->
-    {% if post.published_date %}
-    <div class="comments">
-        <hr style="height: 1px;border:none;background-color:rgb(100, 100, 100);">
-
-        <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk %} ">Add comment <i
-                class="far fa-comment-alt"></i></a>
-
-        <div class="comment">
+        <div class="comment my-5 mx-3">
             <ul style='list-style-type: none'>
                 {% recursetree new_comments %}
-                <li style='list-style-type: none; margin-top: 20px'>
-                    <div style="display:flex; align-content:center; justify-content:space-between;
-                     box-shadow: 0px 0px 20px 0px rgba(192, 192, 192, 0.5); border-radius: 10px; padding: 10px;">
-                        <span class="small_avatar">
-                            {% if node.commented_by.avatar %}
-                            <ul style='list-style-type: none'>
-                            <img src="{{ node.commented_by.avatar.url }}" alt="avatar">
+                <li>
+                    <div class="media">
+                        {% if node.commented_by.avatar %}
+                            <img class="mr-3" style="width: 4rem; height: 4rem; object-fit: cover;"
+                                src="{{ node.commented_by.avatar.url }}" alt="avatar">
                             {% else %}
-                            <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                            <img class="mr-3" style="width: 4rem" src="{% static 'image/noavatar.jpg' %}"
+                                alt="no avatar">
                             {% endif %}
-                        </span>
-
-                        <span>
+                        <div class="media-body">
                             {% if node.commented_by.username %}
-                            {{ node.commented_by.username }}
+                            <h5>{{ node.commented_by.username }}</h5>
                             {% endif %}
-                        </span>
-                        <p>{{ node.text }}</p>
+                            {{ node.text }}
+                        </div>
                     </div>
 
-                    <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk redid=node.pk %}">Answer <i
+                    <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk redid=node.pk %}">Reply <i
                             class="far fa-comment-alt"></i></a>
+                    <hr>
 
                     {% if not node.is_leaf_node %}
 
@@ -82,11 +78,12 @@
                         {{ children }}
                     </ul>
                     {% endif %}
+
                 </li>
                 {% endrecursetree %}
             </ul>
         </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 {% endblock %}

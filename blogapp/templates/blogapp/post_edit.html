@@ -1,13 +1,18 @@
 {% extends 'blogapp/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+<div class="js-upload">
+    <h1 class="font mx-auto">NEW POST</h1>
 
-<div class="form_container">
-    <h1 class="font">NEW POST</h1>
-
-    <form class="forms" id="postForms" method="POST" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" id="postButton" class="button">Save</button>
+    <form class="card col col-lg-6 mx-auto" id="postForms" method="POST" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" id="postButton" class="btn btn-primary rounded-pill">Save</button>
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}

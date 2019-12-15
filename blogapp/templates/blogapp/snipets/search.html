@@ -1,0 +1,18 @@
+<div class="py-3 mb-5 container-fluid white">
+    <div class="row my-3">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <form class="md-form" action="{% url 'blogapp:post_list' %}" method="get" role="search">
+                <div class="input-group">
+                    <input class="form-control muted-text col" id="searchInput" name="q" type="search" {%if search_q %}
+                        value="{{ search_q }}" {% endif %}>
+                    <div class="input-group-append">
+                        <button class="btn btn-link" type="submit">
+                            <i class="fa fa-search fa-2x grey-text"></i>
+                        </button>
+                    </div>
+                    <label for="searchInput" class="active">Find an interesting post!</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,86 @@
 {% extends 'blogapp/base.html' %}
 
 {% block content %}
-<div class="form_container">
+{% load static %}
 
-    <h1 class="font">NEW AVATAR</h1>
 
-    <form class="forms" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button">Save</button>
-    </form>
+<div class="row">
+    <div class="col-md-4 col-12 col-sm-8 ">
+        <div class="card">
+            <div class="blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
+                style="height: 150px;">
+                <div class="rounded-circle p-1 white position-absolute " style="margin-top: 75;">
+                    <div class=" white"></div>
+                    {% if user.avatar %}
+                    <img class="card-img-top rounded-circle" src="{{ user.avatar.url }}" alt="avatar"
+                        style="height:120px; width:120px; object-fit: cover;">
+                    {% else %}
+                    <img class="card-img-top rounded-circle" src="{% static 'image/noavatar.jpg' %}" alt="no avatar"
+                        style="height:120px; width:120px; object-fit: cover;">
 
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h4 class="card-title">Hi {{ user.username|capfirst }}!</h4>
+                <p class="card-text"> {{user.email}} </p>
+                <p class="card-text"> {{ request.user_agent.browser.family }} </p>
+                <p class="card-text"> {{ request.user_agent.os.family }} </p>
+                <p class="card-text"> {{ client_ip }} </p>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- ASPECT RATIO -->
+<!-- 
+<div class="row">
+    .<div class="container-fluid">
+        <div class="col-12 col-md-4">
+            <div style="position: relative;  padding-top: 66.66%; width: 100%; background-color: red;">
+                <img class="" src="{{ user.avatar.url }}" alt="avatar"
+                    style="width: 100%; max-height: 100%; top:0; left: 0; object-fit: cover;  position: absolute;">
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="embed-responsive embed-responsive-16by9">
+    <img class="embed-responsive-item" src="{{ user.avatar.url }}" alt="avatar"
+        style="object-fit: cover;">
+</div> -->
+
+<!-- <div class="col-12 col-md-4">
+    <div style="background-image:url('{{ user.avatar.url }}'); background-size: cover; padding-top: 56.25%;"></div>
+</div> -->
+
+
+<form action="{% url 'user_edit_form' %}" method="POST" enctype="multipart/form-data">
+    <div class="custom-file h-25 my-5 view overlay col" id="imageupload">
+        {% csrf_token %}
+        {{ form }}
+        <!-- <input type="file" class="custom-file-input h-100" id="validatedCustomFile"> -->
+        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 "
+            for="validatedCustomFile">
+            <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
+        </label>
+        <div class="invalid-feedback">Example invalid custom file feedback</div>
+    </div>
+    <button type="submit" class="btn btn-blue-grey row">Save</button>
+</form>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item"
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d325518.6878652635!2d30.252508192327323!3d50.40169903973357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z0JrQuNC10LIsINCz0L7RgNC-0LQg0JrQuNC10LI!5e0!3m2!1sen!2sua!4v1575931772898!5m2!1sen!2sua"
+                frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

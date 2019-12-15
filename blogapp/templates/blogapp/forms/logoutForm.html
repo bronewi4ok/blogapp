@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {% block head_title %}{% trans "Sign Out" %}{% endblock %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form" method="post" action="{% url 'account_logout' %}">
+
+                <div class="modal-body m-2">
+
+
+                    <h1>{% trans "Sign Out" %}</h1>
+
+                    <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{% trans 'Close' %}</button>
+                    <button class="primaryAction btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

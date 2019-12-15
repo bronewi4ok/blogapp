@@ -1,11 +1,14 @@
 {% extends 'blogapp/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="form_container">
-    <h1>New comment</h1>
-    <form method="POST" class="forms">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="button">Send</button>
-    </form>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"> Add your comment</h4>
+        <form method="POST">{% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="button btn btn-unique waves-effect rounded-pill">Submit</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

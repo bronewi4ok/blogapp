@@ -1,109 +1,124 @@
 {% load static %}
+
 <html>
 
 <head>
-    <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Mysite</title>
     <link rel="stylesheet" href="{% static 'css/blogapp.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+
+
+    <style>
+        .row {
+            margin: 0px !important;
+        }
+
+        label::after {
+            display: none !important;
+        }
+
+        #imageupload:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+
+        input[type=text]:focus:not([readonly]) + label {
+            color: green; 
+        }
+
+        input[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid green;
+            box-shadow: 0 1px 0 0 green; 
+        }
+    </style>
 </head>
 
-<body>
-    <div class="header" style="background-image: url('{% static 'image/header.jpg' %}')">
-            <div class='header_color'>
-                <h1>GRAY DRAFT</h1>
-            </div>
-    </div>
 
+<!------------------------ BODY ----------------------------------->
 
-    <div class="navbar">
-        <div>
-            <a href="{% url 'blogapp:post_list' %}"><span>Flow</span><i class="fas fa-stream"></i></a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'blogapp:profile' %} "><span>Me</span> <i class="fas fa-address-card"></i></a>
-            <a href="{% url 'blogapp:post_new' %}"><span>New</span> <i class="fas fa-plus-square"></i> </a>
-            <a href="{% url 'blogapp:post_draft' %}"><span>Drafts</span> <i class="fab fa-firstdraft"></i></a>
-            {% endif %}
-        </div>
-        <div>
-            {% if user.is_authenticated %}
-            <a class="small_avatar" href="{% url 'account_logout' %}">
-                <span>Logout</span> 
-                {% if user.avatar %}
-                <img src="{{ user.avatar.url }}" alt="avatar">
-                {% else %}
-                <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
-                {% endif %}
+<body class="grey lighten-4">
+
+    <!-- Navbar -->
+    {% include 'blogapp/snipets/navbar.html' %}
+    <div class="container-fluid invisible">
+        <div class="position-fixed fixed-bottom d-flex justify-content-end m-4 red-text">
+            <a class="btn p-4 rounded-pill ml-3 visible white" href="{% url 'blogapp:post_new' %}">
+                <i class="fas fa-plus"></i>
             </a>
-            {% else %}
-            <a href="{% url 'account_login' %}"><span>Login</span> <i class="fas fa-sign-in-alt"></i></a>
-            <a href="{% url 'account_signup' %}">signup</a>
-            {% endif %}
         </div>
     </div>
 
 
-    <div class="grid">
-        <div>
-            <div class="profile font">
-                <div class="profile_avatar">
-                    {% if user.avatar %}
-                    <img src="{{ user.avatar.url }}" alt="avatar">
-                    <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
-                            class="fas fa-camera-retro"></i></i></a>
-                    {% else %}
-                    <img src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
-                    <a style="padding: 20px" href=" {% url 'user_edit_form' %} ">Photo <i
-                        class="fas fa-camera-retro"></i></i></a>
-                    {% endif %}
-                </div>
 
-                <div class="profile_text">
-                    <h2>Hi {{ user.username|capfirst }}!</h2>
-                    <h2> {{user.email}} </h2>
-                    <h2> {{ request.user_agent.browser.family }} </h2>
-                    <h2> {{ request.user_agent.os.family }} </h2>
-                    <h2> {{ client_ip }} </h2>
-                </div>
+
+    
+
+    <!-- <div class="p-0 my-5 container white">
+        <div class="row my-3 mx">
+            <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                <form class="form-inline md-form" action="{% url 'blogapp:post_list' %}" method="get">
+                    <i class="fa fa-search prefix" aria-hidden="true"></i>
+                    <input class="form-control validate mr-sm-3 col-11" value="{{ query_q }}" name="q" type="search"
+                        aria-label="Search" id="form1" autocomplete="on">
+                    <label for="form1">Search</label>
+                </form>
             </div>
         </div>
+    </div> -->
 
-        <div>
-            <div class="main">
-                {% block content %}
-                {% endblock %}
-            </div>
+    
+
+    <!-- Main block -->
+    {% block content %}
+    {% endblock %}
+
+
+
+    <!-- Pagination -->
+    <div class="container my-3">
+        <div class="row justify-content-center my-5">
+            {% include 'blogapp/snipets/pagination.html' %}
         </div>
     </div>
-    {% if posts.has_other_pages %}
-    <div class="pagination font">
-        <div>
-            {% if posts.has_previous %}
-            <a id="previous_page_btn" href="{{ posts.previous_page_number }}" class="fas fa-arrow-left" style="font-size: 30px"></a>
-            {% endif %}
-        </div>
 
-        <div>
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </div>
-
-        <div>
-            {% if posts.has_next %}
-            <a id="next_page_btn" href="{{ posts.next_page_number }}" class="fas fa-arrow-right" style="font-size: 30px"></a>
-            {% endif %}
+    <!-- Footer -->
+    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-21by9 h-50">
+        <img class="embed-responsive-item card-image-top" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
+        <div class="mask waves-effect waves-light flex-center rgba-purple-light ">
+            <h1 class="white-text">GRAY DRAFT</h1>
         </div>
     </div>
-    {% endif %}
 
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- -------------------------------------------------------------------------------------------------------------- -->
 
-<script src="{% static 'JS/myScript.js' %}"></script> 
+    <!-- Scripts -->
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js">
+    </script>
+
+
+    <script src="{% static 'JS/nav.js' %}"></script>
+
 </body>
 
 </html>

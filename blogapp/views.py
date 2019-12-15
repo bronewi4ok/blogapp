@@ -8,31 +8,51 @@ from ipware import get_client_ip
 import mptt
 from user_agents import parse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.db.models import Q
+from django.http import JsonResponse
+from django.core import serializers
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
     client_ip = get_client_ip(request)[0]
-    post_range = Post.objects.filter(published_date__lte=timezone.now())
-    paginator = Paginator(post_range, 2)
+    search_q = request.GET.get("q")
+    if search_q:
+        post_range = Post.objects.filter(
+            Q(title__icontains=search_q) |
+            Q(text__icontains=search_q) 
+        )
+        post_range = post_range.filter(published_date__lte=timezone.now()).distinct()
+    else:
+        post_range = Post.objects.filter(published_date__lte=timezone.now())
+    paginator = Paginator(post_range, 6)
     page = request.GET.get('page')
+    
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    context = {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range}
+    context = {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range, 'search_q': search_q}
     return render(request, 'blogapp/post_list.html', context)
 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
 @login_required
 def profile(request):
     client_ip = get_client_ip(request)[0]
-    post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
-    paginator = Paginator(post_range, 2)
+    firter_author = request.GET.get("q")
+    if firter_author == 'my':
+        post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
+    elif firter_author == 'other':
+        post_range = Post.objects.filter(published_date__lte=timezone.now()).exclude(author_id=request.user.id)
+    else:
+        post_range = Post.objects.filter(published_date__lte=timezone.now())
+    paginator = Paginator(post_range, 6)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -47,10 +67,37 @@ def profile(request):
         'post_range': post_range
         }
     return render(request, 'blogapp/post_list.html', context)
+
+# from datetime import date
+# Post.objects.filter(published_date__date=date.today())
+# Post.objects.filter(published_date__month=date.month())
+
+
+
+# @login_required
+# def profile(request):
+#     client_ip = get_client_ip(request)[0]
+#     post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
+#     paginator = Paginator(post_range, 6)
+#     page = request.GET.get('page')
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         posts = paginator.page(paginator.num_pages)
+#     context = {
+#         'page': page,
+#         'posts': posts,
+#         'client_ip': client_ip,
+#         'post_range': post_range
+#         }
+#     return render(request, 'blogapp/post_list.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 @login_required
 def post_detail(request, pk):
+    hoho = request.META['DESKTOP_SESSION']
     post = get_object_or_404(Post, pk=pk)
     new_comments = NewComment.objects.filter(post__pk=post.pk)
     paginator = Paginator(new_comments, 3)
@@ -65,6 +112,7 @@ def post_detail(request, pk):
         'post': post,
         'comments': comments,
         'new_comments': new_comments,
+        'hoho': hoho,
         }
     return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -82,7 +130,7 @@ def post_new(request):
             post.author.ip_address = get_client_ip(request)[0]
             post.author.save()
             post.save()
-            return redirect('blogapp:post_draft')
+            return redirect(reverse('blogapp:post_detail', args=[post.pk]))
     else:
         form = PostForm()
     context = {'form': form}
@@ -104,6 +152,8 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     context = {'form': form}
     return render(request, 'blogapp/post_edit.html', context)
+    # reverse('blogapp:post_edit')
+    # 'blogapp/post_edit.html' 
     
 @login_required    
 def post_remove(request, pk):

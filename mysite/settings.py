@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     
-    # 'send_email.apps.SendEmailConfig',
     'blogapp',
+    'users.apps.UsersConfig',
     
     'allauth',
     'allauth.account',
@@ -54,10 +54,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     
     'mptt',
-    'users.apps.UsersConfig',
     'captcha',
     'django_user_agents',
+    'sslserver',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-en'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -169,9 +172,25 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
-        'SCOPE': ['email'],
-        'AUTH_PARAMS': { 'auth_type': 'reauthenticate'},
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
         'METHOD': 'oauth2',
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'VERIFIED_EMAIL': False,
         'LOCALE_FUNC': lambda request: 'en_US',
     },
      'google': {
@@ -184,3 +203,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# python manage.py runsslserver --certificate example.com+5.pem --key example.com+5-key.pem

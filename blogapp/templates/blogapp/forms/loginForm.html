@@ -1,0 +1,126 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load account socialaccount %}
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded">
+            <div class="modal-header">
+                <div class="col">
+                <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#loginTab" role="tab"
+                            aria-controls="home" aria-selected="true">
+                            <h5 class="modal-title" id="exampleModalLabel">{% trans "Log in" %}</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#signupTab" role="tab"
+                            aria-controls="profile" aria-selected="false">
+                            <h5 class="modal-title" id="exampleModalLabel">{% trans "Signup" %}</h5>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+
+            <div class="tab-content" id="myTabContent">
+                 <!-- Login -->
+
+                <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="home-tab">
+                    <form class="login md-form" method="POST" action="{% url 'account_login' %}">
+                        <div class="modal-body m-2">
+                            {% csrf_token %}
+                            <!-- E-mail input -->
+                            <div class="md-form md-outline mb-5">
+                                <i class="fas fa-envelope prefix"></i>
+                                <input class="form-control z-depth-1 p-2 " type="text" name="login"
+                                    class="textinput textInput form-control" required="" id="loginFormEmail">
+                                <label data-error="wrong" data-success="right" for="loginFormEmail">Your email</label>
+                            </div>
+                            <!-- Login input -->
+                            <div class="md-form md-outline  mb-5">
+                                <i class="fas fa-lock prefix"></i>
+                                <input type="password" name="password"
+                                    class="textinput textInput form-control z-depth-1 boreder boreder-0" required=""
+                                    id="loginFormPassword">
+                                <label data-error="wrong" data-success="right" for="loginFormPassword">Your
+                                    email</label>
+                            </div>
+
+                            <a class="btn btn-danger rounded-pill" href="{% provider_login_url 'google' %}">Google</a>
+                            <a class="btn btn-indigo rounded-pill" href="{% provider_login_url 'facebook' %}">Facebook</a>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light"
+                                data-dismiss="modal">{% trans 'Close' %}</button>
+                            <button type="submit" class="primaryAction btn btn-default">{% trans 'Log in' %}</button>
+                        </div>
+                    </form>
+                </div>
+
+
+
+                <!-- Sign up -->
+                <div class="tab-pane fade" id="signupTab" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="modal-body m-2">
+                        {% block head_title %}{% trans "Signup" %}{% endblock %}
+
+                        <h1>{% trans "Sign Up" %}</h1>
+
+                        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
+                                in</a>.{% endblocktrans %}</p>
+
+                        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                            {% csrf_token %}
+                            <!-- E-mail input -->
+                            <div class="md-form md-outline mb-5">
+                                <i class="fas fa-envelope prefix"></i>
+                                <input class="form-control z-depth-1 p-2 " type="text" name="login"
+                                    class="textinput textInput form-control" id="signupFormEmail">
+                                <label data-error="wrong" data-success="right" for="signupFormEmail">Your email</label>
+                            </div>
+                            <!-- Password input -->
+                            <div class="md-form md-outline  mb-5">
+                                <i class="fas fa-lock prefix"></i>
+                                <input type="password" name="password"
+                                    class="textinput textInput form-control z-depth-1 boreder boreder-0"
+                                    id="signupFormPassword">
+                                <label data-error="wrong" data-success="right" for="signupFormPassword">Your
+                                    password</label>
+                            </div>
+                            <!-- Password confirm input -->
+
+                            <div class="md-form md-outline  mb-5"> 
+                                <i class="fas fa-lock prefix"></i>
+                                <input type="password" name="password2" 
+                                    class="textinput textInput form-control z-depth-1 boreder boreder-0"
+                                    id="id_password2">
+                                <label data-error="wrong" data-success="right" for="id_password2">Confirm
+                                    password </label>
+                            </div>
+
+                            {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light"
+                                    data-dismiss="modal">{% trans 'Close' %}</button>
+
+                                <button class="btn btn-success" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
