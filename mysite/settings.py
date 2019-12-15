@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'mptt',
     'captcha',
     'django_user_agents',
-    # 'sslserver',
+    'sslserver',
     'crispy_forms',
 ]
 

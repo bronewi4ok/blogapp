@@ -16,6 +16,11 @@ $(function () {
 
 
 
+$('.carousel').carousel({
+    touch: true // default
+    })
+
+
 
 $(document).ready(function () {
     $("#searchForm").submit(function (e) {
