@@ -97,7 +97,6 @@ def profile(request):
 
 @login_required
 def post_detail(request, pk):
-    hoho = request.META['DESKTOP_SESSION']
     post = get_object_or_404(Post, pk=pk)
     new_comments = NewComment.objects.filter(post__pk=post.pk)
     paginator = Paginator(new_comments, 3)
@@ -112,7 +111,6 @@ def post_detail(request, pk):
         'post': post,
         'comments': comments,
         'new_comments': new_comments,
-        'hoho': hoho,
         }
     return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
