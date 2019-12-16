@@ -1,10 +1,10 @@
 $(function () {
-    var header = $("#navbar");
+    // var header = $("#navbar");
     var navlink = $(".nav-link")
     $(window).scroll(function () {
         var scroll = $(window).scrollTop();
 
-        if (scroll >= 50) {
+        if (scroll >= 300) {
             // header.removeClass('rgba-stylish-strong').addClass("rgba-stylish-light");
             navlink.removeClass('p-3').addClass("p-2 ");
         } else {
@@ -15,44 +15,23 @@ $(function () {
 });
 
 
-
-$('.carousel').carousel({
-    touch: true // default
-    })
-
-
-
-$(document).ready(function () {
-    $("#searchForm").submit(function (e) {
-        e.preventDefault();
-        var serializedData = $(this).serialize();
-        $.ajax({
-            type: 'GET',
-            url: "{% url 'blogapp:search' %}",
-        });
-    });
-}); 
+$(window).on('resize', function() {
+    if($(window).width() > 700) {
+        // $('#navbar').addClass('fixed-top');
+        // $('#navbar').removeClass('fixed-bottom');
+        $('#navbar').addClass('p-3');
+        $('#navbar').removeClass('p-1');
+        $('#btnNewPost').addClass('btn-circle');
+        $('#btnNewPost').removeClass('btn-social');
 
 
+    }else{
+        // $('#navbar').addClass('fixed-bottom');
+        // $('#navbar').removeClass('fixed-top');
+        $('#navbar').addClass('p-1');
+        $('#navbar').removeClass('p-3');
+        $('#btnNewPost').addClass('btn-social');
+        $('#btnNewPost').removeClass('btn-circle');
 
-$(document).ready(function(){
-    $("#contactForm").submit(function(e){
-     // prevent from normal form behaviour
-           e.preventDefault();
-         // serialize the form data  
-           var serializedData = $(this).serialize();
-           $.ajax({
-               type : 'POST',
-               url :  "{% url 'contact_submit' %}",
-               data : serializedData,
-               success : function(response){
-             //reset the form after successful submit
-                   $("#contactForm")[0].reset(); 
-               },
-               error : function(response){
-                   console.log(response)
-               }
-           });
-    });
- });
- 
+    }
+})

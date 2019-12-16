@@ -45,13 +45,13 @@ def post_list(request):
 @login_required
 def profile(request):
     client_ip = get_client_ip(request)[0]
-    firter_author = request.GET.get("q")
-    if firter_author == 'my':
-        post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
-    elif firter_author == 'other':
+    filter_author = request.GET.get("q")
+    if filter_author == 'other':
         post_range = Post.objects.filter(published_date__lte=timezone.now()).exclude(author_id=request.user.id)
-    else:
+    elif filter_author == 'all':
         post_range = Post.objects.filter(published_date__lte=timezone.now())
+    else:
+        post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
     paginator = Paginator(post_range, 6)
     page = request.GET.get('page')
     try:
@@ -64,9 +64,16 @@ def profile(request):
         'page': page,
         'posts': posts,
         'client_ip': client_ip,
-        'post_range': post_range
+        'post_range': post_range,
+        'filter_autor': filter_author,
         }
     return render(request, 'blogapp/post_list.html', context)
+
+
+
+
+
+
 
 # from datetime import date
 # Post.objects.filter(published_date__date=date.today())

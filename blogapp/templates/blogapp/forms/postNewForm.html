@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+<div class="modal fade" id="postNewForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">New post</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="{% url 'blogapp:post_new' %}" id="postForms" method="POST" enctype="multipart/form-data">
+                <div class="modal-body mx-3">
+                    <div class="md-form">
+                        {% csrf_token %}
+                        <div class=" col">
+                <div class="md-form md-outline mb-3">
+                    <input class="form-control z-depth-1" type="text" name="title" id="id_title" id="postNewTitle">
+                    <label for="postNewTitle">{% trans 'Title' %}</label>
+                </div>
+        </div>
+        <div class="col">
+            <div class="md-form md-outline">
+                <textarea id="postNewText" class="md-textarea form-control" name="text" id="id_text" rows="5"></textarea>
+                <label for="postNewText">{% trans 'Text' %}</label>
+            </div>
+        </div>
+        <!-- Image upload -->
+        <div class="form-row">
+            <div class="custom-file my-3 view overlay col p-0 m-0" id="imageupload" style="height: 100px;">
+               <input class="custom-file-input p-0 m-0" type="file" name="cover" id="id_cover" style="height: 100%;">
+                <label class="custom-file-label d-flex justify-content-center align-items-center p-0 m-0"
+                    for="id_cover">
+                    <span class="align-middle p-0 m-0"><i class="fas fa-cloud-upload-alt"> </i> Choose file...
+                    </span>
+                </label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button class="btn btn-default">{% trans 'Submit' %}</button>
+</div>
+</form>
+</div>
+</div>
+</div>

@@ -5,7 +5,7 @@
 <div class="container mt-5 pt-5">
     <h1 class="font text-center m-3">NEW POST</h1>
 
-    <form class="card col col mx-auto pt-3" id="postForms" method="POST" enctype="multipart/form-data">
+    <form class="card col mx-auto pt-3" id="postForms" method="POST" enctype="multipart/form-data">
         <div class="card-body">
             <div class="form">
                 {% csrf_token %}
@@ -16,11 +16,13 @@
                     {{ form.text|as_crispy_field }}
                 </div>
 
+
+                
                 <!-- Image upload -->
                 <div class="form-row">
-                    <div class="custom-file my-5 view overlay col" id="imageupload" style="height: 100px;">
+                    <div class="custom-file view overlay col" id="imageupload" style="height: 100px;">
                         {{ form.cover }}
-                        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 "
+                        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 p-0 m-0"
                             for="{{ form.cover.id_for_label }}">
                             <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
                         </label>
