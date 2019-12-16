@@ -20,7 +20,7 @@
             margin: 0px !important;
         }
 
-
+        html { font-size: calc(0.5rem + 0.5vw); }
 
         label::after {
             display: none !important;
@@ -57,12 +57,12 @@
 
 
             {% if request.user.is_authenticated %}
-            <a class="btn visible warning-color btn-circle wobble-hor-bottom" id="btnNewPost" type="button" data-toggle="modal" data-target="#postNewForm">
+            <a class="btn visible warning-color-dark btn-circle wobble-hor-bottom" id="btnNewPost" type="button" data-toggle="modal" data-target="#postNewForm">
                 <i class="far fa-dot-circle fa-2x white-text"></i>
                 <!-- <i class="far fa-sticky-note fa-2x white-text"></i> -->
             </a>
             {% else %}
-            <a class="btn visible indigo btn-circle btn-social wobble-hor-bottom" id="btnNewPost type="button" data-toggle="modal" data-target="#loginModal">
+            <a class="btn visible warning-color-dark btn-circle wobble-hor-bottom" id="btnNewPost type="button" data-toggle="modal" data-target="#loginModal">
                 <i class="far fa-dot-circle fa-2x white-text"></i>
                 <!-- <i class="far fa-dot-circle fa-2x white-text"></i> -->
             </a>
