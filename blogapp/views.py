@@ -9,24 +9,26 @@ import mptt
 from user_agents import parse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.http import JsonResponse
-from django.core import serializers
+from datetime import datetime, timedelta
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
     client_ip = get_client_ip(request)[0]
-    search_q = request.GET.get("q")
-    if search_q:
-        post_range = Post.objects.filter(
-            Q(title__icontains=search_q) |
-            Q(text__icontains=search_q) 
+    search = request.GET.get("q")
+    
+    if search:
+        post_range = Post.objects.published().filter(
+            Q(title__icontains=search) |
+            Q(text__icontains=search) 
         )
-        post_range = post_range.filter(published_date__lte=timezone.now()).distinct()
+        post_range = post_range.distinct()
     else:
-        post_range = Post.objects.filter(published_date__lte=timezone.now())
-    paginator = Paginator(post_range, 6)
+        post_range = Post.objects.published()
+
+    search_amount = post_range.count()
+    paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
     
     try:
@@ -35,8 +37,18 @@ def post_list(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    context = {'page': page, 'posts': posts, 'client_ip': client_ip, 'post_range':post_range, 'search_q': search_q}
+    context = {'page': page,
+        'posts': posts,
+        'client_ip': client_ip,
+        'post_range': post_range,
+        'search_q': search,
+        'search_amount': search_amount
+        }
+    # if horible != None:
+    #     return render(request, 'blogapp/ajax_post_list.html', context)
+    # else:
     return render(request, 'blogapp/post_list.html', context)
+
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -45,15 +57,27 @@ def post_list(request):
 @login_required
 def profile(request):
     client_ip = get_client_ip(request)[0]
-    filter_author = request.GET.get("q")
-    if filter_author == 'other':
-        post_range = Post.objects.filter(published_date__lte=timezone.now()).exclude(author_id=request.user.id)
-    elif filter_author == 'all':
-        post_range = Post.objects.filter(published_date__lte=timezone.now())
+    q_author = request.GET.get("author")
+    q_date = request.GET.get("date")
+
+    if q_author == 'other':
+        filter_author = Post.objects.published().exclude(author=request.user)
+    elif q_author == 'my':
+        filter_author = Post.objects.published().filter(author=request.user)
     else:
-        post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
-    paginator = Paginator(post_range, 6)
+        filter_author = Post.objects.published().filter()
+
+
+    if q_date:
+        data_range = timezone.now() - timedelta(days=int(q_date))
+        post_range = filter_author.filter(published_date__gte=data_range)
+    else:
+        post_range = filter_author
+
+    search_amount = post_range.count()
+    paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
+
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -66,6 +90,7 @@ def profile(request):
         'client_ip': client_ip,
         'post_range': post_range,
         'filter_autor': filter_author,
+        'search_amount': search_amount
         }
     return render(request, 'blogapp/post_list.html', context)
 
@@ -176,8 +201,7 @@ def post_draft(request):
 @login_required
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post.published_date = timezone.now()
-    post.save()
+    post.publish()
     return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
 
 

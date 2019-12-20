@@ -1,16 +1,45 @@
-<div class="py-3 mb-5 container-fluid white">
+<div class="py-3 container-fluid white">
     <div class="row my-3">
         <div class="col-12 col-md-8 col-lg-6 mx-auto">
-            <form class="md-form" action="{% url 'blogapp:post_list' %}" method="get" role="search">
-                <div class="input-group">
+            <form action="{% url 'blogapp:post_list' %}" method="get" role="search">
+                <div class="input-group md-form">
                     <input class="form-control muted-text col" id="searchInput" name="q" type="search" {%if search_q %}
                         value="{{ search_q }}" {% endif %}>
-                    <div class="input-group-append">
-                        <button class="btn btn-link m-0 p-0" type="submit">
-                            <i class="fa fa-search fa-2x grey-text"></i>
+
+                    <div class="input-group-append unique-color rounded-pill">
+                        <span class="input-group-text white-text unique-color border-0 pr-0"
+                            id="basic-addon1">{{ search_amount }}</span>
+
+                        <button class="btn btn-link m-0 pl-3 py-2 pr-4 " type="submit">
+                            <i class="fa fa-search fa-2x white-text"></i>
                         </button>
                     </div>
                     <label for="searchInput" class="active">Find an interesting post!</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Filter -->
+<div class="container-fluid white mb-5">
+    <div class="row mx-auto">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <form class="md-form" action="{% url 'blogapp:profile' %}" method="get">
+                <div class="row">
+                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12 mr-3" name="author">
+                    <option value="all" selected>All posts</option>
+                    <option value="my">My posts</option>
+                    <option value="other">Other posts</option>
+                </select>
+                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12" name="date">
+                    <option value='7' selected>Week</option>
+                    <option value='30'>Month</option>
+                    <option value='365'>Year</option>
+                </select>
+            </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-filter"></i> Filter</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,69 @@
+{% extends 'blogapp/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="container mt-5 pt-5">
+    <h1 class="font text-center m-3">Profile</h1>
+
+    <div class="row py-5">
+        <div class="col-lg-4 col-md-6 col-12 col-sm-8 pb-5">
+            <div class="card">
+                <div class="blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
+                    style="height: 150px;">
+                    <div class="rounded-circle p-1 white position-absolute border-danger border-top border-bottom"
+                        style="margin-top: 75;">
+                        <div class=" white"></div>
+                        {% if post_author.avatar %}
+                        <img class="card-img-top rounded-circle border-left border-right border-warning"
+                            src="{{ post_author.avatar.url }}" alt="avatar"
+                            style="height:120px; width:120px; object-fit: cover;">
+                        {% else %}
+                        <img class="card-img-top rounded-circle" src="{% static 'image/noavatar.jpg' %}" alt="no avatar"
+                            style="height:120px; width:120px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <h4 class="card-title">Hi {{ post_author.username|capfirst }}!</h4>
+                    <p class="card-text"> {{ post_author.email}} </p>
+                    <p class="card-text"> {{ post_author.ip_address }} </p>
+                    <p class="card-text"> {{ post_author.user_browser }} </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item"
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d325518.6878652635!2d30.252508192327323!3d50.40169903973357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z0JrQuNC10LIsINCz0L7RgNC-0LQg0JrQuNC10LI!5e0!3m2!1sen!2sua!4v1575931772898!5m2!1sen!2sua"
+                    frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+<!-- ASPECT RATIO -->
+<!-- 
+<div class="row">
+    .<div class="container-fluid">
+        <div class="col-12 col-md-4">
+            <div style="position: relative;  padding-top: 66.66%; width: 100%; background-color: red;">
+                <img class="" src="{{ user.avatar.url }}" alt="avatar"
+                    style="width: 100%; max-height: 100%; top:0; left: 0; object-fit: cover;  position: absolute;">
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="embed-responsive embed-responsive-16by9">
+    <img class="embed-responsive-item" src="{{ user.avatar.url }}" alt="avatar"
+        style="object-fit: cover;">
+</div> -->
+
+<!-- <div class="col-12 col-md-4">
+    <div style="background-image:url('{{ user.avatar.url }}'); background-size: cover; padding-top: 56.25%;"></div>
+</div> -->

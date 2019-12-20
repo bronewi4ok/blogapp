@@ -15,12 +15,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Google fonts -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito|Nunito+Sans&display=swap" rel="stylesheet"> -->
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
     <style>
         .row {
             margin: 0px !important;
         }
 
-        html { font-size: calc(0.5rem + 0.5vw); }
+        /* html {
+            font-size: calc(0.8em + 0.4vw);
+        } */
 
         label::after {
             display: none !important;
@@ -45,7 +52,7 @@
 
 <!------------------------ BODY ----------------------------------->
 
-<body class="grey lighten-4">
+<body class="grey lighten-4 responsive-font-size ">
 
     <!-- Navbar -->
     {% include 'blogapp/snipets/navbar.html' %}
@@ -54,15 +61,15 @@
     <!-- NewPost button -->
     <div class="container-fluid invisible">
         <div class="position-fixed fixed-bottom d-flex justify-content-end m-4 red-text">
-
-
             {% if request.user.is_authenticated %}
-            <a class="btn visible warning-color-dark btn-circle wobble-hor-bottom" id="btnNewPost" type="button" data-toggle="modal" data-target="#postNewForm">
+            <a class="btn visible deep-purple btn-circle wobble-hor-bottom" id="btnNewPost" type="button"
+                data-toggle="modal" data-target="#postNewForm">
                 <i class="far fa-dot-circle fa-2x white-text"></i>
                 <!-- <i class="far fa-sticky-note fa-2x white-text"></i> -->
             </a>
             {% else %}
-            <a class="btn visible warning-color-dark btn-circle wobble-hor-bottom" id="btnNewPost type="button" data-toggle="modal" data-target="#loginModal">
+            <a class="btn visible warning-color-dark btn-circle wobble-hor-bottom" id="btnNewPost type=" button"
+                data-toggle="modal" data-target="#loginModal">
                 <i class="far fa-dot-circle fa-2x white-text"></i>
                 <!-- <i class="far fa-dot-circle fa-2x white-text"></i> -->
             </a>
@@ -75,6 +82,7 @@
 
     <!-- Main block -->
     {% block content %}
+
     {% endblock %}
 
 
@@ -116,6 +124,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js">
     </script>
 
+    <!-- AOS animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

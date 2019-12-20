@@ -21,7 +21,8 @@
 
 
   <body>
-    <div class="container col-6">
+
+    <div class="container col-6 pt-5">
     {% block body %}
 
     {% if messages %}
@@ -50,6 +51,8 @@
     {% block content %}
     {% endblock %}
     {% endblock %}
+    <div style="height: 100px; width: 100%; background-color: red;">Да шо такое</div>
+
     {% block extra_body %}
     {% endblock %}
 
