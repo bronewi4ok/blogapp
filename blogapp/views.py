@@ -39,7 +39,6 @@ def post_list(request):
         posts = paginator.page(paginator.num_pages)
     context = {'page': page,
         'posts': posts,
-        'client_ip': client_ip,
         'post_range': post_range,
         'search_q': search,
         'search_amount': search_amount
@@ -87,7 +86,6 @@ def profile(request):
     context = {
         'page': page,
         'posts': posts,
-        'client_ip': client_ip,
         'post_range': post_range,
         'filter_autor': filter_author,
         'search_amount': search_amount
@@ -96,7 +94,22 @@ def profile(request):
 
 
 
-
+def do_paginate(data_list, page_number):
+    ret_data_list = data_list
+    # suppose we display at most 2 records in each page.
+    result_per_page = 2
+    # build the paginator object.
+    paginator = Paginator(data_list, result_per_page)
+    try:
+        # get data list for the specified page_number.
+        ret_data_list = paginator.page(page_number)
+    except EmptyPage:
+        # get the lat page data if the page_number is bigger than last page number.
+        ret_data_list = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        # if the page_number is not an integer then return the first page data.
+        ret_data_list = paginator.page(1)
+    return [ret_data_list, paginator]
 
 
 

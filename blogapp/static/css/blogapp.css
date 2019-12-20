@@ -19,7 +19,8 @@ body {
 }
 
 .btn-circle:hover {
-  box-shadow: ;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
+  ;
 }
 
 
@@ -43,8 +44,26 @@ body {
   padding: 0 !important;
   border-radius: 50% !important;
   object-fit: cover;
-
 }
+
+.btn-social-mmm {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  object-fit: cover;
+}
+
+.dropdown-toggle:after {
+  display: none !important;
+}
+
+
+
+
 
 /* ANIMATION */
 /* blur apearens */
@@ -679,22 +698,25 @@ body {
  * ----------------------------------------
  */
 .fade-in {
-	-webkit-animation: fade-in 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation: fade-in 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
- @-webkit-keyframes fade-in {
+@-webkit-keyframes fade-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
+
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

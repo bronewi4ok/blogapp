@@ -73,51 +73,66 @@
                 {% endif %}
 
 
-                {% if user_edit_form == request.path %}
-                <li class="nav-item active">
-                    <a class="nav-link p-3 hoverable disabled" href="{% url 'user_edit_form' %}">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Profile</span>
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link p-3 hoverable" href="{% url 'user_edit_form' %}">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Profile</span>
-                    </a>
-                </li>
-                {% endif %}
+
                 {% endif %}
             </ul>
 
 
-            <ul class="navbar-nav mt-2 mt-lg-0">
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link p-3 hoverable" type="button" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>{% trans 'Log out' %}</span>
-                    </a>
-                </li>
-                {% else %}
+            <ul class="navbar-nav ml-auto nav-flex-icons">
 
-                <li class="nav-item">
-                    <!-- Button trigger modal -->
-                    <a class="nav-link p-3 hoverable" type="button" data-toggle="modal" data-target="#loginModal">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>{% trans 'Log in' %}</span>
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        {% if user.is_authenticated %}
+                        <img class="btn-social-mmm rounded-circle z-depth-0" src="{{  user.avatar.url }}" alt="avatar">
+                        {% else %}
+                        <i class="far fa-user-circle"></i>
+                        <!-- <i class="fas fa-user-astronaut fa-2x"></i> -->
+                        {% endif %}
+
                     </a>
+
+                    <div class="dropdown-menu dropdown-menu-right dropdown-info">
+                        {% if user.is_authenticated %}
+
+                        {% if user_edit_form == request.path %}
+                        <a class="dropdown-item p-3 hoverable disabled" href="{% url 'user_edit_form' %}">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                        {% else %}
+                        <a class="dropdown-item p-3 hoverable" href="{% url 'user_edit_form' %}">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                        {% endif %}
+
+                        <div class="dropdown-divider"></div>
+
+
+                        <a class="dropdown-item p-3 hoverable" type="button" data-toggle="modal"
+                            data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>{% trans 'Log out' %}</span>
+                        </a>
+                        {% else %}
+
+                        <a class="dropdown-item p-3 hoverable" type="button" data-toggle="modal"
+                            data-target="#loginModal">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>{% trans 'Log in' %}</span>
+                        </a>
+                        <a class="dropdown-item p-3 hoverable" href="{% url 'account_signup' %}">
+                            <i class="fas fa-user-plus"></i>
+                            {% trans 'Signup' %}
+                        </a>
+                        {% endif %}
+
+                        
+                        
+                    </div>
                 </li>
 
-                <li class="nav-item">
-                    <!-- Button trigger modal -->
-                    <a class="nav-link p-3 hoverable" href="{% url 'account_signup' %}">
-                        <i class="fas fa-user-plus"></i>
-                        {% trans 'Signup' %}
-                    </a>
-                </li>
-                {% endif %}
             </ul>
         </div>
     </div>
