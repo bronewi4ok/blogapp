@@ -27,12 +27,12 @@
         <div class="col-12 col-md-8 col-lg-6 mx-auto">
             <form class="md-form" action="{% url 'blogapp:profile' %}" method="get">
                 <div class="row">
-                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12 mr-3" name="author">
+                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12 mr-3 p-2" name="author">
                     <option value="all" selected>All posts</option>
                     <option value="my">My posts</option>
                     <option value="other">Other posts</option>
                 </select>
-                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12" name="date">
+                <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12 p-2" name="date">
                     <option value='7' selected>Week</option>
                     <option value='30'>Month</option>
                     <option value='365'>Year</option>

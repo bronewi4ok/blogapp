@@ -61,6 +61,16 @@ body {
   display: none !important;
 }
 
+.dropdown-item {
+-webkit-transition: width 3s !important;
+  transition: width 5s !important;
+  color: gray !important;
+  border-radius: 0.1rem;
+}
+
+.dropdown-item:hover{
+  /* background-color: rgba(255, 255, 255, 0) !important; */
+}
 
 
 
