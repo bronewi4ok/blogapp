@@ -25,7 +25,10 @@
         {% if posts.number == i %}
         <li class="active page-item"><a class="page-link">{{ i }}</a></li>
         {% elif i > posts.number|add:'-3' and i < posts.number|add:'3' %}
-        <li class="page-item mx-2"><a class="page-link js_page_btn" id="page_btn" href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+        <li class="page-item mx-2">
+            <a class="page-link js_page_btn" id="page_btn" 
+            href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a>
+        </li>
         {% endif %}
         {% endfor %}
 

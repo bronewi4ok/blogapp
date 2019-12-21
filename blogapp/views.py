@@ -11,6 +11,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from datetime import datetime, timedelta
 
+from users.models import CustomUser
+from .filters import UserFilter
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -28,6 +30,7 @@ def post_list(request):
         post_range = Post.objects.published()
 
     search_amount = post_range.count()
+
     paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
     
@@ -93,7 +96,6 @@ def profile(request):
     return render(request, 'blogapp/post_list.html', context)
 
 
-
 def do_paginate(data_list, page_number):
     ret_data_list = data_list
     # suppose we display at most 2 records in each page.
@@ -140,6 +142,7 @@ def do_paginate(data_list, page_number):
 #     return render(request, 'blogapp/post_list.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+
 @login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -159,6 +162,7 @@ def post_detail(request, pk):
         }
     return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 @login_required
 def post_new(request):
@@ -181,6 +185,7 @@ def post_new(request):
 
 # , author__id=request.user.id
 
+
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -197,12 +202,14 @@ def post_edit(request, pk):
     return render(request, 'blogapp/post_edit.html', context)
     # reverse('blogapp:post_edit')
     # 'blogapp/post_edit.html' 
-    
-@login_required    
+
+
+@login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('blogapp:post_list')
+
 
 @login_required
 def post_draft(request):
@@ -210,6 +217,7 @@ def post_draft(request):
     posts = Post.objects.exclude(published_date__lte=timezone.now()).order_by('-created_date')
     posts = posts.filter(author=request.user)
     return render(request, 'blogapp/post_list.html', {'posts':posts, 'ip':ip})
+
 
 @login_required
 def post_publish(request, pk):
@@ -241,3 +249,7 @@ def add_comment_to_comment(request, pk, redid=None):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
+def search(request):
+    user_list = CustomUser.objects.all()
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, 'blogapp/user_list.html', {'filter': user_filter})
