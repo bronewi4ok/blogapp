@@ -21,3 +21,11 @@ class NewCommentForm(forms.ModelForm):
     class Meta:
         model = NewComment
         fields = ('text',)
+
+
+class SearchForm(forms.Form):
+    q = forms.CharField(max_length=120, required=False, label="how are you?")
+
+    def clean(self):
+        cleaned_data = super(SearchForm, self).clean()
+        name = cleaned_data.get('q')

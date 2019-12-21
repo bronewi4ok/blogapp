@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import timezone
 from .models import Post, NewComment
-from .forms import PostForm, NewCommentForm
+from .forms import PostForm, NewCommentForm, SearchForm
 from ipware import get_client_ip
 import mptt
 from user_agents import parse
@@ -18,16 +18,21 @@ from .filters import UserFilter
 
 def post_list(request):
     client_ip = get_client_ip(request)[0]
-    search = request.GET.get("q")
-    
-    if search:
-        post_range = Post.objects.published().filter(
-            Q(title__icontains=search) |
-            Q(text__icontains=search) 
-        )
-        post_range = post_range.distinct()
+    search = request.GET.get('q', '')
+
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            pass  # does nothing, just trigger the validation
     else:
-        post_range = Post.objects.published()
+        form = SearchForm(initial={})
+    
+    
+    post_range = Post.objects.published().filter(
+        Q(title__icontains=search) |
+        Q(text__icontains=search) 
+    )
+    post_range = post_range.distinct()
 
     search_amount = post_range.count()
 
@@ -44,7 +49,8 @@ def post_list(request):
         'posts': posts,
         'post_range': post_range,
         'search_q': search,
-        'search_amount': search_amount
+        'search_amount': search_amount,
+        'form': form,
         }
     # if horible != None:
     #     return render(request, 'blogapp/ajax_post_list.html', context)
@@ -94,25 +100,6 @@ def profile(request):
         'search_amount': search_amount
         }
     return render(request, 'blogapp/post_list.html', context)
-
-
-def do_paginate(data_list, page_number):
-    ret_data_list = data_list
-    # suppose we display at most 2 records in each page.
-    result_per_page = 2
-    # build the paginator object.
-    paginator = Paginator(data_list, result_per_page)
-    try:
-        # get data list for the specified page_number.
-        ret_data_list = paginator.page(page_number)
-    except EmptyPage:
-        # get the lat page data if the page_number is bigger than last page number.
-        ret_data_list = paginator.page(paginator.num_pages)
-    except PageNotAnInteger:
-        # if the page_number is not an integer then return the first page data.
-        ret_data_list = paginator.page(1)
-    return [ret_data_list, paginator]
-
 
 
 # from datetime import date

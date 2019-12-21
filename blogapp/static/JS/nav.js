@@ -4,7 +4,7 @@ $(function () {
     $(window).scroll(function () {
         var scroll = $(window).scrollTop();
 
-        if (scroll >= 300) {
+        if (scroll >= 100) {
             // header.removeClass('rgba-stylish-strong').addClass("rgba-stylish-light");
             navlink.removeClass('p-3').addClass("p-2 ");
         } else {
