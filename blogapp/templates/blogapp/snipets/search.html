@@ -31,7 +31,18 @@
     <div class="row mx-auto">
         <div class="col-12 col-md-8 col-lg-6 mx-auto">
             <form class="md-form" action="{% url 'blogapp:profile' %}" method="get">
-                <div class="row">
+                <div class="input-group md-form my-5">
+                    {{ form }}
+                    <div class="input-group-append unique-color rounded-pill">
+                        <span class="input-group-text white-text unique-color border-0 pr-0"
+                            id="basic-addon1">{{ search_amount }}</span>
+
+                        <button class="btn btn-link m-0 pl-3 py-2 pr-4 " type="submit">
+                            <i class="fa fa-search fa-2x white-text"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mb-5">
                     <select class="rounded-lg border-0 z-depth-1 form-control col-sm col-12 mr-3 p-2" name="author">
                         <option value="all" selected>All posts</option>
                         <option value="my">My posts</option>
@@ -43,7 +54,8 @@
                         <option value='365'>Year</option>
                     </select>
                 </div>
-                <div class="input-group-append">
+                
+                <div class="input-group-append mt-3">
                     <button class="btn btn-primary" type="submit"><i class="fas fa-filter"></i> Filter</button>
                 </div>
             </form>
@@ -51,20 +63,25 @@
     </div>
 </div>
 
-<div class="container-fluid white mb-5">
-    <div class="row mx-auto">
-        <div class="col-12 col-md-8 col-lg-6 mx-auto">
-            <form class="md-form" method="get">
-                {{ form.as_p }}
-                <div class="input-group-append unique-color rounded-pill">
-                    <span class="input-group-text white-text unique-color border-0 pr-0"
-                        id="basic-addon1">{{ search_amount }}</span>
 
-                    <button class="btn btn-link m-0 pl-3 py-2 pr-4 " type="submit">
-                        <i class="fa fa-search fa-2x white-text"></i>
-                    </button>
+<!-- <div class="py-3 container-fluid white mb-5">
+    <div class="row my-3">
+        <div class="col-12 col-md-8 col-lg-6 mx-auto">
+            <form action="{% url 'blogapp:profile' %}" method="get" role="search">
+                <div class="input-group md-form ">
+                    {{ form }}
+                    <div class="input-group-append unique-color rounded-pill">
+                        <span class="input-group-text white-text unique-color border-0 pr-0"
+                            id="basic-addon1">{{ search_amount }}</span>
+
+                        <button class="btn btn-link m-0 pl-3 py-2 pr-4 " type="submit">
+                            <i class="fa fa-search fa-2x white-text"></i>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
+</div> -->
+
+

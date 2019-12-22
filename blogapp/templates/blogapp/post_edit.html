@@ -7,7 +7,7 @@
 
     <form class="card col mx-auto pt-3" id="postForms" method="POST" enctype="multipart/form-data">
         <div class="card-body">
-            <div class="form">
+            <div class="md-form md-outline">
                 {% csrf_token %}
                 <div class="col">
                     {{ form.title|as_crispy_field }}
@@ -20,7 +20,7 @@
                 
                 <!-- Image upload -->
                 <div class="form-row">
-                    <div class="custom-file view overlay col" id="imageupload" style="height: 100px;">
+                    <div class="custom-file view overlay col p-0 m-0" id="imageupload" style="height: 100px;">
                         {{ form.cover }}
                         <label class="custom-file-label d-flex justify-content-center align-items-center h-100 p-0 m-0"
                             for="{{ form.cover.id_for_label }}">

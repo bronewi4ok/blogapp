@@ -4,12 +4,20 @@ from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 from captcha.fields import CaptchaField
 from django.urls import reverse
+from django.db.models import Q
 
 
 
-class PostManager(models.Manager):
+class PostQuerySet(models.QuerySet):
     def published(self):
         return self.filter(published_date__lte=timezone.now())
+    def search(self):
+        post_range = self.published().filter(
+            Q(title__icontains=search) |
+            Q(text__icontains=search) 
+        ).distinct()
+        return post_range
+
 
 class Post(models.Model):
     author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -19,7 +27,7 @@ class Post(models.Model):
     created_date    = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
     
-    objects = PostManager()
+    objects = PostQuerySet.as_manager()
 
     def publish(self):
         self.published_date = timezone.now()

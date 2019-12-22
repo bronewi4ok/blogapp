@@ -17,7 +17,6 @@ from .filters import UserFilter
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
-    client_ip = get_client_ip(request)[0]
     search = request.GET.get('q', '')
 
     if request.method == 'GET':
@@ -25,7 +24,7 @@ def post_list(request):
         if form.is_valid():
             pass  # does nothing, just trigger the validation
     else:
-        form = SearchForm(initial={})
+        form = SearchForm()
     
     
     post_range = Post.objects.published().filter(
@@ -47,7 +46,6 @@ def post_list(request):
         posts = paginator.page(paginator.num_pages)
     context = {'page': page,
         'posts': posts,
-        'post_range': post_range,
         'search_q': search,
         'search_amount': search_amount,
         'form': form,
@@ -64,9 +62,18 @@ def post_list(request):
 
 @login_required
 def profile(request):
-    client_ip = get_client_ip(request)[0]
     q_author = request.GET.get("author")
     q_date = request.GET.get("date")
+    search = request.GET.get('q')
+
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            pass  # does nothing, just trigger the validation
+    else:
+        form = SearchForm(initial={})
+    
+    
 
     if q_author == 'other':
         filter_author = Post.objects.published().exclude(author=request.user)
@@ -82,6 +89,13 @@ def profile(request):
     else:
         post_range = filter_author
 
+    if search:
+        post_range = post_range.filter(
+            Q(title__icontains=search) |
+            Q(text__icontains=search) 
+        )
+        post_range = post_range.distinct()
+
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
@@ -95,9 +109,9 @@ def profile(request):
     context = {
         'page': page,
         'posts': posts,
-        'post_range': post_range,
         'filter_autor': filter_author,
-        'search_amount': search_amount
+        'search_amount': search_amount,
+        'form': form,
         }
     return render(request, 'blogapp/post_list.html', context)
 

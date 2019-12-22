@@ -1,14 +1,11 @@
 $(function () {
-    // var header = $("#navbar");
     var navlink = $(".nav-link")
     $(window).scroll(function () {
         var scroll = $(window).scrollTop();
 
         if (scroll >= 100) {
-            // header.removeClass('rgba-stylish-strong').addClass("rgba-stylish-light");
             navlink.removeClass('p-3').addClass("p-2 ");
         } else {
-            // header.removeClass("rgba-stylish-light").addClass('rgba-stylish-strong');
             navlink.removeClass('p-2 mdb-color darken-4').addClass("p-3");
         }
     });
