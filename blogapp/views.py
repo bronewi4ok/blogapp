@@ -240,6 +240,14 @@ def add_comment_to_comment(request, pk, redid=None):
         form = NewCommentForm(initial={'author': request.user})
     return render(request, 'blogapp/add_comment_to_comment.html', {'form': form})
 
+
+
+@login_required
+def comment_remove(request, pk):
+    comment = get_object_or_404(NewComment, pk)
+    comment.delete()
+    return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 

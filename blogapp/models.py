@@ -21,7 +21,6 @@ class PostQuerySet(models.QuerySet):
             return post_range
 
 
-
 class Post(models.Model):
     author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     cover           = models.ImageField(upload_to='images/', null=True)
@@ -44,9 +43,6 @@ class Post(models.Model):
 
 
 
-
-
-
 class NewComment(MPTTModel):
     post = models.ForeignKey(
         'blogapp.Post',
@@ -55,7 +51,7 @@ class NewComment(MPTTModel):
         )
 
     commented_by    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text            = models.TextField(max_length=300)
+    text            = models.TextField(max_length=900)
     created_date    = models.DateTimeField(default=timezone.now)
     parent          = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     
@@ -64,4 +60,4 @@ class NewComment(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['created_date']
-
+    

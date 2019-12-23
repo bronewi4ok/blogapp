@@ -2,16 +2,42 @@ body {
   /* font-family: 'Nunito', sans-serif !important;
   font-family: 'Nunito Sans', sans-serif !important; */
   font-family: 'Montserrat', sans-serif !important;
-  font-size: calc(0.6em + 0.6vw) !important;
+  /* font-size: calc(0.8em + 0.5vw) !important;
+  line-height: calc(1.8em) !important; */
+
 
 }
 
-
+/* ASPECT RATIO */
+/* 
+<div class="row">
+    .<div class="container-fluid">
+        <div class="col-12 col-md-4">
+            <div style="position: relative;  padding-top: 66.66%; width: 100%; background-color: red;">
+                <img class="" src="{{ user.avatar.url }}" alt="avatar"
+                    style="width: 100%; max-height: 100%; top:0; left: 0; object-fit: cover;  position: absolute;">
+            </div>
+        </div>
+    </div>
+</div> */
 
 select {
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
+  -moz-appearance: none;
+  /* Firefox */
+  -webkit-appearance: none;
+  /* Safari and Chrome */
+  appearance: none;
+}
+
+.prof_image {
+  height: 130px !important;
+  width: 130px !important;
+  object-fit: cover !important;
+  margin: auto !important;
+  border: solid white 6px !important;
+  bottom: -60px !important;
+  margin: auto !important;
+  border-radius: 50% !important;
 }
 
 .btn-circle {
@@ -51,14 +77,15 @@ select {
   padding: 0 !important;
   border-radius: 50% !important;
   object-fit: cover;
+  border: solid white 3px
 }
 
 .btn-social-mmm {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  width: 2rem !important;
-  height: 2rem !important;
+  /* width: 3.25rem !important;
+  height: 3.25rem !important; */
   padding: 0 !important;
   border-radius: 50% !important;
   object-fit: cover;
@@ -69,13 +96,13 @@ select {
 }
 
 .dropdown-item {
--webkit-transition: width 3s !important;
+  -webkit-transition: width 3s !important;
   transition: width 5s !important;
   color: gray !important;
   border-radius: 0.1rem;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
   /* background-color: rgba(255, 255, 255, 0) !important; */
 }
 

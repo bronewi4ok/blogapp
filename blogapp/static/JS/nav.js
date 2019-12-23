@@ -11,28 +11,28 @@ $(function () {
     });
 });
 
-$(function () {
-    $(window).on('resize', function () {
-        if ($(window).width() > 767) {
-            // $('#navbar').addClass('fixed-top');
-            // $('#navbar').removeClass('fixed-bottom');
-            $('#navbar').addClass('p-3');
-            $('#navbar').removeClass('p-1');
-            $('#btnNewPost').addClass('btn-circle');
-            $('#btnNewPost').removeClass('btn-social');
+// $(function () {
+//     $(window).on('resize', function () {
+//         if ($(window).width() > 767) {
+//             // $('#navbar').addClass('fixed-top');
+//             // $('#navbar').removeClass('fixed-bottom');
+//             $('#navbar').addClass('p-3');
+//             $('#navbar').removeClass('p-1');
+//             $('#btnNewPost').addClass('btn-circle');
+//             $('#btnNewPost').removeClass('btn-social');
 
 
-        } else {
-            // $('#navbar').addClass('fixed-bottom');
-            // $('#navbar').removeClass('fixed-top');
-            $('#navbar').addClass('p-1');
-            $('#navbar').removeClass('p-3');
-            $('#btnNewPost').addClass('btn-social');
-            $('#btnNewPost').removeClass('btn-circle');
+//         } else {
+//             // $('#navbar').addClass('fixed-bottom');
+//             // $('#navbar').removeClass('fixed-top');
+//             $('#navbar').addClass('p-1');
+//             $('#navbar').removeClass('p-3');
+//             $('#btnNewPost').addClass('btn-social');
+//             $('#btnNewPost').removeClass('btn-circle');
 
-        }
-    })
-});
+//         }
+//     })
+// });
 
 
 

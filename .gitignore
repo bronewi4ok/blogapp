@@ -6,3 +6,4 @@ myvenv
 /static
 DS.store
 local_settings.py
+/media
