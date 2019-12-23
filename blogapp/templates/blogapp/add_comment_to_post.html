@@ -2,11 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="form_container">
-    <h1>New comment</h1>
-    <form method="POST" class="forms">{% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="button">Send</button>
-    </form>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col mt-5">
+            <h1 class="text-muted">New comment</h1>
+            <form method="POST" class="md-form md-outline">{% csrf_token %}
+                {{ form.text|add_class:'col form-control'  }}
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

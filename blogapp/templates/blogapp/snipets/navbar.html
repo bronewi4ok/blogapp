@@ -81,7 +81,7 @@
             <ul class="navbar-nav ml-auto nav-flex-icons">
 
                 <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    <a class="nav-link dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         {% if user.is_authenticated %}
                         <img class="btn-social-mmm rounded-circle z-depth-0" src="{{  user.avatar.url }}" alt="avatar">
@@ -89,7 +89,6 @@
                         <i class="far fa-user-circle"></i>
                         <!-- <i class="fas fa-user-astronaut fa-2x"></i> -->
                         {% endif %}
-
                     </a>
                     
 

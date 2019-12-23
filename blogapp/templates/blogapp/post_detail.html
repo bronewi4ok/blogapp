@@ -2,6 +2,7 @@
 {% load mptt_tags %}
 {% block content %}
 {% load static %}
+{% load widget_tweaks %}
 
 
 <!-- POSTS -->
@@ -44,8 +45,18 @@
         {% if post.published_date %}
         <div class="comments px-3">
             <hr>
-            <a href="{% url 'blogapp:add_comment_to_comment' pk=post.pk %} ">Add comment <i
-                    class="far fa-comment-alt"></i></a>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col mt-5">
+                        <h3 class="text-muted">New comment</h3>
+                        <form method="POST" class="md-form md-outline">
+                            {% csrf_token %}
+                            {{ form.text|add_class:'col form-control'|attr:"rows:5"  }}
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="comment my-5 mx-3">

@@ -32,9 +32,24 @@ class NewCommentForm(forms.ModelForm):
         fields = ('text',)
 
 
+DATE_CHOICES = [
+    (100000, 'All'),
+    (7, 'Week'),
+    (30, 'Month'),
+    (365, 'Year'),
+]
+
+AUTHOR_CHOICES = [
+    ('all', 'All'),
+    ('my', 'My'),
+    ('other', 'Other'),
+]
+
+
 class SearchForm(forms.Form):
-    q = forms.CharField(max_length=120, required=False, label="how are you?",  widget=forms.TextInput(attrs={'class': 'col form-control'}))
-    # author = forms.ChoiceField(choices=[CHOICES], required=False)
+    q = forms.CharField(max_length=120, required=False, label="how are you?")
+    date = forms.ChoiceField(choices=DATE_CHOICES, required=False, label="how are you?")
+    author = forms.ChoiceField(choices=AUTHOR_CHOICES, required=False, label="how are you?")
 
     def clean(self):
         cleaned_data = super(SearchForm, self).clean()

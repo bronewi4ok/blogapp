@@ -11,12 +11,15 @@ from django.db.models import Q
 class PostQuerySet(models.QuerySet):
     def published(self):
         return self.filter(published_date__lte=timezone.now())
-    def search(self):
-        post_range = self.published().filter(
-            Q(title__icontains=search) |
-            Q(text__icontains=search) 
-        ).distinct()
-        return post_range
+
+    def search(self, search_q):
+        if search_q:
+            post_range = self.published().filter(
+                Q(title__icontains=search_q) |
+                Q(text__icontains=search_q) 
+            ).distinct()
+            return post_range
+
 
 
 class Post(models.Model):
@@ -50,8 +53,9 @@ class NewComment(MPTTModel):
         on_delete=models.CASCADE,
         related_name='new_comments'
         )
+
     commented_by    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    text            = models.TextField()
+    text            = models.TextField(max_length=300)
     created_date    = models.DateTimeField(default=timezone.now)
     parent          = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     

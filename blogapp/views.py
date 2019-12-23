@@ -22,16 +22,11 @@ def post_list(request):
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
-            pass  # does nothing, just trigger the validation
+            pass
     else:
         form = SearchForm()
-    
-    
-    post_range = Post.objects.published().filter(
-        Q(title__icontains=search) |
-        Q(text__icontains=search) 
-    )
-    post_range = post_range.distinct()
+
+    post_range = Post.objects.published()
 
     search_amount = post_range.count()
 
@@ -50,9 +45,7 @@ def post_list(request):
         'search_amount': search_amount,
         'form': form,
         }
-    # if horible != None:
-    #     return render(request, 'blogapp/ajax_post_list.html', context)
-    # else:
+
     return render(request, 'blogapp/post_list.html', context)
 
 
@@ -64,17 +57,15 @@ def post_list(request):
 def profile(request):
     q_author = request.GET.get("author")
     q_date = request.GET.get("date")
-    search = request.GET.get('q')
+    search_q = request.GET.get('q')
 
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
             pass  # does nothing, just trigger the validation
     else:
-        form = SearchForm(initial={})
+        form = SearchForm()
     
-    
-
     if q_author == 'other':
         filter_author = Post.objects.published().exclude(author=request.user)
     elif q_author == 'my':
@@ -82,19 +73,14 @@ def profile(request):
     else:
         filter_author = Post.objects.published().filter()
 
-
     if q_date:
         data_range = timezone.now() - timedelta(days=int(q_date))
         post_range = filter_author.filter(published_date__gte=data_range)
     else:
         post_range = filter_author
 
-    if search:
-        post_range = post_range.filter(
-            Q(title__icontains=search) |
-            Q(text__icontains=search) 
-        )
-        post_range = post_range.distinct()
+    if search_q:
+        post_range = post_range.search(search_q)
 
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
@@ -148,18 +134,25 @@ def profile(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     new_comments = NewComment.objects.filter(post__pk=post.pk)
-    paginator = Paginator(new_comments, 3)
-    page = request.GET.get('page')
-    try:
-        comments = paginator.page(page)
-    except PageNotAnInteger:
-        comments = paginator.page(1)
-    except EmptyPage:
-        comments = paginator.page(paginator.num_pages)
+    if request.method == "POST":
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.commented_by = request.user
+            comment.save()
+            if pk:
+                happy_comment = get_object_or_404(NewComment, pk = pk)
+                comment.parent = happy_comment
+                comment.save()
+            return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
+    else:
+        form = NewCommentForm(initial={'author': request.user})
+
     context = {
         'post': post,
-        'comments': comments,
         'new_comments': new_comments,
+        'form': form
         }
     return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

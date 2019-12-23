@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django_user_agents',
     'sslserver',
     'crispy_forms',
+    'widget_tweaks',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

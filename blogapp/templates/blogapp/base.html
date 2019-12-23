@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 
 <html>
 
@@ -20,6 +21,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
+    <!-- Normilize.css -->
+    <link rel="stylesheet" href="assets/styles/normalize.css">
+    <link rel="stylesheet" href="assets/styles/main.css">
     <style>
         .row {
             margin: 0px !important;
@@ -57,9 +61,9 @@
     <!-- Navbar -->
     {% include 'blogapp/snipets/navbar.html' %}
 
-    
 
-    
+
+
     <!-- NewPost button -->
     <div class="container-fluid invisible">
         <div class="position-fixed fixed-bottom d-flex justify-content-end m-4 red-text">
@@ -84,7 +88,7 @@
 
 
 
-    
+
     <!-- Main block -->
     {% block content %}
 
