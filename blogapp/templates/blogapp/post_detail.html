@@ -21,16 +21,16 @@
                 <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
             </a>
             {% if post.author == user %}
-            <a class="mx-1" href="{% url 'blogapp:post_edit' pk=post.pk %}">
-                    <i class="fas fa-edit fa-lg shadow_hover"></i>
+            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' pk=post.pk %}">
+                    <i class="far fa-edit fa-lg shadow_hover"></i>
             </a>
-            <a class="mx-1" href="{% url 'blogapp:post_remove' pk=post.pk %}">
-                    <i class="fas fa-trash-alt fa-lg shadow_hover"></i>
+            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_remove' pk=post.pk %}">
+                    <i class="far fa-trash-alt fa-lg shadow_hover"></i>
             </a>
 
             {% if not post.published_date %}
-            <a class="mx-1" href="{% url 'blogapp:post_publish' pk=post.pk %}">
-                    <i class="fas fa-paper-plane fa-lg shadow_hover"></i>
+            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_publish' pk=post.pk %}">
+                    <i class="far fa-paper-plane fa-lg "></i>
             </a>
             {% endif %}
 

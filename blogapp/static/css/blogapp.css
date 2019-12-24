@@ -61,7 +61,6 @@ select {
 
 .shadow_hover:hover {
   text-shadow: -7px 8px 2px gray, -3px 5px silver;
-  box-shadow:0 .5rem 1rem 0 rgba(255,165,0,.2),0 .375rem 1.25rem 0 rgba(255, 165,0,.19)
 }
 
 .text_shadow {
