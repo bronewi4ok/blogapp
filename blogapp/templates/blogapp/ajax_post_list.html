@@ -19,28 +19,30 @@
                         {% endif %}
 
                         <div class="card-body position-relative">
-                            <a class="position-absolute white btn-circle-bg"
+                            <a class="position-absolute white btn-circle-bg rotate-in-center"
                                 style="top: -2.25rem; right: 1.5rem; z-index: 1000;"
                                 href="{% url 'post_author_profile' pk=post.pk %}">
                                 <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
                             </a>
 
                             <h6 class="card-subtitle pink-text mb-3">
+                                {% if post.published_date %}
+                                <p>{{ post.published_date.date|date:"d M Y" }}</p>
+                                {% endif %}
+
                                 {% if post.author %}
-                                <span> {{ post.author.username|capfirst }}</span>
+                                <p> {{ post.author.username|capfirst }}</p>
                                 {% else %}
                                 <p>No name</p>
                                 {% endif %}
 
-                                {% if post.published_date %}
-                                <span>{{ post.published_date.date|date:"d M Y" }}</span>
-                                {% endif %}
+
                             </h6>
-                            <h4 class="card-title text-break overflow-hidden"
+                            <h4 class="card-title text-break overflow-hidden ellipsis"
                                 style="line-height: 1.6rem; height: 3.2rem;">
                                 {{ post.title|capfirst }}
                             </h4>
-                            <p class="card-text text-break text-dark overflow-hidden"
+                            <p class="card-text text-break text-dark overflow-hidden ellipsis"
                                 style="line-height: 1.6rem; height: 4.8rem;">
                                 {{ post.text|linebreaksbr|capfirst|truncatechars:120}}
                             </p>

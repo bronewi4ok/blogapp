@@ -16,17 +16,24 @@
         {% endif %}
 
         <div class="card-body position-relative">
-            <a class="position-absolute white btn-circle-bg" style="top: -2.25rem; right: 1.5rem;"
+            <a class="position-absolute white btn-circle-bg rotate-in-center" style="top: -2.25rem; right: 2.5rem;"
                 href="{% url 'post_author_profile' pk=post.pk %}">
                 <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
             </a>
             {% if post.author == user %}
-            <a class="far fa-edit font mx-2" href="{% url 'blogapp:post_edit' pk=post.pk %}"></a>
-            <a class="fas fa-trash-alt mx-2" href="{% url 'blogapp:post_remove' pk=post.pk %}"></a>
+            <a class="mx-1" href="{% url 'blogapp:post_edit' pk=post.pk %}">
+                    <i class="fas fa-edit fa-lg shadow_hover"></i>
+            </a>
+            <a class="mx-1" href="{% url 'blogapp:post_remove' pk=post.pk %}">
+                    <i class="fas fa-trash-alt fa-lg shadow_hover"></i>
+            </a>
+
             {% if not post.published_date %}
-            <a class="mx-2 float-right" href="{% url 'blogapp:post_publish' pk=post.pk %}"><i
-                    class="far fa-paper-plane"></i></a>
+            <a class="mx-1" href="{% url 'blogapp:post_publish' pk=post.pk %}">
+                    <i class="fas fa-paper-plane fa-lg shadow_hover"></i>
+            </a>
             {% endif %}
+
             {% endif %}
 
             {% if post.published_date %}
@@ -37,7 +44,9 @@
                 {{ post.title|capfirst }}
             </h2>
 
-            <p class="card-text text-break overflow-hidden">{{ post.text|linebreaksbr|capfirst }}</p>
+            <p class=" text-break overflow-hidden">{{ post.text|linebreaksbr|capfirst }}</p>
+
+
         </div>
 
 
@@ -104,4 +113,6 @@
         {% endif %}
     </div>
 </div>
+
+
 {% endblock %}

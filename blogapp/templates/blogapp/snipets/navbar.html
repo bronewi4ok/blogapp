@@ -15,8 +15,8 @@
     <div class="container">
         <a class="navbar-brand waves-light p-2 rounded-pill" href="#">MENU:</a>
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"> <span
-                class="navbar-toggler-icon"></span>
+            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"> 
+            <i class="fas fa-hamburger"></i>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -81,14 +81,17 @@
             <ul class="navbar-nav ml-auto nav-flex-icons">
 
                 <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true"
+                    <a class="nav-link dropdown-toggle rounded-pill p-0 rotate-in-center" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <div class="btn-social-mmm white p-0">
+                        <div class="btn-social-mmm p-0">
                             {% if user.is_authenticated %}
-                            <img class="btn-social rounded-circle z-depth-0 m-0" src="{{  user.avatar.url }}" alt="avatar">
+                            <img class="btn-social rounded-circle z-depth-0 m-0 p-0" src="{{  user.avatar.url }}" alt="avatar">
                             {% else %}
-                            <i class="far fa-user-circle"></i>
-                            <!-- <i class="fas fa-user-astronaut fa-2x"></i> -->
+                            <!-- <i class="far fa-user-circle"></i> -->
+                            <span class="fa-stack fa-lg">
+                                <i class="far fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-user-astronaut fa-stack-1x"></i>
+                            </span>
                             {% endif %}
                         </div>
                     </a>
