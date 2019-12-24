@@ -7,14 +7,14 @@
         {% if posts.has_previous %}
 
         <li class="page-item">
-            <a class="page-link btn-social js_page_btn"
+            <a class="page-link "
                 id="page_btn" href="?{% param_replace page=1 %}">
                 <i class="fa fa-angle-double-left"></i>
             </a>
         </li>
 
         <li class="page-item">
-            <a class="page-link btn-social js_page_btn"
+            <a class="page-link"
                 id="page_btn" href="?{% param_replace page=posts.previous_page_number %}">
                 <i class="fa fa-angle-left"></i>
             </a>
@@ -26,7 +26,7 @@
         <li class="active page-item"><a class="page-link">{{ i }}</a></li>
         {% elif i > posts.number|add:'-3' and i < posts.number|add:'3' %}
         <li class="page-item mx-2">
-            <a class="page-link js_page_btn" id="page_btn" 
+            <a class="page-link" id="page_btn" 
             href="?{% param_replace page=i %}">{{ i }}</a>
         </li>
         {% endif %}
@@ -34,13 +34,13 @@
 
         {% if posts.has_next %}
         <li class="page-item">
-            <a class="page-link btn-social js_page_btn"
+            <a class="page-link"
                 id="page_btn" href="?{% param_replace page=posts.next_page_number %}">
                 <i class="fa fa-angle-right"></i>
             </a>
         </li>
         <li class="page-item">
-                <a class="page-link btn-social js_page_btn"
+                <a class="page-link"
                     id="page_btn" href="?{% param_replace page=posts.paginator.num_pages %}">
                     <i class="fa fa-angle-double-right"></i>
                 </a>

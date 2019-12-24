@@ -54,10 +54,6 @@ select {
   object-fit: cover;
 }
 
-.btn-circle:hover {
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
-  ;
-}
 
 .shadow_hover:hover {
   text-shadow: -7px 8px 2px gray, -3px 5px silver;
@@ -94,16 +90,6 @@ select {
   object-fit: cover;
 }
 
-.btn-social-mmm {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 3.25rem !important;
-  height: 3.25rem !important;
-  padding: 0 !important;
-  border-radius: 50% !important;
-  object-fit: cover;
-}
 
 .dropdown-toggle:after {
   display: none !important;

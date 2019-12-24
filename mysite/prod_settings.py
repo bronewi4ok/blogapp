@@ -9,6 +9,10 @@ DATABASES = {
     }
 DEBUG = True
 
+EMAIL_HOST_USER = 'bronewi4ok@gmail.com'
+EMAIL_HOST_PASSWORD = 'random92'
+
+
 # # secure
 # CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_SAMESITE = 'Strict'
