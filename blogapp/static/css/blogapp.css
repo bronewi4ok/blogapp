@@ -55,19 +55,6 @@ select {
 }
 
 
-.shadow_hover:hover {
-  text-shadow: -7px 8px 2px gray, -3px 5px silver;
-}
-
-.text_shadow {
-  text-shadow: -7px 8px 2px gray, -3px 5px silver;
-}
-
-.hover:hover {
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
-  ;
-}
-
 .btn-circle-bg {
   display: flex !important;
   justify-content: center !important;
@@ -83,11 +70,24 @@ select {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  width: 3rem !important;
-  height: 3rem !important;
-  padding: 0 !important;
+  width: 45px !important;
+  height: 45px !important;
   border-radius: 50% !important;
   object-fit: cover;
+}
+
+
+.shadow_hover:hover {
+  text-shadow: -7px 8px 2px gray, -3px 5px silver;
+}
+
+.text_shadow {
+  text-shadow: -7px 8px 2px gray, -3px 5px silver;
+}
+
+.hover:hover {
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3);
+  ;
 }
 
 
@@ -101,11 +101,6 @@ select {
   color: gray !important;
   border-radius: 0.1rem;
 }
-
-.dropdown-item:hover {
-  /* background-color: rgba(255, 255, 255, 0) !important; */
-}
-
 
 
 
