@@ -106,27 +106,6 @@ def profile(request):
 # Post.objects.filter(published_date__date=date.today())
 # Post.objects.filter(published_date__month=date.month())
 
-
-
-# @login_required
-# def profile(request):
-#     client_ip = get_client_ip(request)[0]
-#     post_range = Post.objects.filter(published_date__lte=timezone.now(), author_id=request.user.id)
-#     paginator = Paginator(post_range, 6)
-#     page = request.GET.get('page')
-#     try:
-#         posts = paginator.page(page)
-#     except PageNotAnInteger:
-#         posts = paginator.page(1)
-#     except EmptyPage:
-#         posts = paginator.page(paginator.num_pages)
-#     context = {
-#         'page': page,
-#         'posts': posts,
-#         'client_ip': client_ip,
-#         'post_range': post_range
-#         }
-#     return render(request, 'blogapp/post_list.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -177,8 +156,6 @@ def post_new(request):
     context = {'form': form}
     return render(request, 'blogapp/post_edit.html', context)
 
-# , author__id=request.user.id
-
 
 @login_required
 def post_edit(request, pk):
@@ -194,9 +171,7 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     context = {'form': form}
     return render(request, 'blogapp/post_edit.html', context)
-    # reverse('blogapp:post_edit')
-    # 'blogapp/post_edit.html' 
-
+ 
 
 @login_required
 def post_remove(request, pk):

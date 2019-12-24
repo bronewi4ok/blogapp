@@ -4,9 +4,12 @@ $(function () {
         var scroll = $(window).scrollTop();
 
         if (scroll >= 100) {
-            navlink.removeClass('p-3').addClass("p-2 ");
+            navlink.removeClass('p-3').addClass("p-2");
+            $('#navbar').removeClass('p-3').addClass("p-2");
         } else {
             navlink.removeClass('p-2 mdb-color darken-4').addClass("p-3");
+            $('#navbar').removeClass('p-2').addClass("p-3");
+
         }
     });
 });
