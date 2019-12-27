@@ -2,16 +2,19 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import timezone
-from .models import Post, NewComment
-from .forms import PostForm, NewCommentForm, SearchForm
+from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+from django.core import serializers
+
 from ipware import get_client_ip
 import mptt
 from user_agents import parse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 from datetime import datetime, timedelta
-
 from users.models import CustomUser
+
+from .models import Post, NewComment
+from .forms import PostForm, NewCommentForm, SearchForm
 from .filters import UserFilter
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -109,31 +112,6 @@ def profile(request):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
-@login_required
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    new_comments = NewComment.objects.filter(post__pk=post.pk)
-    if request.method == "POST":
-        form = NewCommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.commented_by = request.user
-            comment.save()
-            if pk:
-                happy_comment = get_object_or_404(NewComment, pk = pk)
-                comment.parent = happy_comment
-                comment.save()
-            return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
-    else:
-        form = NewCommentForm(initial={'author': request.user})
-
-    context = {
-        'post': post,
-        'new_comments': new_comments,
-        'form': form
-        }
-    return render(request, 'blogapp/post_detail.html', context)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -197,7 +175,48 @@ def post_publish(request, pk):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-def add_comment_to_comment(request, pk, redid=None):
+# POST DETAIL and COMMENTS
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    new_comments = NewComment.objects.filter(post__pk=post.pk)
+    if request.method == "POST":
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.commented_by = request.user
+            comment.save()
+            serialized_comment = serializers.serialize('json', [comment,])
+            context = {
+                'post': post,
+                'new_comments': new_comments,
+                'form': form
+                }
+            return render(request, 'blogapp/post_detail_ajax.html', context)
+
+            # return JsonResponse({ "new_comments":serialized_comment })
+            if pk:
+                happy_comment = get_object_or_404(NewComment, pk = pk)
+                comment.parent = happy_comment
+                comment.save()
+                comment = comment.values()
+                print('!!!!!' + comment)
+                return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
+                
+
+    else:
+        form = NewCommentForm(initial={'author': request.user})
+
+    context = {
+        'post': post,
+        'new_comments': new_comments,
+        'form': form
+        }
+    return render(request, 'blogapp/post_detail.html', context)
+
+
+@login_required
+def add_comment_to_comment(request, pk, com_id=None):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = NewCommentForm(request.POST)
@@ -206,11 +225,12 @@ def add_comment_to_comment(request, pk, redid=None):
             comment.post = post
             comment.commented_by = request.user
             comment.save()
-            if redid:
-                happy_comment = get_object_or_404(NewComment, pk = redid)
+            if com_id:
+                happy_comment = get_object_or_404(NewComment, pk = com_id)
                 comment.parent = happy_comment
                 comment.save()
             return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
+            
     else:
         form = NewCommentForm(initial={'author': request.user})
     return render(request, 'blogapp/add_comment_to_comment.html', {'form': form})
@@ -218,10 +238,13 @@ def add_comment_to_comment(request, pk, redid=None):
 
 
 @login_required
-def comment_remove(request, pk):
-    comment = get_object_or_404(NewComment, pk)
+def comment_remove(request, pk, com_id):
+    comment = get_object_or_404(NewComment, pk=com_id)
     comment.delete()
-    return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
+    if request.is_ajax():
+        return JsonResponse({"good_news": "Huray!"})
+    else:
+        return redirect(reverse('blogapp:post_detail', kwargs={'pk': pk}))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 

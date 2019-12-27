@@ -1,0 +1,57 @@
+{% load mptt_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
+<ul class="list-unstyled comment_tree">
+    {% recursetree new_comments %}
+    <li class="mb-3 this_comment" koko="{{ node.id }}" koko2="{{ post.id }}">
+        <div class="card mb-3">
+
+            <!-- Remove -->
+            <div class="card-body">
+                {% if node.commented_by == user %}
+                <a class="float-right text-black-50 delete_comment "
+                    href="{% url 'blogapp:remove_comment' pk=post.pk com_id=node.pk %}" id="{{ node.id }}">
+                    <i class="fas fa-times fa-lg shadow_hover"></i>
+                </a>
+                {% endif %}
+
+                <div class="row p-0">
+                    <!-- Image -->
+                    <div class="btn-social-bg m-2 col-sm-1 p-0">
+                        {% if node.commented_by.avatar %}
+                        <img class="bttn_social" src="{{ node.commented_by.avatar.url }}" alt="avatar">
+                        {% else %}
+                        <img class="bttn_social" src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                        {% endif %}
+                    </div>
+
+                    <!-- Text -->
+                    <div class="col-sm-10">
+                        <h6 class="card-title text-break overflow-hidden">
+                            {{ node.created_date }}
+                            {{ node.commented_by.username }}
+                        </h6>
+                        <p class="card-text">
+                            {{ node.text }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reply -->
+            <a class="card-footer" href="{% url 'blogapp:add_comment_to_comment' pk=post.pk com_id=node.pk %}">
+                <span><i class="far fa-comment-alt"></i> Reply</span>
+            </a>
+        </div>
+
+        {% if not node.is_leaf_node %}
+
+        <ul class="list-unstyled ml-3 ml-sm-5">
+            {{ children }}
+        </ul>
+        {% endif %}
+
+    </li>
+    {% endrecursetree %}
+</ul>

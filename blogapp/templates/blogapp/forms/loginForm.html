@@ -32,10 +32,10 @@
 
 
             <div class="tab-content" id="myTabContent">
+               
                 <!-- Login -->
-
                 <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="home-tab">
-                    <form class="login md-form" method="POST" action="{% url 'account_login' %}">
+                    <form class="loginForm md-form" method="POST" action="{% url 'account_login' %}">
                         <div class="modal-body m-2">
                             {% csrf_token %}
                             <!-- E-mail input -->
@@ -48,6 +48,7 @@
                                 <small id="loginSmallEmail" class="form-text text-muted">{% trans 'This field required' %}
                                 </small>
                             </div>
+
                             <!-- Login input -->
                             <div class="md-form md-outline mb-3">
                                 <i class="fas fa-lock prefix"></i>
@@ -59,7 +60,6 @@
                                 </label>
                                 <small id="loginSmallPassword" class="form-text text-muted">{% trans 'This field required' %}
                                 </small>
-
                             </div>
                             <!-- Social buttons -->
                             <div class="d-flex justify-content-center">
@@ -100,7 +100,7 @@
                             <!-- E-mail input -->
                             <div class="md-form md-outline mb-3">
                                 <i class="fas fa-envelope prefix"></i>
-                                <input class="form-control z-depth-1 p-2 " type="text" name="login"
+                                <input class="form-control z-depth-1 p-2 " type="text" name="email"
                                     id="signupFormEmail" aria-describedby="sigupSmallEmail">
                                 <label data-error="wrong" data-success="right" for="signupFormEmail">Your email</label>
                                 <small id="sigupSmallEmail" class="form-text text-muted">{% trans 'This field required' %}
@@ -110,7 +110,7 @@
                             <!-- Password input -->
                             <div class="md-form md-outline  mb-3">
                                 <i class="fas fa-lock prefix"></i>
-                                <input type="password" name="password"
+                                <input type="password" name="password1"
                                     class="textinput textInput form-control z-depth-1 boreder boreder-0"
                                     id="signupFormPassword" aria-describedby="signupSmallPassword">
                                 <label data-error="wrong" data-success="right" for="signupFormPassword">Your

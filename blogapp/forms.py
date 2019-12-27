@@ -45,7 +45,6 @@ AUTHOR_CHOICES = [
     ('other', 'Other'),
 ]
 
-
 class SearchForm(forms.Form):
     q = forms.CharField(max_length=120, required=False, label="how are you?")
     date = forms.ChoiceField(choices=DATE_CHOICES, required=False, label="how are you?")

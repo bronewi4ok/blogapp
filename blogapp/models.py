@@ -23,7 +23,7 @@ class PostQuerySet(models.QuerySet):
 
 class Post(models.Model):
     author          = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    cover           = models.ImageField(upload_to='images/', null=True)
+    cover           = models.ImageField(upload_to='images/%Y/%m/%d/', null=True)
     title           = models.CharField(max_length=200)
     text            = models.TextField()
     created_date    = models.DateTimeField(default=timezone.now)
@@ -42,7 +42,7 @@ class Post(models.Model):
         return reverse('blogapp:post_detail', args=[str(self.id)])
 
     class Meta():
-        ordering = ['-published_date']
+        ordering = ['published_date']
 
 
 
@@ -62,5 +62,5 @@ class NewComment(MPTTModel):
         return self.text
 
     class MPTTMeta:
-        order_insertion_by = ['created_date']
+        order_insertion_by = ['-created_date']
     

@@ -6,7 +6,8 @@
     <div class="row">
         <div class="col mt-5">
             <h1 class="text-muted">New comment</h1>
-            <form method="POST" class="md-form md-outline">{% csrf_token %}
+            <form method="POST" class="md-form md-outline">
+                {% csrf_token %}
                 {{ form.text|add_class:'col form-control'  }}
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>

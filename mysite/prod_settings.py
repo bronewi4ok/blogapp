@@ -10,7 +10,7 @@ DATABASES = {
 DEBUG = True
 
 EMAIL_HOST_USER = 'bronewi4ok@gmail.com'
-EMAIL_HOST_PASSWORD = 'random92'
+EMAIL_HOST_PASSWORD = 'random@42'
 
 
 # # secure
