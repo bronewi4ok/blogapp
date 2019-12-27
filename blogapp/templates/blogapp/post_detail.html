@@ -59,7 +59,8 @@
                         <h3 class="text-muted">New comment</h3>
                         <form method="POST" class="md-form md-outline commentForm">
                             {% csrf_token %}
-                            {{ form.text|add_class:'col form-control'|attr:"rows:4"  }}
+                            {{ form.text|add_class:'col form-control border-0 z-depth-1 rounded-lg p-3'|attr:"rows:4"  }}
+                            <label for="id_text">Leave a comment</label>
 
                             {% if request.user.is_authenticated %}
                             <button type="submit" class="btn btn-primary float-right">Send</button>
@@ -74,8 +75,6 @@
                 </div>
             </div>
         </div>
-
-
 
 
         <!-- COMMENTS -->

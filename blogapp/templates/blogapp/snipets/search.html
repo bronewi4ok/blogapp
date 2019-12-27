@@ -3,10 +3,10 @@
 
 
 <!-- Filter -->
-<div class="container-fluid white mb-5">
+<div class="container-fluid white mb-5" id="Filter">
     <div class="row mx-auto">
         <div class="col-12 col-md-8 col-lg-6 mx-auto">
-            <form class="md-form" action="{% url 'blogapp:profile' %}" method="get">
+            <form class="md-form" action="{% url 'blogapp:profile' %}#Filter" method="get">
                 <div class="input-group md-form">
                     {{ form.q|add_class:'col form-control' }}
                     <div class="input-group-append unique-color rounded-pill">
@@ -29,8 +29,8 @@
                     </div>
                 </div>
                 <div class="input-group-append mt-3">
-                    <button class="btn btn-warning" type="submit"><i class="fas fa-filter"></i> Filter</button>
-                    <!-- <input type="button" value="Reset Form" onClick="this.form.reset()" /> -->
+                    <button class="btn btn-success" type="submit"><i class="fas fa-filter"></i> Filter</button>
+                    <a class="btn btn-outline-warning" href="{% url 'blogapp:post_list' %}#Filter"><i class="fas fa-redo-alt"></i> Reset</a>
                 </div>
             </form>
         </div>

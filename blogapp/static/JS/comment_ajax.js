@@ -14,13 +14,12 @@ $(document).ready(function () {
                 "pk": post_id,
                 "com_id": comment_id
             },
-            success: function (data) {
-                comment.addClass("animated").addClass("hinge").css("z-index", "2000").delay(2000).slideUp( "slow", "swing");
-                // alert(data['good_news'])
+            success: function () {
+                comment.css("z-index", "3000").addClass("animated").addClass("hinge").delay(2000).slideUp( "slow", "swing");
+                console.log("success")
             },
-            error: function (errorData) {
+            error: function () {
                 console.log("error")
-                console.log(errorData)
             }
 
         })
