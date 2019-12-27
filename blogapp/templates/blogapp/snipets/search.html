@@ -20,17 +20,24 @@
                 </div>
                 <div class="row">
                     <div class="md-form col">
-                        {{ form.date|add_class:'rounded-lg border-0 z-depth-1 form-control col-sm col-12 p-2' }}
+                        {{ form.date|add_class:'rounded-lg border-0 z-depth-1 form-control col-sm col p-2' }}
                     </div>
 
                     <div class="md-form col">
-                        {{ form.author|add_class:'rounded-lg border-0 z-depth-1 form-control col-sm col-12 p-2' }}
+                        {{ form.author|add_class:'rounded-lg border-0 z-depth-1 form-control col-sm col p-2' }}
                         {{ form.author.label }}
                     </div>
                 </div>
                 <div class="input-group-append mt-3">
-                    <button class="btn btn-success" type="submit"><i class="fas fa-filter"></i> Filter</button>
-                    <a class="btn btn-outline-warning" href="{% url 'blogapp:post_list' %}#Filter"><i class="fas fa-redo-alt"></i> Reset</a>
+                    <button class="btn btn-success" type="submit">
+                        <i class="fas fa-filter"></i> 
+                        <span class="d-none d-sm-inline"> Filter</span>
+                    </button>
+
+                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'blogapp:post_list' %}#Filter">
+                        <i class="fas fa-redo-alt"></i>
+                        <span class="d-none d-sm-inline"> Reset</span>
+                    </a>
                 </div>
             </form>
         </div>
