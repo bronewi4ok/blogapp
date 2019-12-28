@@ -11,12 +11,13 @@
             <div class="card">
                 <div class="position-relative blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
                     style="height: 150px;">
-                        {% if post_author.avatar %}
-                        <img class="card-img-top position-absolute prof_image"
-                            src="{{ post_author.avatar.url }}" alt="avatar">
-                        {% else %}
-                        <img class="card-img-top position-absolute rounded-circle prof_image" src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
-                        {% endif %}
+                    {% if post_author.avatar %}
+                    <img class="card-img-top position-absolute prof_image" src="{{ post_author.avatar.url }}"
+                        alt="avatar">
+                    {% else %}
+                    <img class="card-img-top position-absolute rounded-circle prof_image"
+                        src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                    {% endif %}
                 </div>
 
                 <div class="card-body">
@@ -37,6 +38,7 @@
     </div>
 
 </div>
+
 
 {% endblock %}
 

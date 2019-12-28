@@ -88,6 +88,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                
             ],
         },
     },
@@ -151,6 +152,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 2
+
+# ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
+
 
 LOGIN_REDIRECT_URL = 'blogapp:post_list'
 LOGOUT_REDIRECT_URL = 'blogapp:post_list'
