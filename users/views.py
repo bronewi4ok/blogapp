@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import JsonResponse
+
 from blogapp.models import Post
 from .models import CustomUser
 from .forms import CustomUserChangeForm
+
 from ipware import get_client_ip
 import mptt
 
@@ -23,5 +26,14 @@ def user_edit_form(request, pk=id):
 def post_author_profile(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post_author = post.author
-
     return render(request, 'users/post_author_profile.html', {'post_author': post_author})
+
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': CustomUser.objects.filter(email__iexact=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)

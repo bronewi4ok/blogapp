@@ -25,7 +25,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('captcha/', include('captcha.urls')),
     path('accounts/', include('allauth.urls')),
-    
+    path('mailer/', include('mailer.urls')),
 ]
 
 if settings.DEBUG:

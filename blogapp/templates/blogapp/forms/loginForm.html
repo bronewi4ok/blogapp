@@ -88,7 +88,6 @@
                             <button class="primaryAction btn btn-default col-auto"
                                 type="submit">{% trans 'Log in' %}</button>
                         </div>
-                        "{% url 'account_login' %}?next={{request.path}}"
                         {% url 'account_login' %}?next={{request.get_full_path|urlencode}}
 
                     </form>
@@ -107,7 +106,7 @@
                                 <i class="fas fa-envelope prefix"></i>
                                 <input class="form-control z-depth-1 p-2 " type="text" name="email"
                                     id="signupFormEmail" aria-describedby="sigupSmallEmail">
-                                <label data-error="wrong" data-success="right" for="signupFormEmail">Your email</label>
+                                <label data-error="wrong" data-success="right" id="signupEmailLabel" for="signupFormEmail">Your email</label>
                                 <small id="sigupSmallEmail" class="form-text text-muted">{% trans 'This field required' %}
                                 </small>
                             </div>
@@ -143,7 +142,7 @@
                                 <!-- <button class="btn btn-light col" type="button"
                                     data-dismiss="modal">{% trans 'Close' %}</button> -->
 
-                                <button class="btn btn-success col-auto" type="submit">{% trans "Sign Up" %}</button>
+                                <button class="btn btn-success col-auto" id="signupSubmitBtn" type="submit">{% trans "Sign Up" %}</button>
                             </div>
                         </form>
                     </div>
@@ -152,3 +151,4 @@
         </div>
     </div>
 </div>
+

@@ -10,7 +10,7 @@
 
 <!------------------------ BODY ----------------------------------->
 
-<body class="grey lighten-4 responsive-font-size ">
+<body class="grey lighten-4 responsive-font-size">
 
     <!-- Navbar -->
     {% include 'blogapp/snipets/navbar.html' %}
@@ -44,33 +44,31 @@
     <!-- Login Modal -->
     {% include 'blogapp/forms/postNewForm.html' %}
 
+    
 
 
 
     <!-- Main block -->
     {% block content %}
-
     {% endblock %}
+
+<!-- Keep in Touch -->
 
 
 
     <!-- Pagination -->
-    <div class="container my-3">
-        <div class="row justify-content-center my-5">
+    
             {% include 'blogapp/snipets/pagination.html' %}
-        </div>
-    </div>
 
     
+
     <!-- Footer -->
-    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 50vh;">
-        <img class="embed-responsive-item card-image-top" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
-        <div class="mask waves-effect waves-light flex-center rgba-black-strong">
-            <h1 class="white-text">GRAY DRAFT</h1>
+    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 100vh;">
+        <img class="embed-responsive-item" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
+        <!-- <div class="mask waves-effect waves-light flex-center peach-gradient-rgba"> -->
+        <div class="mask flex-center rgba-black-strong">
 
-
-            <!-- Button trigger modal -->
-
+            {% include 'mailer/email.html' %} 
         </div>
     </div>
 
@@ -82,6 +80,42 @@
 
     <!-- Scripts -->
     {% include 'blogapp/meta/scripts.html' %}
+
+
+    <!-- Login ajax Validation -->
+    <script>
+        $("#signupFormEmail").on('input', function () {
+            var username = $(this).val();
+            console.log(username)
+            $.ajax({
+                url: '{% url "validate_username" %}',
+                data: {
+                    'username': username
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("success")
+                    if (data.is_taken) {
+                        $("#signupEmailLabel").text("This email already exist").addClass(
+                            "text-danger")
+                        $('#signupSubmitBtn').attr("disabled", "disabled");
+
+
+                    } else {
+                        $("#signupEmailLabel").text("Your email").addClass("text-muted")
+                            .removeClass("text-danger")
+                        $('#signupSubmitBtn').removeAttr("disabled");
+
+                    }
+                },
+                error: function (data) {
+                    console.log("error");
+                }
+            });
+
+        });
+    </script>
+
 
 
     <!-- Ajax comment FORM -->

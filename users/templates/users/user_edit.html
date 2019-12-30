@@ -3,33 +3,82 @@
 {% block content %}
 {% load static %}
 
-<div class="container mt-5 pt-5">
+<style>
+    .heading {
+        font-size: calc(1rem + 4vw) !important;
+    }
+
+    .subheading {
+        font-size: calc(0.5em + 1.5vw) !important;
+    }
+
+    .center {
+        margin: 0;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .btn-lily {
+        font-size: calc(0.2rem + 0.6vw) !important;
+    }
+</style>
+
+
+<div class="container-fluid white mt-5 pt-5">
     <h1 class="font text-center m-3">Profile</h1>
 
+    <!-- User card -->
     <div class="row pt-3">
-        <div class="col-md-6 col col-lg-4">
-            <div class="card">
-                <div class="position-relative blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
+        <div class="card col-12 col-md-6 col-xl-3 p-0 mx-3">
+            <div class="position-relative blue-gradient rounded-top mb-5 d-flex justify-content-center align-items-center"
                 style="height: 150px;">
-                        {% if user.avatar %}
-                        <img class="card-img-top position-absolute prof_image" src="{{ user.avatar.url }}" alt="avatar">
-                        {% else %}
-                        <img class="card-img-top position-absolute prof_image" src="{% static 'image/noavatar.jpg' %}" alt="no avatar"
-                            style="height:120px; width:120px; object-fit: cover;">
-                        {% endif %}
-                </div>
+                {% if user.avatar %}
+                <img class="card-img-top position-absolute prof_image" src="{{ user.avatar.url }}" alt="avatar">
+                {% else %}
+                <img class="card-img-top position-absolute prof_image" src="{% static 'image/noavatar.jpg' %}"
+                    alt="no avatar" style="height:120px; width:120px; object-fit: cover;">
+                {% endif %}
+            </div>
 
-                <div class="card-body">
-                    <h4 class="card-title">Hi {{ user.username|capfirst }}!</h4>
-                    <p class="card-text"> {{user.email}} </p>
-                    <p class="card-text"> {{ request.user_agent.browser.family }} </p>
-                    <p class="card-text"> {{ request.user_agent.os.family }} </p>
-                    <p class="card-text"> {{ client_ip }} </p>
-                </div>
+            <div class="card-body">
+                <h4 class="card-title">Hi {{ user.username|capfirst }}!</h4>
+                <p class="card-text"> {{user.email}} </p>
+                <p class="card-text"> {{ request.user_agent.browser.family }} </p>
+                <p class="card-text"> {{ request.user_agent.os.family }} </p>
+                <p class="card-text"> {{ client_ip }} </p>
             </div>
         </div>
-        <div class="col-12 col-lg">
-            <div class="card embed-responsive embed-responsive-16by9">
+
+        <!-- UPLOAD IMAGE CARD -->
+        <div class="card p-0 col-12 col-md-6 col-xl-3">
+            <div class="card-header ">
+                <h4>Click to choose or drop a file</h4>
+            </div>
+
+            <div class="card-body">
+                <form class="form" action="{% url 'user_edit_form' %}" method="POST" enctype="multipart/form-data">
+                    <div class="custom-file h-100 my-3 view overlay col" id="imageupload">
+                        {% csrf_token %}
+                        {{ form }}
+                        <!-- <input type="file" class="custom-file-input h-100" id="validatedCustomFile"> -->
+                        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 "
+                            for="validatedCustomFile">
+                            <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose
+                                file...
+                            </span>
+                        </label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    <button type="submit" class="btn btn-blue-grey float-right rounded-lg">Save</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Google map -->
+        <div class="col-12 col-xl-5 mt-3 mt-xl-0 mx-auto">
+            <div class="card embed-responsive embed-responsive-16by9 h-100">
                 <iframe class="embed-responsive-item"
                     src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d325518.6878652635!2d30.252508192327323!3d50.40169903973357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z0JrQuNC10LIsINCz0L7RgNC-0LQg0JrQuNC10LI!5e0!3m2!1sen!2sua!4v1575931772898!5m2!1sen!2sua"
                     frameborder="0" style="border:0;" allowfullscreen="">
@@ -37,85 +86,312 @@
             </div>
         </div>
     </div>
-
-
-
-    <form action="{% url 'user_edit_form' %}" method="POST" enctype="multipart/form-data">
-        <div class="custom-file h-25 my-5 view overlay col" id="imageupload">
-            {% csrf_token %}
-            {{ form }}
-            <!-- <input type="file" class="custom-file-input h-100" id="validatedCustomFile"> -->
-            <label class="custom-file-label d-flex justify-content-center align-items-center h-100 "
-                for="validatedCustomFile">
-                <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
-            </label>
-            <div class="invalid-feedback">Example invalid custom file feedback</div>
-        </div>
-        <button type="submit" class="btn btn-blue-grey row">Save</button>
-    </form>
-
 </div>
 
-<div class="container ">
+
+
+<!-- TABS block -->
+<div class="container mt-5 p-0">
     <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-        <li class="nav-item  col m-0 px-0">
-            <a class="nav-link btn-secondary btn-lg border-0 rounded-0 active " id="home-tab" data-toggle="tab"
+        <li class="nav-item col m-0 px-0">
+            <a class="nav-link btn-primary btn-lg border-0 rounded-0 active " id="home-tab" data-toggle="tab"
                 href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
         </li>
         <li class="nav-item  col m-0 px-0">
-            <a class="nav-link btn-secondary btn-lg border-0 rounded-0" id="profile-tab" data-toggle="tab"
-                href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            <a class="nav-link btn-primary btn-lg border-0 rounded-0" id="profile-tab" data-toggle="tab" href="#profile"
+                role="tab" aria-controls="profile" aria-selected="false">Profile</a>
         </li>
         <li class="nav-item  col m-0 px-0">
-            <a class="nav-link btn-secondary btn-lg border-0 rounded-0" id="contact-tab" data-toggle="tab"
-                href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            <a class="nav-link btn-primary btn-lg border-0 rounded-0" id="contact-tab" data-toggle="tab" href="#contact"
+                role="tab" aria-controls="contact" aria-selected="false">Contact</a>
         </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Raw denim you
-            probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master
-            cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-            keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-            placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-            qui. Raw denim you
-            probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master
-            cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
-            keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip
-            placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi
-            qui.</div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Food truck fixie
-            locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
-            blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-            Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-            PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
-            salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-            sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park. Food truck fixie
-            locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
-            blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
-            Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
-            PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
-            salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-            sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
-            stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Etsy mixtape
-            wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack
-            lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
-            locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify
-            squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
-            etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog
-            stumptown. Pitchfork sustainable tofu synth chambray yr. Etsy mixtape
-            wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack
-            lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
-            locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify
-            squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
-            etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog
-            stumptown. Pitchfork sustainable tofu synth chambray yr.</div>
+    <div class="tab-content white p-3 p-md-5 z-depth-1" id="myTabContent">
+
+        <!-- TAB 1 -->
+        <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row mb-3">
+                <h3 class="text-center my-3 col-12 p-0">Some beautiful text here</h3>
+                <img class="img-fluid col-12 col-lg-6 rounded-lg z-depth-1 p-0" src="{% static 'image/freedom.jpg' %}"
+                    style="object-fit: cover;" alt="">
+                <div class="col-12 col-lg-6">
+                    <p>
+                        Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
+                        custom
+                        emails and other flexible templates to deliver efficient email. We will also discuss testing
+                        email
+                        with
+                        GUI
+                        using django-naomi and compressing external CSS with django_inlinecss.
+
+                        If you want to download the source code right away you can click here. I recommend you follow
+                        the
+                        tutorial.
+                        django_inlinecss is useful in compressing the external style sheet into inline CSS.django-naomi
+                        is
+                        used
+                        to
+                        test the email sent in the browser is very helpful in styling and debugging.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 class="text-center my-3 col-12">Some beautiful text here</h3>
+
+                <img class="img-fluid col-12 col-lg-6 order-lg-2 rounded-lg z-depth-1 p-0"
+                    src="{% static 'image/slider/33.jpg' %}" style="object-fit: cover;" alt="">
+                <div class="col-12 col-lg-6">
+                    Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
+                    custom
+                    emails and other flexible templates to deliver efficient email. We will also discuss testing email
+                    with
+                    GUI
+                    using django-naomi and compressing external CSS with django_inlinecss.
+
+                    If you want to download the source code right away you can click here. I recommend you follow the
+                    tutorial.
+                    django_inlinecss is useful in compressing the external style sheet into inline CSS.django-naomi is
+                    used
+                    to
+                    test the email sent in the browser is very helpful in styling and debugging.
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <h3 class="text-center my-3 col-12 p-0">Some beautiful text here</h3>
+
+                <img class="img-fluid col-12 col-lg-6 rounded-lg z-depth-1 p-0" src="{% static 'image/slider/22.jpg' %}"
+                    style="object-fit: cover;" alt="">
+                <div class="col-12 col-lg-6">
+                    <p>
+                        Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
+                        custom
+                        emails and other flexible templates to deliver efficient email. We will also discuss testing
+                        email
+                        with
+                        GUI
+                        using django-naomi and compressing external CSS with django_inlinecss.
+
+                        If you want to download the source code right away you can click here. I recommend you follow
+                        the
+                        tutorial.
+                        django_inlinecss is useful in compressing the external style sheet into inline CSS.django-naomi
+                        is
+                        used
+                        to
+                        test the email sent in the browser is very helpful in styling and debugging.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <img class="col" src="{% static 'image/slider/11.jpg' %}" alt="">
+            <h3 class="text-center m-3">Some beautiful text here</h3>
+            <p>
+                Food truck fixie
+                locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
+                blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+                Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
+                PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
+                salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
+                sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+                stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park. Food truck fixie
+                locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit,
+                blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+                Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum
+                PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
+                salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
+                sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+                stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+        </div>
+        </p>
+        <!-- TAB 3 -->
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <img class="img-fluid" src="{% static 'image/slider/22.jpg' %}" alt="">
+            <h3 class="text-center m-3">Some beautiful text here</h3>
+            <p>
+                Etsy mixtape
+                wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack
+                lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
+                locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify
+                squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
+                etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog
+                stumptown. Pitchfork sustainable tofu synth chambray yr. Etsy mixtape
+                wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack
+                lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard
+                locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify
+                squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie
+                etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog
+                stumptown. Pitchfork sustainable tofu synth chambray yr.
+            </p>
+        </div>
     </div>
 </div>
 
-    <!-- ASPECT RATIO -->
-    
+
+<!-- Detail block -->
+<section class="container-fluid my-5 p-0 ">
+    <div class="card mb-4 rounded-0">
+        <div class="row">
+            <div class=" col-sm-8 col-md-6 col-lg-7 mx-auto">
+                <div class="col-md-12 col-lg-9 col-xl-7 mx-auto">
+                    <img class="w-100 h-75 rounded-bottom mt-n4 z-depth-2 "
+                        src="https://mdbootstrap.com/img/Photos/Vertical/7.jpg" alt="project image">
+                </div>
+            </div>
+            <div class="col-md-5 p-sm-5 py-3 pl-md-0 align-self-center">
+                <h5 class="font-weight-normal mb-3">Project detail</h5>
+
+                <p class="text-muted">Out or geared it but to best up samples the for she phase of copy would do
+                    in
+                    divine
+                    of taken and the take medical or upper at him in the logbook were, we price his mostly to
+                    commas.
+                </p>
+                <ul class="list-unstyled font-small mt-5 mb-0">
+                    <li>
+                        <p class="text-uppercase mb-2"><strong>Client</strong></p>
+                        <p class="text-muted mb-2">Envato Inc.</p>
+                    </li>
+
+                    <li>
+                        <p class="text-uppercase mb-2"><strong>Date</strong></p>
+                        <p class="text-muted mb-2">June 27, 2019</p>
+                    </li>
+
+                    <li>
+                        <p class="text-uppercase mb-2"><strong>Skills</strong></p>
+                        <p class="text-muted mb-2">Design, HTML, CSS, Javascript</p>
+                    </li>
+
+                    <li>
+                        <p class="text-uppercase mb-2"><strong>Address</strong></p>
+                        <a href="https://mdbootstrap.com/docs/jquery/design-blocks/">MDBootstrap</a>
+                    </li>
+
+                    <li>
+                        <p class="text-uppercase mt-4 mb-2"><strong>Share</strong></p>
+                        <div class="d-flex justify-content-start">
+                            <a class="text-muted pr-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="text-muted pr-3" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="text-muted pr-3" href="#"><i class="fab fa-instagram"></i></a>
+                            <a class="text-muted" href="#"><i class="fab fa-dribbble"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container my-sm-5 z-index-3 pt-5 pb-3 px-5 z-depth-1 white">
+
+    <!--Section: Content-->
+    <section class="text-center dark-grey-text">
+
+        <div class="row text-center d-flex justify-content-center my-5">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <i class="fas fa-envelope-open fa-3x mb-4 grey-text"></i>
+                <h5 class="font-weight-normal mb-3">Subscription Ready</h5>
+                <p class="text-muted mb-0">MailChimp integration included</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <i class="fas fa-layer-group fa-3x mb-4 grey-text"></i>
+                <h5 class="font-weight-normal mb-3">Block Variety</h5>
+                <p class="text-muted mb-0">Develop pages like lego</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <i class="fas fa-brush fa-3x mb-4 grey-text"></i>
+                <h5 class="font-weight-normal mb-3">Color Pallet</h5>
+                <p class="text-muted mb-0">Dozen of colors for elements</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <i class="fas fa-puzzle-piece fa-3x mb-4 grey-text"></i>
+                <h5 class="font-weight-normal mb-3">Page Builder</h5>
+                <p class="text-muted mb-0">Drag and drop page design</p>
+            </div>
+        </div>
+
+    </section>
+    <!--Section: Content-->
+
+
+</div>
+
+
+<!-- Call to action
+<div class="container my-5 py-5 z-depth-1 white">
+    <section class="px-lg-5 mx-md-5 text-center text-lg-left dark-grey-text">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h3 class="font-weight-bold">Material Design Blocks</h3>
+
+                <p class="text-muted">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quam sapiente
+                    molestiae
+                    numquam quas, voluptates omnis nulla ea odio quia similique corrupti magnam, doloremque laborum.
+                </p>
+
+                <a class="btn btn-purple btn-md ml-0" href="#" role="button">Start now<i class="fa fa-gem ml-2"></i></a>
+            </div>
+            <div class="col mb-4 mb-md-0">
+                <div class="view overlay z-depth-1-half">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/img%20(29).jpg" class="img-fluid" alt="">
+                    <a href="#">
+                        <div class="mask rgba-white-light"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div> -->
+
+
+<!-- Intro -->
+<section class="view z-depth-1-half">
+    <div class="row white position-relative">
+        <div class="col-lg-12 position-absolute center row" style="z-index: 100;">
+            <h1 class="heading text-left text-md-center white-text col-12 col-lg-6 mb-sm-5">Material Design for
+                Bootstrap</h1>
+
+            <h4 class="subheading d-none d-lg-inline text-muted text-right text-md-center col-12 col-lg-6">World's
+                most
+                popular framework for building responsive,
+                mobile-first websites and apps from scratch to prodution.
+                Food truck fixie
+                locavore, accusamus mcsweeney's
+            </h4>
+
+            <h4 class="subheading d-lg-none white-text text-right text-md-center col-12 col-lg-6">World's most
+                popular
+                framework for building responsive,
+                mobile-first websites and apps from scratch to prodution</h4>
+
+            <div class="col-12">
+                <button class="btn blue-gradient white-text float-right btn-lily" type="button">Get started <i
+                        class="fas fa-caret-right ml-3"></i></button>
+            </div>
+        </div>
+
+        <div class="col-lg-6 px-0">
+            <div class="view embed-responsive embed-responsive-1by1">
+                <img src="https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg"
+                    class="embed-responsive-item" style="object-fit: cover;" alt="smaple image">
+                <div class="mask flex-center peach-gradient-rgba">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Intro -->
+
+<!-- Main navigation -->
+<!-- ASPECT RATIO -->
+
 <!-- <div class="row">
     .<div class="container-fluid">
         <div class="col-12 col-md-4">
@@ -127,7 +403,7 @@
     </div>
 </div> -->
 
-    <!-- <div class="col-12 col-md-4">
+<!-- <div class="col-12 col-md-4">
     <div style="background-image:url('{{ user.avatar.url }}'); background-size: cover; padding-top: 56.25%;"></div>
 </div> -->
 
