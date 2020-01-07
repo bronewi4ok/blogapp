@@ -29,25 +29,21 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
-
-
 
             <div class="tab-content" id="myTabContent">
                 <!-- Login -->
                 <div class="tab-pane fade show active" id="loginTab" role="tabpanel" aria-labelledby="home-tab">
-                    <form class="loginForm md-form mb-0" method="POST" action="{% url 'account_login' %}?next={{request.get_full_path|urlencode}}">
+                    <form class="loginForm md-form mb-0" id="loginForm" method="POST" action="{% url 'account_login' %}?next={{request.get_full_path|urlencode}}">
                         <div class="modal-body m-2">
                             {% csrf_token %}
                             <!-- E-mail input -->
                             <div class="md-form md-outline mb-3">
                                 <i class="fas fa-envelope prefix"></i>
-                                <input class="form-control z-depth-1" type="text" name="login" id="loginFormEmail"
-                                    aria-describedby="loginSmallEmail">
-                                <label data-error="wrong" data-success="right" for="loginFormEmail">
-                                    {% trans 'Your email' %}</label>
-                                <small id="loginSmallEmail" class="form-text text-muted">{% trans 'This field required' %}
+                                <input class="form-control z-depth-1" type="email" name="login" id="loginFormEmail"
+                                    aria-describedby="loginSmallEmail" required>
+                                <small id="loginSmallEmail" class="form-text text-muted">
+                                    {% trans 'Your email' %}
                                 </small>
                             </div>
 
@@ -55,12 +51,8 @@
                             <div class="md-form md-outline mb-3">
                                 <i class="fas fa-lock prefix"></i>
                                 <input class="form-control z-depth-1" type="password" name="password"
-                                    id="loginFormPassword">
-                                <label data-error="wrong" data-success="right" for="loginFormPassword"
-                                    aria-describedby="loginSmallPassword">
-                                    {% trans 'Your password' %}
-                                </label>
-                                <small id="loginSmallPassword" class="form-text text-muted">{% trans 'This field required' %}
+                                    id="loginFormPassword" required>
+                                <small id="loginSmallPassword" class="form-text text-muted">{% trans 'Your password' %}
                                 </small>
                             </div>
                             <!-- Social buttons -->
@@ -88,7 +80,7 @@
                             <button class="primaryAction btn btn-default col-auto"
                                 type="submit">{% trans 'Log in' %}</button>
                         </div>
-                        {% url 'account_login' %}?next={{request.get_full_path|urlencode}}
+                        <!-- {% url 'account_login' %}?next={{request.get_full_path|urlencode}} -->
 
                     </form>
                 </div>
@@ -104,10 +96,8 @@
                             <!-- E-mail input -->
                             <div class="md-form md-outline mb-3">
                                 <i class="fas fa-envelope prefix"></i>
-                                <input class="form-control z-depth-1 p-2 " type="text" name="email"
-                                    id="signupFormEmail" aria-describedby="sigupSmallEmail">
-                                <label data-error="wrong" data-success="right" id="signupEmailLabel" for="signupFormEmail">Your email</label>
-                                <small id="sigupSmallEmail" class="form-text text-muted">{% trans 'This field required' %}
+                                <input class="form-control z-depth-1 p-2" type="email" name="email" id="id_email" required>
+                                <small id="id_email" class="form-text text-muted">{% trans 'Your email' %}
                                 </small>
                             </div>
 
@@ -152,3 +142,60 @@
     </div>
 </div>
 
+<!-- VALIDATE -->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+<script>
+    jQuery.validator.setDefaults({
+        debug: false,
+        success: "valid"
+    });
+    $("#signup_form").validate({
+        rules: {
+            semail: {
+                required: true,
+                email: true,
+                minlength: 5,
+                remote: "{% url 'validate_username' %}",
+            },
+        },
+        messages: {
+            semail: {
+                required: "We need your email",
+                email: "invalid email",
+                remote: "The email is already taken."
+            }
+        },
+        submitHandler: function(form) {
+        form.submit();
+    }
+    });
+
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+    $("#loginForm").validate({
+        rules: {
+            login: {
+                required: true,
+                email: true,
+                minlength: 5,
+                remote: "{% url 'validate_username' %}",
+            },
+        },
+        messages: {
+            login: {
+                required: "We need your email",
+                email: "invalid email",
+                remote: "The email is already taken."
+            }
+        },
+        submitHandler: function(form) {
+        form.submit();
+    }
+    });
+</script>

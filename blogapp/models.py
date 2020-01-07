@@ -5,6 +5,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from captcha.fields import CaptchaField
 from django.urls import reverse
 from django.db.models import Q
+from datetime import datetime, timedelta
 
 
 
@@ -18,7 +19,27 @@ class PostQuerySet(models.QuerySet):
                 Q(title__icontains=search_q) |
                 Q(text__icontains=search_q) 
             ).distinct()
-            return post_range
+        else:
+            post_range = self.published()
+        return post_range
+
+    def author(self, q_author, current_user):
+        if q_author == 'other':
+            filter_author = self.published().exclude(author=current_user)
+        elif q_author == 'my':
+            filter_author = self.published().filter(author=current_user)
+        else:
+            filter_author = self.published().filter()
+        return filter_author
+    
+    def date_range(self, q_date, filter_author):
+        if q_date:
+            data_range = timezone.now() - timedelta(days=int(q_date))
+            post_range = filter_author.filter(published_date__gte=data_range)
+        else:
+            post_range = filter_author
+        return post_range
+
 
 
 class Post(models.Model):
@@ -42,7 +63,7 @@ class Post(models.Model):
         return reverse('blogapp:post_detail', args=[str(self.id)])
 
     class Meta():
-        ordering = ['published_date']
+        ordering = ['-published_date']
 
 
 

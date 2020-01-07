@@ -7,71 +7,81 @@
 
 <!-- POSTS -->
 <div class="row justify-content-center mb-5">
-    <div class="card p-0 z-depth-1 rounded-lg mt-5" style="width: 50rem">
-        {% if post.cover %}
-        <div class="embed-responsive embed-responsive-16by9">
+    {% if post.cover %}
+    <div class="view">
+        <img class="kenburns-bottom z-depth-1" style="object-fit:cover; height: 80vh; width: 100vw"
+            src="{{ post.cover.url}}" alt="image">
+        <div class="mask waves-effect waves-light" style="background-color: rgba(0, 0, 0, 0.5);">
+            <div class="flex-center flex-column container">
+                <p class="white-text text-center text-break overflow-hidden h1 "
+                    style="font-size: calc(1rem + 3vw) !important;">
+                    {{ post.title|capfirst }}
+                </p>
+
+                <a class=" white btn-circle-bg rotate-in-center m-5" href="{% url 'post_author_profile' pk=post.pk %}">
+                    <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
+                </a>
+
+                <p class="white-text">By {{ post.author }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="embed-responsive embed-responsive-21by9">
             <img class="embed-responsive-item rounded-top kenburns-bottom" style="object-fit:cover;"
                 src="{{ post.cover.url}}" alt="image">
-        </div>
-        {% endif %}
-
+        </div> -->
+    {% endif %}
+    <div class="card p-0 rounded-lg free-bird rounded-0" style="width: 50rem">
         <div class="card-body position-relative">
-            <a class="position-absolute white btn-circle-bg rotate-in-center" style="top: -2.25rem; right: 2.5rem;"
-                href="{% url 'post_author_profile' pk=post.pk %}">
-                <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
-            </a>
-            {% if post.author == user %}
-            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' pk=post.pk %}">
-                <i class="far fa-edit fa-lg shadow_hover"></i>
-            </a>
-            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_remove' pk=post.pk %}">
-                <i class="far fa-trash-alt fa-lg shadow_hover"></i>
-            </a>
+            <div class="row">
+                {% if post.author == user %}
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' pk=post.pk %}">
+                    <i class="far fa-edit fa-lg shadow_hover "></i>
+                </a>
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_remove' pk=post.pk %}">
+                    <i class="far fa-trash-alt fa-lg shadow_hover"></i>
+                </a>
 
-            {% if not post.published_date %}
-            <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_publish' pk=post.pk %}">
-                <i class="far fa-paper-plane fa-lg "></i>
-            </a>
-            {% endif %}
+                {% if not post.published_date %}
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_publish' pk=post.pk %}">
+                    <i class="far fa-paper-plane fa-lg "></i>
+                </a>
+                {% endif %}
 
-            {% endif %}
-
+                {% endif %}
+            </div>
             {% if post.published_date %}
-            <p>{{ post.published_date }}</p>
+            <p class="card-title">{{ post.published_date }}</p>
             {% endif %}
 
-            <h2 class="card-title text-break overflow-hidden">
-                {{ post.title|capfirst }}
-            </h2>
-
-            <p class="lead text-break overflow-hidden">{{ post.text|linebreaksbr|capfirst }}</p>
 
 
+            <p class="lead text-break overflow-hidden">{{ post.text|safe|linebreaksbr|capfirst }}</p>
         </div>
 
         <!-- Comment Form -->
         {% if post.published_date %}
         <div class="comments px-3">
             <hr>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="text-muted">New comment</h3>
-                        <form method="POST" class="md-form md-outline commentForm">
-                            {% csrf_token %}
-                            {{ form.text|add_class:'col form-control border-0 z-depth-1 rounded-lg p-3'|attr:"rows:4"  }}
-                            <label for="id_text">Leave a comment</label>
+            <div class="row">
+                <div class="col p-0 p-md-3">
+                    <h3 class="text-muted">New comment</h3>
+                    <form method="POST" class="md-form md-outline commentForm">
+                        {% csrf_token %}
+                        {{ form.text|add_class:'col form-control border-0 z-depth-1 rounded-lg p-3'|attr:"rows:4"  }}
+                        <label for="id_text">Leave a comment</label>
 
-                            {% if request.user.is_authenticated %}
-                            <button type="submit" class="btn btn-primary float-right" id="comment_submit_btn">Send</button>
+                        {% if request.user.is_authenticated %}
+                        <button type="submit" class="btn btn-primary float-right" id="comment_submit_btn">Send</button>
 
-                            {% else %}
-                            <button class="btn btn-primary float-right" type="button" data-toggle="modal"
-                                data-target="#loginModal">Send
-                            </button>
-                            {% endif %}
-                        </form>
-                    </div>
+                        {% else %}
+                        <button class="btn btn-primary float-right" type="button" data-toggle="modal"
+                            data-target="#loginModal">Send
+                        </button>
+                        {% endif %}
+                    </form>
                 </div>
             </div>
         </div>
@@ -79,7 +89,7 @@
 
         <!-- COMMENTS -->
         <div class="m-3">
-                {% include 'blogapp/post_detail_ajax.html' %}
+            {% include 'blogapp/post_detail_ajax.html' %}
         </div>
         {% endif %}
     </div>

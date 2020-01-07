@@ -10,11 +10,11 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text', 'cover')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['cover'].widget.attrs.update({'class': 'custom-file-input h-100'})
-        self.fields['title'].widget.attrs.update({'class': 'col form-control'})
-        self.fields['text'].widget.attrs.update({'class': 'col form-control'})
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.fields['cover'].widget.attrs.update({'class': 'custom-file-input h-100'})
+    #     self.fields['title'].widget.attrs.update({'class': 'col form-control'})
+    #     self.fields['text'].widget.attrs.update({'class': 'col form-control'})
 
 
 class PictureForm(forms.ModelForm):
@@ -33,7 +33,7 @@ class NewCommentForm(forms.ModelForm):
 
 
 DATE_CHOICES = [
-    (100000, 'All'),
+    (None, 'All'),
     (7, 'Week'),
     (30, 'Month'),
     (365, 'Year'),

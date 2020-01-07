@@ -16,8 +16,6 @@
     {% include 'blogapp/snipets/navbar.html' %}
 
 
-
-
     <!-- NewPost button -->
     <div class="container-fluid invisible">
         <div class=" position-fixed fixed-bottom d-flex justify-content-end m-2 m-md-4 red-text">
@@ -32,7 +30,7 @@
             {% else %}
             <a class="visible wobble-hor-bottom rotate-in-center" id="btnNewPost" type="button" data-toggle="modal"
                 data-target="#loginModal">
-                <span class="fa-stack fa-lg green-text m-0">
+                <span class="fa-stack fa-2x green-text m-0">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="fas fa-circle-notch fa-stack-1x fa-inverse "></i>
                 </span>
@@ -44,30 +42,21 @@
     <!-- Login Modal -->
     {% include 'blogapp/forms/postNewForm.html' %}
 
-    
-
-
 
     <!-- Main block -->
     {% block content %}
     {% endblock %}
 
-<!-- Keep in Touch -->
-
-
 
     <!-- Pagination -->
-    
-            {% include 'blogapp/snipets/pagination.html' %}
+    {% include 'blogapp/snipets/pagination.html' %}
 
-    
 
     <!-- Footer -->
-    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 100vh;">
+    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 80vh;">
         <img class="embed-responsive-item" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
         <!-- <div class="mask waves-effect waves-light flex-center peach-gradient-rgba"> -->
         <div class="mask flex-center rgba-black-strong">
-
             {% include 'mailer/email.html' %} 
         </div>
     </div>
@@ -75,15 +64,12 @@
 
     <!-- -------------------------------------------------------------------------------------------------------------- -->
 
-
-
-
     <!-- Scripts -->
     {% include 'blogapp/meta/scripts.html' %}
 
 
     <!-- Login ajax Validation -->
-    <script>
+    <!-- <script>
         $("#signupFormEmail").on('input', function () {
             var username = $(this).val();
             console.log(username)
@@ -116,7 +102,7 @@
         });
     </script>
 
-
+ -->
 
     <!-- Ajax comment FORM -->
     <script>

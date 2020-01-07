@@ -4,8 +4,6 @@ body {
   /* font-family: 'Montserrat', sans-serif !important; */
   /* font-size: calc(0.8em + 0.5vw) !important;
   line-height: calc(1.8em) !important; */
-
-
 }
 
 /* ASPECT RATIO */
@@ -49,7 +47,7 @@ select {
   border: solid white 6px !important;
   bottom: -60px !important;
   margin: auto !important;
-  border-radius: 50% !important;
+  border-radius: 100% !important;
 }
 
 .btn-circle {
@@ -59,7 +57,7 @@ select {
   width: 4rem !important;
   height: 4rem !important;
   padding: 0 !important;
-  border-radius: 50% !important;
+  border-radius: 100% !important;
   object-fit: cover;
 }
 
@@ -71,7 +69,7 @@ select {
   width: 4.5rem !important;
   height: 4.5rem !important;
   padding: 0 !important;
-  border-radius: 50% !important;
+  border-radius: 100% !important;
   object-fit: cover;
 }
 
@@ -83,10 +81,14 @@ select {
   align-items: center !important;
   width: 45px !important;
   height: 45px !important;
-  border-radius: 50% !important;
+  border-radius: 100% !important;
   object-fit: cover;
+  padding: 3px;
+  background-color: white !important;
 }
 
+.btnNewPost:hover {
+  transform: scale(1.5);}
 
 .shadow_hover:hover {
   text-shadow: -7px 8px 2px silver;

@@ -1,8 +1,8 @@
 {% load static %}
 
 
-<div class="embed-responsive embed-responsive-21by9 z-depth-3" style="max-height: 100vh;">
-    <div id="carousel-example-1z" class="carousel slide  embed-responsive-item" data-ride="carousel">
+<div class=" z-depth-3" style="max-height: 100vh;">
+    <div id="carousel-example-1z" class="carousel slide" data-ride="carousel">
         <!--Indicators-->
         <ol class="carousel-indicators">
             <li class="active far fa-dot-circle" data-target="#carousel-example-1z" data-slide-to="0"><i
@@ -16,9 +16,9 @@
         <div class="carousel-inner" role="listbox">
             <!--First slide-->
             <div class="carousel-item active view">
-                <img class="d-block w-100" src="{% static 'image/slider/3.jpg' %}" alt="Third slide">
-                <div class="mask waves-light flex-center rgba-black-light">
-                    <h1 class="white-text p-3 rounded-lg tracking-in-expand h1-responsive">GRAY DRAFT</h1>
+                <img class="d-block w-100" style="object-fit: cover; height: 80vh" src="{% static 'image/slider/3.jpg' %}" alt="Third slide">
+                <div class="mask waves-light flex-center flex-column rgba-black-light">
+                    <h1 class="white-text p-3 tracking-in-expand" style="font-size: calc(0.5rem + 4vw) !important;">GRAY DRAFT</h1>
                     <p class="white-text text-focus-in">Note your mind</p>
                 </div>
             </div>
@@ -28,9 +28,9 @@
 
             <!--Second slide-->
             <div class="carousel-item view">
-                <img class="d-block w-100" src="{% static 'image/slider/1.jpg' %}" alt="First slide">
-                <div class="mask waves-light flex-center rgba-black-light w-100">
-                    <h1 class="white-text tracking-in-expand h1-responsive">GRAY DRAFT</h1>
+                <img class="d-block w-100" style="object-fit: cover; height: 80vh !important;" src="{% static 'image/slider/1.jpg' %}" alt="First slide">
+                <div class="mask waves-light flex-center flex-column rgba-black-light w-100">
+                    <h1 class="white-text p-3 tracking-in-expand" style="font-size: calc(0.5rem + 4vw) !important;">GRAY DRAFT</h1>
                     <p class="white-text text-focus-in">Note your mind</p>
                 </div>
             </div>
@@ -38,9 +38,9 @@
 
             <!--Third slide-->
             <div class="carousel-item view">
-                <img class="d-block w-100" src="{% static 'image/slider/2.jpg' %}" alt="Second slide">
-                <div class="mask waves-light flex-center rgba-black-light ">
-                    <h1 class="white-text tracking-in-expand h1-responsive">GRAY DRAFT</h1>
+                <img class="d-block w-100" style="object-fit: cover; height: 80vh !important;" src="{% static 'image/slider/2.jpg' %}" alt="Second slide">
+                <div class="mask waves-light flex-center flex-column rgba-black-light ">
+                    <h1 class="white-text p-3 tracking-in-expand h1-responsive" style="font-size: calc(0.5rem + 4vw) !important;">GRAY DRAFT</h1>
                     <p class="white-text text-focus-in">Note your mind</p>
                 </div>
             </div>

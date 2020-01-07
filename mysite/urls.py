@@ -26,6 +26,7 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('accounts/', include('allauth.urls')),
     path('mailer/', include('mailer.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:

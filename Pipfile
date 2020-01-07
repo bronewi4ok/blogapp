@@ -43,6 +43,8 @@ django-sslserver = "*"
 django-crispy-forms = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
+django-summernote = "*"
+django-cleanup = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,37 +1,90 @@
 {% extends 'blogapp/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% load widget_tweaks %}
+
 
 {% block content %}
 <div class="container mt-5 pt-5">
     <h1 class="font text-center m-3">NEW POST</h1>
 
-    <form class="card col mx-auto pt-3" id="postForms" method="POST" enctype="multipart/form-data">
+    <form class="card mx-auto pt-3" id="robustPostForms" method="POST" enctype="multipart/form-data">
         <div class="card-body">
-            <div class="md-form md-outline">
-                {% csrf_token %}
-                <div class="col">
-                    {{ form.title|as_crispy_field }}
-                </div>
-                <div class="col">
-                    {{ form.text|as_crispy_field }}
-                </div>
-
-
-                
-                <!-- Image upload -->
-                <div class="form-row">
-                    <div class="custom-file view overlay col p-0 m-0" id="imageupload" style="height: 100px;">
-                        {{ form.cover }}
-                        <label class="custom-file-label d-flex justify-content-center align-items-center h-100 p-0 m-0"
-                            for="{{ form.cover.id_for_label }}">
-                            <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
-                        </label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                    </div>
-                </div>
-                <button type="submit" id="postButton" class="btn btn-primary rounded-pill">Save</button>
+            {% csrf_token %}
+            <div class="col md-form">
+                {{ form.title|attr:"required"|add_class:'form-control'|attr:"placeholder: Enter the title" }}
             </div>
+
+            <div class="col md-form">
+                {{ form.text|attr:"required"|add_class:'form-control md-textarea'|attr:"placeholder: Enter the text" }}
+            </div>
+
+            <!-- <div class="col p-0 m-0" id="imageupload">
+                {{ form.cover|attr:"required"}}
+            </div> -->
+
+            {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+            <input id="fileupload" type="file" name="cover" data-url="{% url 'blogapp:post_new' %}"
+                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+            <!-- Image upload -->
+            <!-- <div class="col md-form">
+                <div class="custom-file view overlay col p-0 m-0" id="imageupload" style="height: 100px;">
+                    {{ form.cover|attr:"required"|add_class:'custom-file-input' }}
+                    <label class="custom-file-label d-flex justify-content-center align-items-center h-100 p-0 m-0"
+                        for="{{ form.cover.id_for_label }}">
+                        <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
+                    </label>
+                </div>
+            </div> -->
+
+            <button type="submit" id="postButton" class="btn btn-primary rounded-pill">Save</button>
         </div>
     </form>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+
+<Script>
+    jQuery.validator.setDefaults({
+        debug: false,
+        success: "valid"
+    });
+
+    $('#robustPostForms').validate({
+        rules: {
+            '{{ form.title.name }}': {
+                required: true,
+                minlength: 2,
+                maxlength: 200
+            },
+            '{{ form.text.name }}': {
+                required: true,
+            },
+            '{{ form.cover.name }}': {
+                required: false,
+                extension: "png|jpeg|jpg",
+            }
+        },
+        messages: {
+            '{{ form.title.name }}': {
+                required: "Please specify a title",
+                maxlength: "Put less than 200 symbols"
+            },
+            '{{ form.text.name }}': {
+                required: "Please specify a text",
+            },
+            '{{ form.cover.name }}': {
+                required: "Please specify a photo",
+                extension: "Only image type jpg/png/jpeg is allowed"
+            }
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+</Script>
 {% endblock %}

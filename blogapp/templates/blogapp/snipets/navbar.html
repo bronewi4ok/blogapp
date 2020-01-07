@@ -78,13 +78,13 @@
             </ul>
 
 
-            <ul class="navbar-nav ml-auto nav-flex-icons">
+            <ul class="navbar-nav ml-auto p-0">
 
-                <li class="nav-item avatar dropdown">
+                <li class="nav-item avatar dropdown m-0 p-0">
                     <a class="dropdown-toggle rounded-pill p-0 m-2 m-sm-0 rotate-in-center"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if user.is_authenticated %}
-                        <img class="bttn_social m-0" src="{{  user.avatar.url }}"
+                        <img class="bttn_social m-0 " src="{{  user.avatar.url }}"
                             alt="avatar">
                         {% else %}
                         <!-- <i class="far fa-user-circle"></i> -->

@@ -60,6 +60,11 @@ INSTALLED_APPS = [
     'sslserver',
     'crispy_forms',
     'widget_tweaks',
+    'django_summernote',
+
+
+    # Should be last
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -145,7 +150,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -209,6 +214,33 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     }
+}
+
+
+# WYSIWYG
+SUMMERNOTE_THEME = 'bs3'
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+        'lang': 'ru-RU',
+        'lazy': True,
+        'width': '75%',
+        'height': '500px',
+        'toolbar': [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+             ['font', ['strikethrough', 'superscript', 'subscript']],
+             ['fontsize', ['fontsize']],
+             ['color', ['color']],
+             ['para', ['ul', 'ol', 'paragraph']],
+             ['height', ['height']],
+             ['insert', ['link', 'picture', 'video', 'hr']],
+             ['misc', ['picture', 'fullscreen', 'help', ]],
+        ]
+    },
+    'disable_attachment': True,
+    
 }
 
 # python manage.py runsslserver --certificate example.com+5.pem --key example.com+5-key.pem
