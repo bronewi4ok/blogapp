@@ -11,18 +11,25 @@
             <div class="card-body">
                 {% if node.commented_by == user %}
                 <a class="float-right text-black-50 delete_comment "
-                    href="{% url 'blogapp:remove_comment' pk=post.pk com_id=node.pk %}" id="{{ node.id }}">
+                    href="{% url 'blogapp:remove_comment' slug_date=post.slug_date slug_title=post.slug_title com_id=node.pk %}"
+                    id="{{ node.id }}">
                     <i class="fas fa-times fa-lg shadow_hover"></i>
                 </a>
                 {% endif %}
 
                 <div class="row p-0">
                     <!-- Image -->
+
+
                     <div class="btn-social-bg m-2 col-sm-1 p-0">
                         {% if node.commented_by.avatar %}
-                        <img class="bttn_social" src="{{ node.commented_by.avatar.url }}" alt="avatar">
+                        <a href="{% url 'post_author_profile' pk=node.commented_by.id %}">
+                            <img class="bttn_social z-depth-1 round" src="{{ node.commented_by.avatar.url }}" alt="
+                                avatar">
+                        </a>
+                        <!-- <img class="bttn_social" src="{{ node.commented_by.avatar.url }}" alt="avatar"> -->
                         {% else %}
-                        <img class="bttn_social" src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
+                        <img class="bttn_social z-depth-1 round" src="{% static 'image/noavatar.jpg' %}" alt="no avatar">
                         {% endif %}
                     </div>
 
@@ -40,7 +47,8 @@
             </div>
 
             <!-- Reply -->
-            <a class="card-footer" href="{% url 'blogapp:add_comment_to_comment' pk=post.pk com_id=node.pk %}">
+            <a class="card-footer"
+                href="{% url 'blogapp:add_comment_to_comment' slug_date=post.slug_date slug_title=post.slug_title com_id=node.pk %}">
                 <span><i class="far fa-comment-alt"></i> Reply</span>
             </a>
         </div>

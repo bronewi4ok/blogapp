@@ -6,8 +6,8 @@
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <h1 class="font text-center m-3">NEW POST</h1>
-
+    <h1 class="font text-center m-3">HAPPY POST</h1>
+    
     <form class="card mx-auto pt-3" id="robustPostForms" method="POST" enctype="multipart/form-data">
         <div class="card-body">
             {% csrf_token %}
@@ -19,34 +19,22 @@
                 {{ form.text|attr:"required"|add_class:'form-control md-textarea'|attr:"placeholder: Enter the text" }}
             </div>
 
-            <!-- <div class="col p-0 m-0" id="imageupload">
-                {{ form.cover|attr:"required"}}
-            </div> -->
-
-            {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
-            <input id="fileupload" type="file" name="cover" data-url="{% url 'blogapp:post_new' %}"
-                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
-
             <!-- Image upload -->
-            <!-- <div class="col md-form">
+            <div class="col md-form">
                 <div class="custom-file view overlay col p-0 m-0" id="imageupload" style="height: 100px;">
-                    {{ form.cover|attr:"required"|add_class:'custom-file-input' }}
+                    {{ form.cover|attr:"required"|add_class:'custom-file-input h-100' }}
                     <label class="custom-file-label d-flex justify-content-center align-items-center h-100 p-0 m-0"
                         for="{{ form.cover.id_for_label }}">
                         <span class="align-middle"><i class="fas fa-cloud-upload-alt"> </i> Choose file... </span>
                     </label>
                 </div>
-            </div> -->
+            </div>
 
             <button type="submit" id="postButton" class="btn btn-primary rounded-pill">Save</button>
         </div>
     </form>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
 
 <Script>
     jQuery.validator.setDefaults({

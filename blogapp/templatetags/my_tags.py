@@ -12,3 +12,8 @@ def param_replace(context, **kwargs):
     for k in [k for k, v in query.items() if not v]:
         del query[k]
     return query.urlencode()
+
+@register.filter
+def get_name(value):
+    spam = value.split('/')[-1]
+    return spam

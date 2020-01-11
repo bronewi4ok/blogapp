@@ -45,6 +45,7 @@ django-filter = "*"
 django-widget-tweaks = "*"
 django-summernote = "*"
 django-cleanup = "*"
+django-autoslug = "*"
 
 [requires]
 python_version = "3.6"

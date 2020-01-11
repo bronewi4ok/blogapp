@@ -6,8 +6,7 @@ from captcha.fields import CaptchaField
 from django.urls import reverse
 from django.db.models import Q
 from datetime import datetime, timedelta
-
-
+from django.utils.text import slugify
 
 class PostQuerySet(models.QuerySet):
     def published(self):
@@ -40,6 +39,9 @@ class PostQuerySet(models.QuerySet):
             post_range = filter_author
         return post_range
 
+class PostManager(models.Manager):
+    def get_queryset(self):
+        return super(PostManager, self).get_queryset().filter(published_date__lte=timezone.now())
 
 
 class Post(models.Model):
@@ -48,22 +50,60 @@ class Post(models.Model):
     title           = models.CharField(max_length=200)
     text            = models.TextField()
     created_date    = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-    
+    published_date  = models.DateTimeField(blank=True, null=True)
+    slug_title      = models.SlugField(max_length=200, default='abc', blank=True, null=True)
+    slug_date       = models.SlugField(default='abc', blank=True, null=True)
+    slug_category   = models.SlugField(null=True, blank=True)
+    category        = TreeForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
+
     objects = PostQuerySet.as_manager()
+    publishing = PostManager()
 
     def publish(self):
         self.published_date = timezone.now()
         self.save()
-    
+
     def __str__(self):
-        return self.title
-    
+        return str(self.title) or ''
+
     def get_absolute_url(self):
-        return reverse('blogapp:post_detail', args=[str(self.id)])
+        return reverse('blogapp:post_detail', kwargs={'slug_title':self.slug_title, 'slug_date':self.slug_date })
 
     class Meta():
         ordering = ['-published_date']
+
+    def save(self, *args, **kwargs):
+            self.slug_title = slugify(self.title)
+            self.slug_date = slugify(self.created_date)
+            super(Post, self).save(*args, **kwargs)
+
+
+
+class Category(MPTTModel):
+  name = models.CharField(max_length=50, unique=True)
+  parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
+  slug = models.SlugField(blank=True)
+  class MPTTMeta:
+    order_insertion_by = ['name']
+
+  class Meta:
+    unique_together = (('parent', 'slug',))
+    verbose_name_plural = 'categories'
+
+  def get_slug_list(self):
+    try:
+      ancestors = self.get_ancestors(include_self=True)
+    except:
+      ancestors = []
+    else:
+      ancestors = [ i.slug for i in ancestors]
+    slugs = []
+    for i in range(len(ancestors)):
+      slugs.append('/'.join(ancestors[:i+1]))
+    return slugs
+
+  def __str__(self):
+    return str(self.name) or ''
 
 
 
@@ -77,10 +117,10 @@ class NewComment(MPTTModel):
     commented_by    = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text            = models.TextField(max_length=900)
     created_date    = models.DateTimeField(default=timezone.now)
-    parent          = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    parent          = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', db_index=True)
     
     def __str__(self):
-        return self.text
+        return str(self.commented_by) or ''
 
     class MPTTMeta:
         order_insertion_by = ['-created_date']

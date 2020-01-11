@@ -24,9 +24,7 @@ def user_edit_form(request, pk=id):
 
 @login_required
 def post_author_profile(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post_author = post.author
-    return render(request, 'users/post_author_profile.html', {'post_author': post_author})
+    return render(request, 'users/post_author_profile.html', {'post_author': pk})
 
 
 def validate_username(request):

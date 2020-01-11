@@ -15,7 +15,7 @@ $(document).ready(function () {
                 "com_id": comment_id
             },
             success: function () {
-                comment.css("z-index", "3000").addClass("animated").addClass("hinge").delay(2000).slideUp( "slow", "swing");
+                comment.css("z-index", "3000").addClass("animated").addClass("hinge").delay(2000).slideUp( 400, "swing");
                 console.log("success")
             },
             error: function () {

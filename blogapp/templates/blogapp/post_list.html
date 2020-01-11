@@ -1,5 +1,8 @@
 {% extends 'blogapp/base.html' %}
 {% load static %}
+{% load mptt_tags %}
+{% load widget_tweaks %}
+
 
 {% block content %}
 
@@ -7,13 +10,58 @@
 {% include 'blogapp/snipets/header_slider.html' %}
 
 
-
 <!-- Search form -->
 {% include 'blogapp/snipets/search.html' %}
 
+<!-- <ul class="nav nav-tabs">
+    {% recursetree genres %}
+    <li class="nav-item">
+        <a class="nav-link active dropdown" href="{% url 'blogapp:category_list' param=node.name %}">
+            {{ node.name }}
+        </a>
+
+        {% if not node.is_leaf_node %}
+        <ul class="nav-item dropdown-menu">
+            {{ children }}
+        </ul>
+        {% endif %}
+    </li>
+    {% endrecursetree %}
+</ul> -->
 
 
+<div class="container">
 
+    <ul class="list-unstyled d-md-flex white z-depth-1 text-center">
+        {% recursetree genres %}
+
+        {% if not node.is_leaf_node %}
+        <li class="drop text-center col">
+            <a class="drop_link btn btn-link pr-0 mr-0" href="{% url 'blogapp:category_list' param=node.name %}">
+                {{ node.name }}
+            </a>
+            <button class="btn btn-link circle p-1"><i class="fas fa-angle-down"></i></button>
+
+            <ul class="drop_content list-unstyled" id="{{ node.name }}" style="display: none;">
+                {{ children }}
+            </ul>
+        </li>
+
+        {% else %}
+        <li class="drop">
+            <a class="drop_link btn btn-link" href="{% url 'blogapp:category_list' param=node.name %}">
+                {{ node.name }}
+            </a>
+        </li>
+        {% endif %}
+        {% endrecursetree %}
+    </ul>
+</div>
+<script>
+$( "button" ).click(function() {
+    $(this).next().toggle(300);
+  });
+</script>
 {% include 'blogapp/ajax_post_list.html' %}
 
 {% endblock %}

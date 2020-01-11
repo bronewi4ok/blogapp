@@ -19,10 +19,10 @@
                         {% endif %}
 
                         <div class="card-body position-relative">
-                            <a class="position-absolute white btn-circle-bg rotate-in-center"
+                            <a class="position-absolute white btn-circle-bg"
                                 style="top: -2.25rem; right: 1.5rem; z-index: 1000;"
                                 href="{% url 'post_author_profile' pk=post.pk %}">
-                                <img class="btn-circle z-depth-1" src="{{ post.author.avatar.url }}" alt="avatar">
+                                <img class="btn-circle z-depth-1 round" src="{{ post.author.avatar.url }}" alt="avatar">
                             </a>
 
                             <h6 class="card-subtitle pink-text mb-3">

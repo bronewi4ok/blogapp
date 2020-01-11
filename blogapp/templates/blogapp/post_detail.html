@@ -3,7 +3,7 @@
 {% block content %}
 {% load static %}
 {% load widget_tweaks %}
-
+{% load my_tags %}
 
 <!-- POSTS -->
 <div class="row justify-content-center mb-5">
@@ -18,8 +18,9 @@
                     {{ post.title|capfirst }}
                 </p>
 
-                <a class=" white btn-circle-bg rotate-in-center m-5" href="{% url 'post_author_profile' pk=post.pk %}">
-                    <img class="btn-circle z-depth-1" src="{{  post.author.avatar.url }}" alt="avatar">
+                <a class=" white btn-circle-bg m-5"
+                    href="{% url 'post_author_profile' pk=post.author.id %}">
+                    <img class="btn-circle z-depth-1 round" src="{{  post.author.avatar.url }}" alt="avatar">
                 </a>
 
                 <p class="white-text">By {{ post.author }}</p>
@@ -28,24 +29,30 @@
     </div>
 
 
-    <!-- <div class="embed-responsive embed-responsive-21by9">
-            <img class="embed-responsive-item rounded-top kenburns-bottom" style="object-fit:cover;"
-                src="{{ post.cover.url}}" alt="image">
-        </div> -->
     {% endif %}
     <div class="card p-0 rounded-lg free-bird rounded-0" style="width: 50rem">
         <div class="card-body position-relative">
             <div class="row">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="/">Home</a></li>
+
+                        {% for i in instance.category.get_slug_list %}
+                        <li class="breadcrumb-item"><a href="/category/{{ i }}">{{ i | get_name }}</a></li>
+                        {% endfor %}
+
+                    </ol>
+                </nav>
                 {% if post.author == user %}
-                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' pk=post.pk %}">
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' post.slug_date post.slug_title %}">
                     <i class="far fa-edit fa-lg shadow_hover "></i>
                 </a>
-                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_remove' pk=post.pk %}">
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_remove' post.slug_date post.slug_title %}">
                     <i class="far fa-trash-alt fa-lg shadow_hover"></i>
                 </a>
 
                 {% if not post.published_date %}
-                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_publish' pk=post.pk %}">
+                <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_publish' post.slug_date post.slug_title %}">
                     <i class="far fa-paper-plane fa-lg "></i>
                 </a>
                 {% endif %}
@@ -95,5 +102,18 @@
     </div>
 </div>
 
+<script>
+    $(function () {
+        $('#progress').progress({
+            size: '4px',
+            position: 'left',
+            wapperBg: 'rgba(62, 69, 81, 0.1)',
+            innerBg: '#ffc107',
+            duration: '.01s',
+            effect: 'linear'
+
+        });
+    });
+</script>
 
 {% endblock %}

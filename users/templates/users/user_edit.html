@@ -28,7 +28,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 <!-- Purple Header -->
-<div class="edge-header deep-purple"></div>
+<div class="edge-header deep-purple lighten-5"></div>
 <!-- 
 <div class="container free-bird">
     <div class="row ">
@@ -169,7 +169,7 @@
                 <h3 class="text-center my-3 col-12 p-0">Some beautiful text here</h3>
                 <img class="col-12 col-lg-6 rounded-lg z-depth-1 p-0" src="{% static 'image/freedom.jpg' %}"
                     style="object-fit: cover;" alt="">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 lead">
                     <p>
                         Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
                         custom
@@ -196,7 +196,7 @@
 
                 <img class="col-12 col-lg-6 order-lg-2 rounded-lg z-depth-1 p-0"
                     src="{% static 'image/slider/33.jpg' %}" style="object-fit: cover;" alt="">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 lead">
                     Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
                     custom
                     emails and other flexible templates to deliver efficient email. We will also discuss testing email
@@ -218,7 +218,7 @@
 
                 <img class="col-12 col-lg-6 rounded-lg z-depth-1 p-0" src="{% static 'image/slider/22.jpg' %}"
                     style="object-fit: cover;" alt="">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-6 lead">
                     <p>
                         Almost every Django app has a feature which uses email. In this tutorial, we discuss the use of
                         custom
@@ -451,6 +451,7 @@
         Dropzone.options.myAwesomeDropzone = {
             paramName: "avatar", // The name that will be used to transfer the file
             maxFilesize: 2, // MB
+            maxFiles:   1,
             acceptedFiles: "image/jpeg,image/png,image/gif",
             addRemoveLinks: "{% url 'user_edit_form' %}",
             createImageThumbnails: true,
