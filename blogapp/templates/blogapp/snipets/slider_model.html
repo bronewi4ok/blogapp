@@ -1,11 +1,11 @@
 {% load static %}
 
 <div class=" z-depth-3" style="max-height: 100vh;">
-    <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="10000">
         <!--Indicators-->
         <ol class="carousel-indicators">
             {% for slide in slider %}
-            <li class="p-2 {% ifequal forloop.counter0 0 %}active{% endifequal %}" data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}">{{ forloop.counter0 }}</li>
+            <li class="p-sm-2 {% ifequal forloop.counter0 0 %}active{% endifequal %}" data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"></li>
             {% endfor %}
         </ol>
         <!--/.Indicators-->

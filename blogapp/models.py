@@ -129,10 +129,6 @@ class NewComment(MPTTModel):
 
 
 
-class SliderManager(models.Manager):
-    def get_queryset(self):
-        return super(SliderManager, self).get_queryset().filter(show=True)
-
 class Slider(models.Model):
     name = models.CharField(max_length=30)
     image = models.ImageField(upload_to='image/slider/%id', blank=True)
@@ -140,8 +136,6 @@ class Slider(models.Model):
     caption = models.CharField(max_length=50, blank=True, default="Caption")
     position = models.PositiveIntegerField(unique=True, default=0)
     show = models.BooleanField(default = True)
-
-    objects = SliderManager()
 
     def __str__(self):
         return self.name

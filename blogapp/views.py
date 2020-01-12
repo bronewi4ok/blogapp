@@ -20,7 +20,7 @@ from .filters import UserFilter
 
 def post_list(request):
     form = SearchForm()
-    slider = Slider.objects.all()
+    slider = Slider.objects.filter(show=True)
     print("SLIDER")
     print(slider)
     post_range = Post.publishing.all()
