@@ -35,6 +35,9 @@
                                 {% else %}
                                 <p>No name</p>
                                 {% endif %}
+                                {% if post.category %}
+                                <p class="indigo-text">{{ post.category.name }}</p>
+                                {% endif %}
                             </h6>
 
                             <h5 class="card-title text-break overflow-hidden"

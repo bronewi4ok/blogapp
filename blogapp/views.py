@@ -12,7 +12,7 @@ import mptt
 from user_agents import parse
 from users.models import CustomUser
 
-from .models import Post, NewComment, Category
+from .models import Post, NewComment, Category, Slider
 from .forms import PostForm, NewCommentForm, SearchForm
 from .filters import UserFilter
 
@@ -20,6 +20,9 @@ from .filters import UserFilter
 
 def post_list(request):
     form = SearchForm()
+    slider = Slider.objects.all()
+    print("SLIDER")
+    print(slider)
     post_range = Post.publishing.all()
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
@@ -39,6 +42,7 @@ def post_list(request):
         'search_q': search,
         'search_amount': search_amount,
         'form': form,
+        'slider': slider,
         }
     return render(request, 'blogapp/post_list.html', context)
 
@@ -48,7 +52,6 @@ def category_list(request, category=None):
     post_range = Category.objects.get(name__iexact=category)
     post_range = post_range.get_descendants(include_self=True)
     post_range = Post.publishing.filter(category__in=post_range)
-    #post_range = Post.objects.filter(category__in=post_range)
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
     page = request.GET.get('page')

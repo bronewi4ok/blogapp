@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, NewComment, Category
+from .models import Post, NewComment, Category, Slider
 from django_summernote.admin import SummernoteModelAdmin
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
@@ -21,6 +21,8 @@ class CategoryAdmin(DraggableMPTTAdmin):
 
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Slider)
+
 # admin.site.register(Category, DraggableMPTTAdmin)
 
 
