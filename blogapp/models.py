@@ -39,6 +39,7 @@ class PostQuerySet(models.QuerySet):
             post_range = filter_author
         return post_range
 
+
 class PostManager(models.Manager):
     def get_queryset(self):
         return super(PostManager, self).get_queryset().filter(published_date__lte=timezone.now())
@@ -75,6 +76,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
             self.slug_title = slugify(self.title)
             self.slug_date = slugify(self.created_date)
+            # self.slug_category = slugify(self.category)
             super(Post, self).save(*args, **kwargs)
 
 

@@ -9,7 +9,7 @@ class PostAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
     readonly_fields = ('slug_title', 'slug_date', )
     """fields = ['author', 'cover', 'title', 'text', 'created_date', 'published_date']"""
     list_display = ['__str__', 'author', 'slug_date', 'category']
-    
+
 
 @admin.register(NewComment)
 class NewCommentAdmin(DraggableMPTTAdmin):

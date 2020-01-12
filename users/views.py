@@ -22,7 +22,6 @@ def user_edit_form(request, pk=id):
     return render(request, 'users/user_edit.html', {'form': form})
 
 
-@login_required
 def post_author_profile(request, pk):
     return render(request, 'users/post_author_profile.html', {'post_author': pk})
 

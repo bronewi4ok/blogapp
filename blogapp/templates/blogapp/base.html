@@ -30,7 +30,7 @@
             {% else %}
             <a class="visible wobble-hor-bottom" id="btnNewPost" type="button" data-toggle="modal"
                 data-target="#loginModal">
-                <span class="fa-stack fa-2x green-text m-0 round">
+                <span class="fa-stack fa-lg green-text m-0 round">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="fas fa-circle-notch fa-stack-1x fa-inverse "></i>
                 </span>
@@ -55,7 +55,6 @@
     <!-- Footer -->
     <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 80vh;">
         <img class="embed-responsive-item" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
-        <!-- <div class="mask waves-effect waves-light flex-center peach-gradient-rgba"> -->
         <div class="mask flex-center rgba-black-strong">
             {% include 'mailer/email.html' %} 
         </div>
