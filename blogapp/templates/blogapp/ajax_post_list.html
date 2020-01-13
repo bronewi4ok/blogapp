@@ -2,81 +2,83 @@
 
 <div class="container px-0">
 
-        <!-- <div class="container-fluid">
+    <!-- <div class="container-fluid">
             <div style="display: grid; grid-gap: 1.5rem;
     grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
     grid-auto-flow: dense;" class="hz_ajax"> -->
 
-            <div class="row">
-                {% for post in posts %}
-                <div class="col-md-4 col-12">
-                    <div class="card view overlay my-3 " data-aos="fade-up" id="postCardPreview" style="align-self: start;">
-                        {% if post.cover %}
-                        <div class="embed-responsive embed-responsive-4by3">
-                            <img src="{{ post.cover.url }}" style="object-fit:cover;"
-                                class="embed-responsive-item card-image-top" alt="narrower">
-                        </div>
-                        {% endif %}
-
-                        <div class="card-body position-relative">
-                            <a class="position-absolute white btn-circle-bg"
-                                style="top: -2.25rem; right: 1.5rem; z-index: 1000;"
-                                href="{% url 'post_author_profile' pk=post.pk %}">
-                                <img class="btn-circle z-depth-1 round" src="{{ post.author.avatar.url }}" alt="avatar">
-                            </a>
-
-                            <h6 class="card-subtitle pink-text mb-3">
-                                {% if post.published_date %}
-                                <p>{{ post.published_date.date|date:"d M Y" }}</p>
-                                {% endif %}
-
-                                {% if post.author %}
-                                <p> {{ post.author.username|capfirst }}</p>
-                                {% else %}
-                                <p>No name</p>
-                                {% endif %}
-                                {% if post.category %}
-                                <p class="indigo-text">{{ post.category.name }}</p>
-                                {% endif %}
-                            </h6>
-
-                            <h5 class="card-title text-break overflow-hidden"
-                                style="line-height: 1.6rem; height: 3.2rem;">
-                                {{ post.title|capfirst }}
-                            </h5>
-
-                            <p class="card-text text-break text-dark overflow-hidden"
-                                style="line-height: 1.6rem; height: 4.8rem;">
-                                {{ post.text|safe|linebreaksbr|capfirst|truncatechars:120}}
-                            </p>
-                            <hr class="m-0">
-
-                            <div class="py-3 text-muted">
-                                <span class="float-left">See more...</span>
-                                {% if post.published_date %}
-                                <span class="float-right "> <i class="far fa-comment-alt"></i>
-                                    {{ post.new_comments.count }}</span>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <a href="{{ post.get_absolute_url }}">
-                            <div class="mask rgba-white-light flex-center"></div>
-                        </a>
-                    </div>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 col-12">
+            <div class="card  my-3 " data-aos="fade-up" id="postCardPreview" style="align-self: start;">
+                {% if post.cover %}
+                <div class="embed-responsive embed-responsive-4by3 view overlay">
+                    <img src="{{ post.cover.url }}" style="object-fit:cover;"
+                        class="embed-responsive-item card-image-top" alt="narrower">
+                    <div class="mask rgba-white-light flex-center"></div>
                 </div>
-                {% endfor %}
-            </div>
 
-            {% if not posts %}
-            <div class="jumbotron text-center">
-                <h1 class="display-3 blue-grey-text">No posts</h1>
-                <p class="lead grey-text">Sorry, no posts in this list.</p>
-                <hr class="my-2">
-                <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="{% url 'blogapp:post_new' %}" role="button">Make post</a>
-                </p>
+                {% endif %}
+
+                <div class="card-body position-relative">
+                    <a class="position-absolute white btn-circle-bg"
+                        style="top: -2.25rem; right: 1.5rem; z-index: 1000;"
+                        href="{% url 'post_author_profile' pk=post.pk %}">
+                        <img class="btn-circle z-depth-1 round" src="{{ post.author.avatar.url }}" alt="avatar">
+                    </a>
+
+                    {% if post.published_date %}
+                    <!-- <p>{{ post.published_date.date|date:"d M Y" }}</p> -->
+                    <p class="text-muted">{{ post.published_date.date|timesince }}</p>
+                    {% endif %}
+
+                    {% if post.author %}
+                    <p class="pink-text"> {{ post.author.username|capfirst }}</p>
+                    {% else %}
+                    <p class="pink-text">No name</p>
+                    {% endif %}
+
+                    <h5 class="card-title text-break overflow-hidden" style="line-height: 1.6rem; height: 3.2rem;">
+                        {{ post.title|title }}
+                    </h5>
+
+                    <p class="card-text text-break text-dark overflow-hidden"
+                        style="line-height: 1.6rem; height: 4.8rem;">
+                        {{ post.text|safe|linebreaksbr|capfirst|truncatechars:120}}
+                    </p>
+                    {% if post.category %}
+                    <a class="badge badge-pill indigo"
+                        href="{% url 'blogapp:category_list' category=post.category.name %}">
+                        {{ post.category.name }}
+                    </a>
+                    {% endif %}
+
+                </div>
+                <div class="card-footer text-muted white">
+                    <a href="{{ post.get_absolute_url }}">
+                        <span class="float-left">See more...</span>
+
+                        {% if post.published_date %}
+                        <span class="float-right "> <i class="far fa-comment-alt"></i>
+                            {{ post.new_comments.count }}</span>
+                        {% endif %}
+                    </a>
+                </div>
+
             </div>
-            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not posts %}
+    <div class="jumbotron text-center">
+        <h1 class="display-3 blue-grey-text">No posts</h1>
+        <p class="lead grey-text">Sorry, no posts in this list.</p>
+        <hr class="my-2">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{% url 'blogapp:post_new' %}" role="button">Make post</a>
+        </p>
+    </div>
+    {% endif %}
 </div>
 </div>

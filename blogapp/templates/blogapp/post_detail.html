@@ -15,7 +15,7 @@
             <div class="flex-center flex-column container">
                 <p class="white-text text-center text-break overflow-hidden h1 "
                     style="font-size: calc(1rem + 3vw) !important;">
-                    {{ post.title|capfirst }}
+                    {{ post.title|title }}
                 </p>
 
                 <a class=" white btn-circle-bg m-5"
@@ -27,9 +27,8 @@
             </div>
         </div>
     </div>
-
-
     {% endif %}
+
     <div class="card p-0 rounded-lg free-bird rounded-0" style="width: 50rem">
         <div class="card-body position-relative">
             <div class="row">
@@ -60,7 +59,8 @@
                 {% endif %}
             </div>
             {% if post.published_date %}
-            <p class="card-title">{{ post.published_date }}</p>
+            <p class="card-title text-muted">{{ post.published_date }}</p>
+            <!-- <p class="card-title">{{ post.published_date.date|date:"d M Y" }}</p> -->
             {% endif %}
 
 

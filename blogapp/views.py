@@ -23,7 +23,7 @@ def post_list(request):
     slider = Slider.objects.filter(show=True)
     print("SLIDER")
     print(slider)
-    post_range = Post.publishing.all()
+    post_range = Post.published.all()
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
@@ -49,9 +49,10 @@ def post_list(request):
 
 def category_list(request, category=None):
     form = SearchForm()
+    slider = Slider.objects.filter(show=True)
     post_range = Category.objects.get(name__iexact=category)
     post_range = post_range.get_descendants(include_self=True)
-    post_range = Post.publishing.filter(category__in=post_range)
+    post_range = Post.published.filter(category__in=post_range)
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
     page = request.GET.get('page')
@@ -69,6 +70,7 @@ def category_list(request, category=None):
         'search_q': search,
         'search_amount': search_amount,
         'form': form,
+        'slider': slider,
         }
 
     return render(request, 'blogapp/post_list.html', context)
@@ -83,8 +85,8 @@ def profile(request):
     search_q = request.GET.get('q', None)
     current_user = request.user
 
+    slider = Slider.objects.filter(show=True)
     genres = Category.objects.all()
-
 
     if request.method == 'GET':
         form = SearchForm(request.GET)
@@ -114,6 +116,7 @@ def profile(request):
         'filter_autor': filter_author,
         'search_amount': search_amount,
         'form': form,
+        'slider':slider,
         }
     return render(request, 'blogapp/post_list.html', context)
 
@@ -176,6 +179,7 @@ def post_remove(request, slug_title, slug_date):
 def post_draft(request):
     ip = get_client_ip(request)[0]
     form = SearchForm()
+    slider = Slider.objects.filter(show=True)
     posts = Post.objects.exclude(published_date__lte=timezone.now()).order_by('-created_date')
     posts = posts.filter(author=request.user)
     genres = Category.objects.all()
@@ -185,7 +189,8 @@ def post_draft(request):
         'ip': ip,
         'form': form,
         'search_amount': search_amount,
-        'genres':genres
+        'genres': genres,
+        'slider':slider,
         }
     return render(request, 'blogapp/post_list.html', context)
 

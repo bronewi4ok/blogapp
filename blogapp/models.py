@@ -58,7 +58,7 @@ class Post(models.Model):
     category        = TreeForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
 
     objects = PostQuerySet.as_manager()
-    publishing = PostManager()
+    published = PostManager()
 
     def publish(self):
         self.published_date = timezone.now()
@@ -80,7 +80,6 @@ class Post(models.Model):
             super(Post, self).save(*args, **kwargs)
 
 
-
 class Category(MPTTModel):
   name = models.CharField(max_length=50, unique=True)
   parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.CASCADE)
@@ -92,21 +91,8 @@ class Category(MPTTModel):
     unique_together = (('parent', 'slug',))
     verbose_name_plural = 'categories'
 
-  def get_slug_list(self):
-    try:
-      ancestors = self.get_ancestors(include_self=True)
-    except:
-      ancestors = []
-    else:
-      ancestors = [ i.slug for i in ancestors]
-    slugs = []
-    for i in range(len(ancestors)):
-      slugs.append('/'.join(ancestors[:i+1]))
-    return slugs
-
   def __str__(self):
     return str(self.name) or ''
-
 
 
 class NewComment(MPTTModel):
@@ -126,7 +112,6 @@ class NewComment(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['-created_date']
-
 
 
 class Slider(models.Model):

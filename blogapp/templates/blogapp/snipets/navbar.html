@@ -13,6 +13,7 @@
     id="navbar" style="backdrop-filter: blur(2px);">
     <div class="container">
         <a class="navbar-brand waves-light p-2 rounded-pill" href="#">MENU:</a>
+
         <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-hamburger "></i>
@@ -20,97 +21,57 @@
 
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav mr-auto mt-lg-0">
-                {% if post_list == request.path %}
-                <li class="nav-item active">
-                    <a class="nav-link p-3 hoverable disabled active" href="{% url 'blogapp:post_list' %}">
+                <li class="nav-item {% if post_list == request.path %} active {% endif %}">
+                    <a class="nav-link p-3 hoverable {% if post_list == request.path %} disabled {% endif %}"
+                        href="{% url 'blogapp:post_list' %}">
                         <i class="fas fa-stream"></i>
                         <span>FLOW</span>
                     </a>
                 </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link p-3 hoverable" href="{% url 'blogapp:post_list' %}">
-                        <i class="fas fa-stream"></i>
-                        <span>FLOW</span>
-                    </a>
-                </li>
-                {% endif %}
 
                 {% if user.is_authenticated %}
-
-
-                {% if profile == request.path %}
-                <li class="nav-item active">
-                    <a class="nav-link p-3 hoverable disabled" href="{% url 'blogapp:profile' %}">
+                <!-- <li class="nav-item {% if profile == request.path %} active {% endif %}">
+                    <a class="nav-link p-3 hoverable {% if profile == request.path %} disabled {% endif %}" 
+                    href="{% url 'blogapp:profile' %}">
                         <i class="fas fa-address-card"></i>
                         <span> My posts</span>
                     </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link p-3 hoverable" href="{% url 'blogapp:profile' %}">
-                        <i class="fas fa-address-card"></i>
-                        <span> My posts</span>
-                    </a>
-                </li>
-                {% endif %}
+                </li> -->
 
-
-                {% if post_draft == request.path %}
-                <li class="nav-item active">
-                    <a class="nav-link p-3 hoverable disabled" href="{% url 'blogapp:post_draft' %}">
+                <li class="nav-item {% if post_draft == request.path %} active {% endif %}">
+                    <a class="nav-link p-3 hoverable {% if post_draft == request.path %} disabled {% endif %}"
+                        href="{% url 'blogapp:post_draft' %}">
                         <i class="fab fa-firstdraft"></i>
                         <span>Drafts</span>
                     </a>
                 </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link p-3 hoverable" href="{% url 'blogapp:post_draft' %}">
-                        <i class="fab fa-firstdraft"></i>
-                        <span>Drafts</span>
-                    </a>
-                </li>
-                {% endif %}
-
-
-
                 {% endif %}
             </ul>
 
-
             <ul class="navbar-nav ml-auto p-0 m-0">
                 <li class="nav-item dropdown m-0 p-0">
-                    <a class="dropdown-toggle rounded-pill p-0 m-2 m-sm-0 " data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="dropdown-toggle rounded-pill p-0 m-2 m-sm-0 " data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         {% if user.is_authenticated %}
                         <img class="bttn_social m-0 round" src="{{  user.avatar.url }}" alt="avatar">
                         {% else %}
-                        <!-- <i class="far fa-user-circle"></i> -->
                         <span class="fa-stack fa-lg text-white round">
                             <i class="far fa-circle fa-stack-2x"></i>
+                            
                             <i class="fas fa-user-astronaut fa-stack-1x"></i>
                         </span>
                         {% endif %}
                     </a>
 
-
                     <div class="dropdown-menu dropdown-menu-left dropdown-menu-md-right dropdown-info p-2">
                         {% if user.is_authenticated %}
-
-                        {% if user_edit_form == request.path %}
-                        <a class="dropdown-item p-3 hoverable disabled" href="{% url 'user_edit_form' %}">
+                        <a class="dropdown-item p-3 hoverable {% if user_edit_form == request.path %} disabled {% endif %}"
+                            href="{% url 'user_edit_form' %}">
                             <i class="fas fa-user-circle"></i>
                             <span>Profile</span>
                         </a>
-                        {% else %}
-                        <a class="dropdown-item p-3 hoverable" href="{% url 'user_edit_form' %}">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Profile</span>
-                        </a>
-                        {% endif %}
 
                         <div class="dropdown-divider"></div>
-
 
                         <a class="dropdown-item p-3 hoverable" type="button" data-toggle="modal"
                             data-target="#logoutModal">
@@ -124,6 +85,7 @@
                             <i class="fas fa-sign-in-alt"></i>
                             <span>{% trans 'Log in' %}</span>
                         </a>
+
                         <a class="dropdown-item p-3 hoverable" href="{% url 'account_signup' %}">
                             <i class="fas fa-user-plus"></i>
                             {% trans 'Signup' %}
@@ -131,15 +93,11 @@
                         {% endif %}
                     </div>
                 </li>
-
             </ul>
         </div>
     </div>
     <div id="progress"></div>
-
 </nav>
-
-
 
 <!-- Login Modal -->
 {% include 'blogapp/forms/loginForm.html' %}
