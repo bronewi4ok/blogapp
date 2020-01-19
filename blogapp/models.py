@@ -7,6 +7,8 @@ from django.urls import reverse
 from django.db.models import Q
 from datetime import datetime, timedelta
 from django.utils.text import slugify
+from django.db.models.signals import pre_save, post_save, m2m_changed
+
 
 class PostQuerySet(models.QuerySet):
     def published(self):
@@ -56,6 +58,8 @@ class Post(models.Model):
     slug_date       = models.SlugField(default='abc', blank=True, null=True)
     slug_category   = models.SlugField(null=True, blank=True)
     category        = TreeForeignKey('Category', null=True, blank=True, on_delete=models.CASCADE)
+    price           = models.DecimalField(max_digits=20, decimal_places=2, default=32.00)
+
 
     objects = PostQuerySet.as_manager()
     published = PostManager()
@@ -78,6 +82,12 @@ class Post(models.Model):
             self.slug_date = slugify(self.created_date)
             # self.slug_category = slugify(self.category)
             super(Post, self).save(*args, **kwargs)
+
+def pre_save_post_slug_category(sender, instance, *args, **kwargs):
+    if not instance.slug_category:
+        instance.slug_category = slugify(instance.category.name)
+
+pre_save.connect(pre_save_post_slug_category, sender=Post)
 
 
 class Category(MPTTModel):

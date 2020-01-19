@@ -57,11 +57,11 @@
                             </div>
                             <!-- Social buttons -->
                             <div class="d-flex justify-content-center">
-                                <a class="" 
+                                <a class=" " 
                                     href="{% provider_login_url 'google' %}">
 
                                     <span class="fa-stack fa-lg text-danger">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fas fa-circle fa-stack-2x "></i>
                                         <i class="fab fa-google-plus-g fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
@@ -91,7 +91,7 @@
                 <div class="tab-pane fade" id="signupTab" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="modal-body m-2">
 
-                        <form class="signup md-form mb-0" id="signup_form" method="POST" action="{% url 'account_signup' %}">
+                        <form class="signup md-form mb-0" id="signup_form" method="POST" action="{% url 'account_signup' %}?next={{request.get_full_path|urlencode}}">
                             {% csrf_token %}
                             <!-- E-mail input -->
                             <div class="md-form md-outline mb-3">

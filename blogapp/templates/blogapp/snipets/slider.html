@@ -5,7 +5,7 @@
         <!--Indicators-->
         <ol class="carousel-indicators">
             {% for slide in slider %}
-            <li class="p-sm-2 {% ifequal forloop.counter0 0 %}active{% endifequal %}" data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"></li>
+            <li class="p-sm-1 {% ifequal forloop.counter0 0 %}active{% endifequal %}" data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"></li>
             {% endfor %}
         </ol>
         <!--/.Indicators-->

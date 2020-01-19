@@ -7,22 +7,24 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.core import serializers
 
+from .models import Post, NewComment, Category, Slider
+from .forms import PostForm, NewCommentForm, SearchForm
+from .filters import UserFilter
+from cart.models import Cart
+
 from ipware import get_client_ip
 import mptt
 from user_agents import parse
 from users.models import CustomUser
 
-from .models import Post, NewComment, Category, Slider
-from .forms import PostForm, NewCommentForm, SearchForm
-from .filters import UserFilter
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def post_list(request):
+    cart_obj = Cart.objects.new_or_get(request)
     form = SearchForm()
     slider = Slider.objects.filter(show=True)
-    print("SLIDER")
-    print(slider)
     post_range = Post.published.all()
     search_amount = post_range.count()
     paginator = Paginator(post_range, 9)
@@ -43,6 +45,7 @@ def post_list(request):
         'search_amount': search_amount,
         'form': form,
         'slider': slider,
+        'cart':cart_obj,
         }
     return render(request, 'blogapp/post_list.html', context)
 
@@ -78,7 +81,6 @@ def category_list(request, category=None):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
-@login_required
 def profile(request):
     q_author = request.GET.get("author", None)
     q_date = request.GET.get("date", None)
@@ -206,6 +208,7 @@ def post_publish(request, slug_title, slug_date):
 
 # POST DETAIL and COMMENTS
 def post_detail(request, slug_title, slug_date):
+    cart_obj, cart_new_obj = Cart.objects.new_or_get(request)
     post = get_object_or_404(Post, slug_title=slug_title, slug_date=slug_date)
     new_comments = NewComment.objects.filter(post__pk=post.pk)
     if request.method == "POST":
@@ -219,7 +222,8 @@ def post_detail(request, slug_title, slug_date):
             context = {
                 'post': post,
                 'new_comments': new_comments,
-                'form': form
+                'form': form,
+                'cart':cart_obj,
                 }
             return render(request, 'blogapp/post_detail_ajax.html', context)
 
@@ -236,7 +240,8 @@ def post_detail(request, slug_title, slug_date):
     context = {
         'post': post,
         'new_comments': new_comments,
-        'form': form
+        'form': form,
+        'cart':cart_obj,
         }
     return render(request, 'blogapp/post_detail.html', context)
 

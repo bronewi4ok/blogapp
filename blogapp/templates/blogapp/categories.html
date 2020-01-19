@@ -5,9 +5,9 @@
 
 {% block content %}
 <br>
-<div class="text-center"><h2>{{instance.name}}</h2></div>
+<div class="text-center"><h2>{{ instance.name }}</h2></div>
 
-{% if  instance.children.all %}
+{% if instance.children.all %}
     <h4>Sub Categories</h4>
     {% for i in instance.children.all %}
         <a href="{{ i.slug }}"> {{ i.name }} </a><br>

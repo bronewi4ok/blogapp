@@ -10,12 +10,14 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-4 col-12">
-            <div class="card  my-3 " data-aos="fade-up" id="postCardPreview" style="align-self: start;">
+            <div class="card my-3" id="{{post.slug_title}}" style="align-self: start;">
                 {% if post.cover %}
                 <div class="embed-responsive embed-responsive-4by3 view overlay">
-                    <img src="{{ post.cover.url }}" style="object-fit:cover;"
-                        class="embed-responsive-item card-image-top" alt="narrower">
-                    <div class="mask rgba-white-light flex-center"></div>
+                    <img class="embed-responsive-item card-image-top rounded-top" alt="narrower"
+                    src="{{ post.cover.url }}" style="object-fit:cover;">
+                    <div class="mask rgba-white-light flex-center">
+                        <a class="stretched-link" href="{{ post.get_absolute_url }}"></a>
+                    </div>
                 </div>
 
                 {% endif %}
@@ -47,22 +49,25 @@
                         {{ post.text|safe|linebreaksbr|capfirst|truncatechars:120}}
                     </p>
                     {% if post.category %}
-                    <a class="badge badge-pill indigo"
+                    <a class="badge badge-pill indigo hoverable"
                         href="{% url 'blogapp:category_list' category=post.category.name %}">
                         {{ post.category.name }}
                     </a>
                     {% endif %}
-
+                    {% if post.price %}
+                    <p class="float-right badge badge-danger z-depth-2 rounded-lg"> <span class="h2">$ {{ post.price }}</span></p>
+                    {% endif %}
                 </div>
-                <div class="card-footer text-muted white">
-                    <a href="{{ post.get_absolute_url }}">
-                        <span class="float-left">See more...</span>
+                <!-- style="transform: rotate(0);" to make link work for current div but not whole card -->
+                <div class="card-footer white" style="transform: rotate(0);"> 
+                        <span class="float-left text-muted">See more...</span>
 
                         {% if post.published_date %}
-                        <span class="float-right "> <i class="far fa-comment-alt"></i>
+                        <span class="float-right text-muted"> <i class="far fa-comment-alt"></i>
                             {{ post.new_comments.count }}</span>
                         {% endif %}
-                    </a>
+
+                        <a class="stretched-link" href="{{ post.get_absolute_url }}"></a>
                 </div>
 
             </div>

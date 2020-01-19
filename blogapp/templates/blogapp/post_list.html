@@ -21,7 +21,7 @@
             <a class="drop_link btn btn-link pr-0 mr-0" href="{% url 'blogapp:category_list' category=node.name %}">
                 {{ node.name }}
             </a>
-            
+
             <button class="btn btn-link circle p-1"><i class="fas fa-angle-down"></i></button>
 
             <ul class="drop_content list-unstyled" id="{{ node.name }}" style="display: none;">
@@ -40,12 +40,13 @@
     </ul>
 </div>
 
+
 <!-- CATEGORY menu togle -->
 <script>
-$( "button" ).click(function() {
-    $(this).prev().toggleClass("text-muted");
-    $(this).next().toggle(300);
-  });
+    $("button").click(function () {
+        $(this).prev().toggleClass("text-muted");
+        $(this).next().toggle(300);
+    });
 </script>
 {% include 'blogapp/ajax_post_list.html' %}
 

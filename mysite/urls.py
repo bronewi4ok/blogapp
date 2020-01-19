@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogapp.urls')),
     path('users/', include('users.urls')),
+    path('cart/', include('cart.urls')),
     path('captcha/', include('captcha.urls')),
     path('accounts/', include('allauth.urls')),
     path('mailer/', include('mailer.urls')),

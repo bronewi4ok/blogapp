@@ -30,16 +30,16 @@
                         {{ form.author.label }}
                     </div>
                 </div>
-                <div class="input-group-append mt-3">
+                <div class="input-group-append float-right">
+                    <a class="btn btn-outline-warning" href="{% url 'blogapp:post_list' %}#Filter">
+                        <i class="fas fa-redo-alt"></i>
+                        <span class="d-none d-sm-inline"> Reset</span>
+                    </a>
+
                     <button class="btn btn-success" type="submit">
                         <i class="fas fa-filter"></i> 
                         <span class="d-none d-sm-inline"> Filter</span>
                     </button>
-
-                    <a class="btn btn-outline-warning rounded-pill" href="{% url 'blogapp:post_list' %}#Filter">
-                        <i class="fas fa-redo-alt"></i>
-                        <span class="d-none d-sm-inline"> Reset</span>
-                    </a>
                 </div>
             </form>
         </div>

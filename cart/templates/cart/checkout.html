@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% load humanize %}
+{% block content %}
+
+
+<div class="container mt-5 pt-5">
+    <div class="row d-flex flex-column">
+
+        <h1>Checkout</h1>
+
+        <p>Cart total: {{ object.cart.total|floatformat:2 }} </p>
+        <p>Shipping total: {{ object.shipping_total|floatformat:2 }} </p>
+        <p>Order total: {{ object.total|floatformat:2 }} </p>
+
+    </div>
+</div>
+{% endblock %}

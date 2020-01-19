@@ -43,10 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.humanize',
     
     'blogapp',
-    'users.apps.UsersConfig',
+    'cart',
+    'users',
     'mailer',
+    'orders',
+    'billing',
     
     'allauth',
     'allauth.account',

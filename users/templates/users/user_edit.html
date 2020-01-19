@@ -21,7 +21,7 @@
     }
 
     .btn-lily {
-        font-size: calc(0.2rem + 0.6vw) !important;
+        font-size: calc(0.5rem + 0.6vw) !important;
     }
 </style>
 
@@ -92,23 +92,23 @@
 <div class="container free-bird">
     <!-- TAB NAVS -->
     <ul class="nav nav-tabs border-0 " id="myTab" role="tablist">
-        <li class="nav-item col m-0 p-0 active">
-            <a class="nav-link btn-primary btn-lg border-0 rounded-0 active" id="about-tab" data-toggle="tab"
+        <li class="nav-item rounded-top col m-0 p-0 active">
+            <a class="nav-link btn-link btn-lg border-0 rounded-0 active" id="about-tab" data-toggle="tab"
                 href="#about" role="tab" aria-controls="about" aria-selected="true">About</a>
         </li>
 
-        <li class="nav-item col m-0 p-0">
-            <a class="nav-link btn-primary btn-lg border-0 rounded-0" id="home-tab" data-toggle="tab" href="#home"
+        <li class="nav-item col rounded-top m-0 p-0">
+            <a class="nav-link btn-link btn-lg border-0 rounded-0" id="home-tab" data-toggle="tab" href="#home"
                 role="tab" aria-controls="home" aria-selected="false">Tab 1</a>
         </li>
 
-        <li class="nav-item col m-0 p-0">
-            <a class="nav-link btn-primary btn-lg border-0 rounded-0" id="profile-tab" data-toggle="tab"
+        <li class="nav-item rounded-top col m-0 p-0">
+            <a class="nav-link btn-link btn-lg border-0 rounded-0" id="profile-tab" data-toggle="tab"
                 href="#profile" role="tab" aria-controls="profile" aria-selected="false">Tab 2</a>
         </li>
 
-        <li class="nav-item  col m-0 p-0">
-            <a class="nav-link btn-primary btn-lg border-0 rounded-0" id="contact-tab" data-toggle="tab"
+        <li class="nav-item rounded-top col m-0 p-0">
+            <a class="nav-link btn-link btn-lg border-0 rounded-0" id="contact-tab" data-toggle="tab"
                 href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tab 3</a>
         </li>
     </ul>
@@ -288,10 +288,10 @@
 
 
 <!-- Detail block -->
-<section class="container-fluid my-5 p-0 ">
+<section class="container-fluid my-5 p-0">
     <div class="card mb-4 rounded-0">
         <div class="row">
-            <div class=" col-sm-8 col-md-6 col-lg-7 mx-auto">
+            <div class="col-sm-8 col-md-6 col-lg-7 mx-auto" data-aos="fade-up">
                 <div class="col-md-12 col-lg-9 col-xl-7 mx-auto">
                     <img class="w-100 h-75 rounded-bottom mt-n4 z-depth-2 "
                         src="https://mdbootstrap.com/img/Photos/Vertical/7.jpg" alt="project image">
@@ -350,22 +350,22 @@
     <section class="text-center dark-grey-text">
 
         <div class="row text-center d-flex justify-content-center my-5">
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <i class="fas fa-envelope-open fa-3x mb-4 grey-text"></i>
                 <h5 class="font-weight-normal mb-3">Subscription Ready</h5>
                 <p class="text-muted mb-0">MailChimp integration included</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <i class="fas fa-layer-group fa-3x mb-4 grey-text"></i>
                 <h5 class="font-weight-normal mb-3">Block Variety</h5>
                 <p class="text-muted mb-0">Develop pages like lego</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <i class="fas fa-brush fa-3x mb-4 grey-text"></i>
                 <h5 class="font-weight-normal mb-3">Color Pallet</h5>
                 <p class="text-muted mb-0">Dozen of colors for elements</p>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
                 <i class="fas fa-puzzle-piece fa-3x mb-4 grey-text"></i>
                 <h5 class="font-weight-normal mb-3">Page Builder</h5>
                 <p class="text-muted mb-0">Drag and drop page design</p>
@@ -406,30 +406,28 @@
 </div> -->
 
 
-<!-- Intro -->
+<!-- FISH Intro -->
 <section class="view z-depth-1-half">
     <div class="white position-relative">
-        <div class="col-lg-12 position-absolute center " style="z-index: 100;">
+        <div class="col-lg-12 position-absolute center" style="z-index: 100;">
             <div class="row">
-                <h1 class="heading text-left text-md-center white-text col-12 col-lg-6 mb-sm-5">Material Design for
-                    Bootstrap</h1>
+                <h1 class="heading text-left text-md-center white-text col-12 col-lg-6 mb-sm-5" data-aos="fade-right">
+                    {% lorem 5 w %}
+                </h1>
 
-                <h4 class="subheading d-none d-lg-inline text-muted text-right text-md-center col-12 col-lg-6">World's
-                    most
-                    popular framework for building responsive,
-                    mobile-first websites and apps from scratch to prodution.
-                    Food truck fixie
-                    locavore, accusamus mcsweeney's
+                <h4 class="subheading d-none d-lg-inline text-muted text-right text-md-center col-12 col-lg-6" data-aos="fade-left">
+                    {% lorem 20 w %}
                 </h4>
 
-                <h4 class="subheading d-lg-none white-text text-right text-md-center col-12 col-lg-6">World's most
-                    popular
-                    framework for building responsive,
-                    mobile-first websites and apps from scratch to prodution</h4>
+                <h4 class="subheading d-lg-none white-text text-right text-md-center col-12 col-lg-6" data-aos="fade-left">
+                    {% lorem 15 w %}
+                </h4>
 
                 <div class="col-12">
-                    <button class="btn blue-gradient white-text float-right btn-lily" type="button">Get started <i
-                            class="fas fa-caret-right ml-3"></i></button>
+                    <button class="btn blue-gradient white-text float-right btn-lily" type="button">
+                        Get started 
+                        <i class="fas fa-caret-right ml-3"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -438,7 +436,7 @@
             <div class="view embed-responsive embed-responsive-1by1">
                 <img src="https://images.pexels.com/photos/325045/pexels-photo-325045.jpeg"
                     class="embed-responsive-item" style="object-fit: cover;" alt="smaple image">
-                <div class="mask flex-center peach-gradient-rgba">
+                <div class="mask flex-center rainy-ashville-gradient" style="opacity: 0.7;">
                 </div>
             </div>
         </div>

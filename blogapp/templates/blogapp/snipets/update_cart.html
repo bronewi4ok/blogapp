@@ -1,0 +1,12 @@
+<form class="cart_ajax" method="POST" action="{% url 'cart:cart_update' %}?next={{ request.path|urlencode }}" id="cart_ajax">
+    {% csrf_token %}
+    <input type="hidden" name="post_id" value="{{ post.id }}">
+
+
+    <button class="btn btn-link p-0" id="{{ forloop.counter }}">
+        <i class="hover fas fa-shopping-cart shop_cart fa-2x {% if post in cart.post.all %}text-danger{% else %}text-success{% endif %}"
+            id="shop_cart"></i>
+    </button>
+
+</form>
+

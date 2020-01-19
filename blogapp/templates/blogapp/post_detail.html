@@ -17,9 +17,8 @@
                     style="font-size: calc(1rem + 3vw) !important;">
                     {{ post.title|title }}
                 </p>
-
-                <a class=" white btn-circle-bg m-5"
-                    href="{% url 'post_author_profile' pk=post.author.id %}">
+                <!-- POST AUTHOR AVATAR -->
+                <a class=" white btn-circle-bg m-5" href="{% url 'post_author_profile' pk=post.author.id %}">
                     <img class="btn-circle z-depth-1 round" src="{{  post.author.avatar.url }}" alt="avatar">
                 </a>
 
@@ -32,16 +31,34 @@
     <div class="card p-0 rounded-lg free-bird rounded-0" style="width: 50rem">
         <div class="card-body position-relative">
             <div class="row">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
+                <!-- BACK BUTTON -->
+                <div class="col-12">
+                    <!-- <button class="btn indigo-text" onclick="javascript:history.back(location.reload());"> -->
+                    <button class="btn indigo-text" onclick="javascript:location.replace(document.referrer + '#{{post.slug_title}}');">
 
-                        {% for i in instance.category.get_slug_list %}
-                        <li class="breadcrumb-item"><a href="/category/{{ i }}">{{ i | get_name }}</a></li>
-                        {% endfor %}
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
 
-                    </ol>
-                </nav>
+                    <!-- CART ICON -->
+                    {% if post.published_date %}
+                    <div class="float-right">
+                        <form class="cart_ajax" method="POST"
+                            action="{% url 'cart:cart_update' %}?next={{ request.path|urlencode }}" id="cart_ajax">
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" value="{{ post.id }}">
+
+                            <button class="btn btn-link p-0" id="{{ forloop.counter }}">
+                                <i class="hover fas fa-shopping-cart shop_cart fa-2x {% if post in cart.post.all %}text-danger{% else %}text-success{% endif %}"
+                                    id="shop_cart"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+
+
+                <!-- EDIT ICON -->
                 {% if post.author == user %}
                 <a class="mx-1 shadow_hover" href="{% url 'blogapp:post_edit' post.slug_date post.slug_title %}">
                     <i class="far fa-edit fa-lg shadow_hover "></i>
@@ -101,6 +118,39 @@
         {% endif %}
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".cart_ajax").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                success: function (response) {
+                    var cart_icon_1 = response['cart_icon_1']
+                    var cart_icon_2 = response['cart_icon_2']
+                    var cart_count = response['cart_count']
+                    console.log(cart_icon_1);
+                    console.log(response['cart_subtotal']);
+
+                    $(".shop_cart").addClass(cart_icon_1).removeClass(cart_icon_2);
+                    $(".cart_count").text(cart_count);
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
+        });
+    })
+</script>
+
+
+<script>
+    $(document).ready(function () {})
+</script>
+
 
 <script>
     $(function () {

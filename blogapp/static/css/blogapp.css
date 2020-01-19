@@ -1,16 +1,21 @@
-body {
-  /* font-family: 'Nunito', sans-serif !important;
+/* body {
+  font-family: 'Nunito', sans-serif !important;
   font-family: 'Nunito Sans', sans-serif !important; */
   /* font-family: 'Montserrat', sans-serif !important; */
   /* font-size: calc(0.8em + 0.5vw) !important;
-  line-height: calc(1.8em) !important; */
+  line-height: calc(1.8em) !important;
+} */
+html {
+  scroll-behavior: smooth;
 }
+
 
 /* Rotate on hover */
 .round {
   border-radius: 50%; /* Круглые изображения */
   transition: 0.7s; /* Время поворота */
  }
+ 
  .round:hover {
   transform: rotate(360deg); /* Поворачиваем на 360 градусов */
  }
@@ -20,7 +25,7 @@ body {
   margin: 0px !important;
 }
 
-
+/* File upload browse button */
 label::after {
   display: none !important;
 }
@@ -30,11 +35,6 @@ label::after {
   width: 40px !important;
   height: 40px !important;
 }
-
-/* DROP CATEGORIES */
-/* .drop:hover> .drop_content {
-  display: block !important;
-} */
 
 
 .ellipsis::after {

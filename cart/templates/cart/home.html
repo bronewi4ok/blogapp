@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% url 'blogapp:post_new' as action %}
+
+
+{% block content %}
+
+<div class="container mt-5 pt-5 white">
+    <div class="row">
+        <!-- <button class="btn indigo-text" onclick="javascript:history.back();">
+            <i class="fas fa-arrow-left"></i>
+            Back
+        </button> -->
+
+        <h1 class="col-12">Cart</h1>
+    </div>
+    <div class="row mb-3 mb-md-5">
+        <div class="table-responsive ">
+            {% if cart.post.count > 0 %}
+            <table class="table table-striped table-borderless " id="dt-basic-checkbox" cellspacing="0" width="100%">
+                <thead class="blue-grey lighten-4">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Post title</th>
+                        <th scope="col">Post price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in cart.post.all %}
+                    <tr class="{{ forloop.counter }}">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td> <a class="btn btn-link p-0" href="{{ post.get_absolute_url }}">{{ post.title|capfirst }}</a>
+                        </td>
+                        <td>
+                            {{ post.price }}
+                            <span class="float-right">
+                                <form class="cart_ajax p-0 " method="POST" row_id="{{ forloop.counter }}"
+                                    action="{% url 'cart:cart_update' %}?next={{ request.path|urlencode }}"
+                                    id="cart_ajax">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="post_id" value="{{ post.id }}">
+
+                                    <button class="btn btn-link p-0 m-0">
+                                        <i class="shadow_hover px-2 fas fa-times shop_cart fa-lg text-danger "
+                                            id="shop_cart"></i>
+                                    </button>
+                                </form>
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr class="blue-grey lighten-4">
+                        <th colspan="2"></th>
+                        <td> <b>Subotal:</b> {{ cart.subtotal }} </td>
+                    </tr>
+                    <tr class="blue-grey lighten-3">
+                        <th colspan="2"></th>
+                        <td> <b>Total:</b> {{ cart.total }} </td>
+                    </tr>
+                    <tr class="white">
+                        <th colspan="2"></th>
+
+                        {% if request.user.is_authenticated %}
+                        <td> <a class="btn float-right btn-success" href=" {% url 'cart:checkout' %} ">Checkout</a>
+                        </td>
+
+                        {% else %}
+                        <td>
+                            <a class="btn float-right btn-success" id="btnNewPost" type="button" data-toggle="modal"
+                                data-target="#loginModal">
+                                Checkout
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% else %}
+                    <div class="col-12 white p-md-3">
+                        <h2 class="text-center">
+                            Your cart is empty
+                        </h2>
+                    </div>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".cart_ajax").submit(function (event) {
+            event.preventDefault();
+            var row_id = $(this).attr('row_id')
+
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                success: function (response) {
+                    var cart_count = response['cart_count']
+                    console.log(row_id);
+                    $("." + row_id).remove()
+                    $(".cart_count").text(cart_count);
+                },
+                error: function (response) {
+                    console.log('MASAKRA');
+                }
+            });
+        });
+    })
+</script>
+
+{% endblock %}
