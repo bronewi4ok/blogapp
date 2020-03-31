@@ -3,8 +3,9 @@
 {% load static %}
 
 
-<div class="col col-md-10 col-lg-8 col-xl-6 mx-auto">
-    <form action="{% url 'mailer:email' %}" id="emailForms" method="POST" enctype="multipart/form-data">
+<div class="rgba-black-strong h-100">
+    <form class="col col-md-10 col-lg-8 col-xl-6 mx-auto py-md-5 py-3" action="{% url 'mailer:email' %}"
+        id="emailForms" method="POST" enctype="multipart/form-data">
         <div class="form-row p-0 m-0">
             <h2 class="white-text col-12">KEEP IN TOUCH</h2>
             {% csrf_token %}
@@ -31,11 +32,11 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn btn-outline-light-blue" type="submit">{% trans 'Submit' %}</button>
+        <button class="btn btn-block btn-outline-yellow" type="submit">{% trans 'Submit' %}</button>
     </form>
 </div>
 
-<!-- VALIDATE -->
+    <!-- VALIDATE -->
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>

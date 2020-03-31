@@ -1,6 +1,24 @@
 // Scroll progress
 
 
+
+var prev = 0;
+var $window = $(window);
+var nav = $('.navbar');
+
+$window.on('scroll', function () {
+    var scrollTop = $window.scrollTop();
+    nav.toggleClass('hidden', scrollTop > prev);
+    prev = scrollTop;
+
+    if (scrollTop == 0) {
+        $('.navbar').removeClass('rgba-stylish-light').addClass('z-depth-0');
+    } else {
+        $('.navbar').addClass('rgba-stylish-light').removeClass('z-depth-0');
+    }
+}); 
+
+
 // function nextPage() {
 //     $(".js_page_btn").click(function (event) {
 //         event.preventDefault();

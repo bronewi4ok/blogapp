@@ -6,9 +6,21 @@
   line-height: calc(1.8em) !important;
 } */
 html {
+  --scroll-behavior: smooth;
   scroll-behavior: smooth;
 }
 
+
+.footer {
+  position: relativ;
+  background-image: url("/static/image/cup.jpg");
+  min-height: 80vh; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
 
 /* Rotate on hover */
 .round {

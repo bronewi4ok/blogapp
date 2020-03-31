@@ -1,7 +1,7 @@
 {% load static %}
 {% load widget_tweaks %}
 <!DOCTYPE html>
-<html>
+<html style="scroll-behavior: smooth !important;">
 
 <head>
     {% include 'blogapp/meta/head.html' %}
@@ -52,9 +52,9 @@
 
 
     <!-- Footer -->
-    <div class="container-fluid view zoom  p-0 embed-responsive embed-responsive-16by9" style="height: 80vh;">
-        <img class="embed-responsive-item" style="object-fit: cover;" src="{% static 'image/cup.jpg' %}">
-        <div class="mask flex-center rgba-black-strong">
+
+    <div class="container-fluid p-0" style="height: 80vh;">
+        <div class="footer h-100">
             {% include 'mailer/email.html' %} 
         </div>
     </div>
@@ -99,7 +99,6 @@
 
         });
     </script>
-
  -->
 
     <!-- Ajax comment FORM -->

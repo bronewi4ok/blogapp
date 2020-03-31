@@ -1,11 +1,15 @@
 {% load static %}
 
 <div class=" z-depth-3" style="max-height: 100vh;">
-    <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="10000">
+    <div  class="carousel slide position-relative" id="carousel-example-1z" data-ride="carousel" data-interval="10000">
         <!--Indicators-->
-        <ol class="carousel-indicators">
+        <ol class="carousel-indicators position-absolut p-0 m-0 w-auto" style="bottom: 100px !important; right: 100px !important">
             {% for slide in slider %}
-            <li class="p-sm-1 {% ifequal forloop.counter0 0 %}active{% endifequal %}" data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"></li>
+            <li class="mx-1 mx-md-2 {% ifequal forloop.counter0 0 %}active{% endifequal %}" 
+            data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"
+            style="text-indent: 0% !important; background-color: transparent !important; right: 100px !important;">
+                <i class="fas fa-dot-circle white-text"></i>
+            </li>
             {% endfor %}
         </ol>
         <!--/.Indicators-->
